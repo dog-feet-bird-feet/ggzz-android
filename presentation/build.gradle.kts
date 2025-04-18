@@ -67,14 +67,14 @@ dependencies {
 
     // unit test
     testImplementation(libs.junit.jupiter.api)
-    testRuntimeOnly(libs.junit.jupiter.engine)
+    testImplementation(libs.junit.jupiter.engine)
     testImplementation(libs.assertj.core)
     testImplementation(libs.core.testing)
     testImplementation(libs.kotlinx.coroutines.test)
 
     // ui test
-    androidTestImplementation(libs.androidx.junit)
-    androidTestImplementation(platform(libs.androidx.compose.bom))
-    androidTestImplementation(libs.androidx.ui.test.junit4)
-    debugImplementation(libs.androidx.ui.test.manifest)
+    testImplementation(libs.androidx.junit)
+    testImplementation(platform(libs.androidx.compose.bom))
+    testImplementation(libs.androidx.ui.test.junit4)
+    testImplementation(libs.androidx.ui.test.manifest)
 }
