@@ -30,8 +30,15 @@ android {
             jvmTarget.set(JvmTarget.JVM_17)
         }
     }
+
     buildFeatures {
         compose = true
+    }
+
+    testOptions {
+        unitTests {
+            isIncludeAndroidResources = true
+        }
     }
 }
 
@@ -66,15 +73,14 @@ dependencies {
     testImplementation(libs.robolectric)
 
     // unit test
+    testImplementation(libs.junit.vintage.engine)
     testImplementation(libs.junit.jupiter.api)
-    testImplementation(libs.junit.jupiter.engine)
     testImplementation(libs.assertj.core)
     testImplementation(libs.core.testing)
     testImplementation(libs.kotlinx.coroutines.test)
 
     // ui test
     testImplementation(libs.androidx.junit)
-    testImplementation(platform(libs.androidx.compose.bom))
     testImplementation(libs.androidx.ui.test.junit4)
     testImplementation(libs.androidx.ui.test.manifest)
 }
