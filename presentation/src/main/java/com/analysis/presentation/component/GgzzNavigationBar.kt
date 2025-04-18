@@ -28,9 +28,7 @@ import com.analysis.presentation.navigation.GgzzNavHost
 import com.analysis.presentation.navigation.NavTab
 import com.analysis.presentation.theme.GgzzTheme
 import com.analysis.presentation.theme.GgzzTypography
-import com.analysis.presentation.theme.Gray400
 import com.analysis.presentation.theme.Gray600
-import com.analysis.presentation.theme.Gray900
 import com.analysis.presentation.theme.White
 import com.analysis.presentation.util.NoRippleInteractionSource
 import com.analysis.presentation.util.modifier.dropShadow

@@ -15,10 +15,10 @@ class MainActivity : ComponentActivity() {
         enableEdgeToEdge()
         setContent {
             val navController = rememberNavController()
-            val GgzzNavController = GgzzNavController(navController)
+            val ggzzNavController = GgzzNavController(navController)
 
             GgzzTheme {
-                MainScreen(GgzzNavController)
+                MainScreen(ggzzNavController)
             }
         }
     }

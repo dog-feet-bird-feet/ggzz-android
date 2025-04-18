@@ -23,9 +23,7 @@ import com.analysis.presentation.theme.GgzzTheme
 import kotlinx.coroutines.launch
 
 @Composable
-internal fun MainScreen(
-    navController: GgzzNavController,
-) {
+internal fun MainScreen(navController: GgzzNavController) {
     val context = LocalContext.current
     val coroutineScope = rememberCoroutineScope()
 

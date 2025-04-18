@@ -43,7 +43,7 @@ internal class GgzzNavController(
         when (tab) {
             NavTab.HOME -> navController.navigateToHome(tabNavOptions)
             NavTab.SETTING -> navController.navigateToSetting(
-                tabNavOptions
+                tabNavOptions,
             )
             NavTab.HISTORY -> navController.navigateToHistory(tabNavOptions)
         }
