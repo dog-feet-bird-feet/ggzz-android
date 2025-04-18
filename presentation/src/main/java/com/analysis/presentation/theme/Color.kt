@@ -29,9 +29,5 @@ internal val Gray300 = Color(0xFFEDEFF5)
 internal val Gray200 = Color(0xFFF2F2F6)
 internal val Gray100 = Color(0xFFF3F3F7)
 
-
 internal val White = Color(0xFFFFFFFF)
 internal val Black = Color(0xFF000000)
-
-
-

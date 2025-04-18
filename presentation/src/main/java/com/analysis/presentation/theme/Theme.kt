@@ -34,10 +34,11 @@ internal fun GgzzTheme(
     typography: GgzzTypography = GgzzTheme.typography,
     content: @Composable () -> Unit,
 ) {
-    val colorScheme = when {
-        darkTheme -> GgzzColorScheme
-        else -> GgzzColorScheme
-    }
+    val colorScheme =
+        when {
+            darkTheme -> GgzzColorScheme
+            else -> GgzzColorScheme
+        }
 
     CompositionLocalProvider(
         LocalColorScheme provides colorScheme,
