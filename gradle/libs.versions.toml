@@ -1,6 +1,6 @@
 [versions]
 agp = "8.5.0"
-junit = "5.11.3"
+junit = "5.11.4"
 androidJunit5 = "1.11.3.0"
 kotlin = "2.1.0"
 coreKtx = "1.15.0"
@@ -16,6 +16,7 @@ ktlint = "12.1.0"
 composeNavigation = "2.8.6"
 core-test = "2.2.0"
 junitVersion = "1.2.1"
+junitVintage = "5.11.4"
 robolectric = "4.13"
 hiltNavigationCompose = "1.2.0"
 
@@ -56,6 +57,7 @@ kotlinx-coroutines-test = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-t
 # unit test
 junit-jupiter-api = { module = "org.junit.jupiter:junit-jupiter-api", version.ref = "junit" }
 junit-jupiter-engine = { module = "org.junit.jupiter:junit-jupiter-engine", version.ref = "junit" }
+junit-vintage-engine = { group = "org.junit.vintage", name = "junit-vintage-engine", version.ref = "junitVintage" }
 assertj-core = { group = "org.assertj", name = "assertj-core", version = "3.25.3" }
 core-testing = { group = "androidx.arch.core", name = "core-testing", version.ref = "core-test" }
 robolectric = { module = "org.robolectric:robolectric", version.ref = "robolectric" }
