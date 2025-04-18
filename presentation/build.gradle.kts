@@ -7,6 +7,7 @@ plugins {
     alias(libs.plugins.hilt)
     alias(libs.plugins.ksp)
     alias(libs.plugins.android.junit5)
+    alias(libs.plugins.kotlinx.serialization)
     id("kotlin-parcelize")
 }
 
@@ -69,6 +70,9 @@ dependencies {
     implementation(libs.hilt.navigation.compose)
     ksp(libs.hilt.compiler)
 
+    // serialization
+    implementation(libs.kotlinx.serialization.json)
+
     // robolectric
     testImplementation(libs.robolectric)
 
@@ -83,4 +87,5 @@ dependencies {
     testImplementation(libs.androidx.junit)
     testImplementation(libs.androidx.ui.test.junit4)
     testImplementation(libs.androidx.ui.test.manifest)
+    testImplementation(libs.androidx.navigation.testing)
 }
