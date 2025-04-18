@@ -1,4 +1,4 @@
-package com.analysis.presentation
+package com.analysis.presentation.feature
 
 import android.os.Bundle
 import androidx.activity.ComponentActivity
