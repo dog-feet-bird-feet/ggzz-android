@@ -27,12 +27,12 @@ internal fun HomeScreen(
                 title = stringResource(R.string.home_top_app_bar_title),
             )
         },
-        containerColor = Gray100
+        containerColor = Gray100,
     ) { innerPadding ->
         Column(
             modifier = Modifier
                 .fillMaxSize()
-                .padding(innerPadding)
+                .padding(innerPadding),
         ) {
             Spacer(modifier = Modifier.height(48.dp))
             HomeMenuCard(
@@ -64,12 +64,11 @@ internal fun HomeScreen(
     }
 }
 
-
 @Composable
 @Preview(showSystemUi = true)
 private fun HomeScreenContentPreview() {
     HomeScreen(
         {},
-        {}
+        {},
     )
 }

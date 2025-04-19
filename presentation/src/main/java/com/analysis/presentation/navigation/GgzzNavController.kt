@@ -50,11 +50,11 @@ internal class GgzzNavController(
         }
     }
 
-    fun navigateToHistory(){
+    fun navigateToHistory() {
         navigate(NavTab.HISTORY)
     }
 
-    fun navigateToHandWritingAnalysis(){
+    fun navigateToHandWritingAnalysis() {
         val navOptions = navOptions {
             launchSingleTop = true
         }

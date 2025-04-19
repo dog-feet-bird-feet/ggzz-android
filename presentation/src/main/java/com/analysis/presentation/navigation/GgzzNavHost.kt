@@ -21,8 +21,8 @@ internal fun GgzzNavHost(
         modifier = modifier,
     ) {
         homeNavGraph(
-            navigateToAnalysis = {navController.navigateToHandWritingAnalysis()},
-            navigateToHistory = { navController.navigateToHistory() }
+            navigateToAnalysis = { navController.navigateToHandWritingAnalysis() },
+            navigateToHistory = { navController.navigateToHistory() },
         )
         historyNavGraph()
         settingNavGraph()

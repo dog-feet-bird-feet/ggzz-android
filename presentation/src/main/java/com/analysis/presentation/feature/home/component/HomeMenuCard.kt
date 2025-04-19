@@ -50,7 +50,7 @@ fun HomeMenuCard(
             modifier = Modifier
                 .fillMaxSize()
                 .padding(start = 12.dp),
-            verticalAlignment = Alignment.CenterVertically
+            verticalAlignment = Alignment.CenterVertically,
         ) {
             Image(
                 painter = painterResource(iconId),
@@ -60,12 +60,12 @@ fun HomeMenuCard(
             Column {
                 Text(
                     text = stringResource(titleId),
-                    style = GgzzTheme.typography.pretendardBold22.copy(color = Gray900)
+                    style = GgzzTheme.typography.pretendardBold22.copy(color = Gray900),
                 )
                 Spacer(modifier = Modifier.height(10.dp))
                 Text(
                     text = stringResource(descriptionId),
-                    style = GgzzTheme.typography.pretendardMedium16.copy(color = Gray900)
+                    style = GgzzTheme.typography.pretendardMedium16.copy(color = Gray900),
                 )
             }
         }
@@ -76,7 +76,7 @@ fun HomeMenuCard(
 @Preview(showSystemUi = true, showBackground = true)
 private fun HomeMenuCardPreview() {
     Column(
-        modifier = Modifier.fillMaxSize()
+        modifier = Modifier.fillMaxSize(),
     ) {
         HomeMenuCard(
             R.drawable.ic_home_analysis,
@@ -85,4 +85,3 @@ private fun HomeMenuCardPreview() {
         )
     }
 }
-
