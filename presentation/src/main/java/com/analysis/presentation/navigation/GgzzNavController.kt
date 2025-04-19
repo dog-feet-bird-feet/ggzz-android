@@ -6,6 +6,7 @@ import androidx.navigation.NavDestination.Companion.hasRoute
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.navOptions
+import com.analysis.presentation.feature.handwritinganalysis.navigation.navigateToHandWritingAnalysis
 import com.analysis.presentation.feature.history.navigation.navigateToHistory
 import com.analysis.presentation.feature.home.navigation.navigateToHome
 import com.analysis.presentation.feature.setting.navigation.navigateToSetting
@@ -42,10 +43,21 @@ internal class GgzzNavController(
 
         when (tab) {
             NavTab.HOME -> navController.navigateToHome(tabNavOptions)
+            NavTab.HISTORY -> navController.navigateToHistory(tabNavOptions)
             NavTab.SETTING -> navController.navigateToSetting(
                 tabNavOptions,
             )
-            NavTab.HISTORY -> navController.navigateToHistory(tabNavOptions)
         }
+    }
+
+    fun navigateToHistory(){
+        navigate(NavTab.HISTORY)
+    }
+
+    fun navigateToHandWritingAnalysis(){
+        val navOptions = navOptions {
+            launchSingleTop = true
+        }
+        navController.navigateToHandWritingAnalysis(navOptions)
     }
 }

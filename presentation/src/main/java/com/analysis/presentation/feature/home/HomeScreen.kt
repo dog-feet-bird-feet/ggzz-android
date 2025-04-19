@@ -17,7 +17,10 @@ import com.analysis.presentation.feature.home.component.HomeMenuCard
 import com.analysis.presentation.theme.Gray100
 
 @Composable
-internal fun HomeScreen() {
+internal fun HomeScreen(
+    navigateToAnalysis: () -> Unit,
+    navigateToHistory: () -> Unit,
+) {
     Scaffold(
         topBar = {
             GgzzTopAppBar(
@@ -36,6 +39,7 @@ internal fun HomeScreen() {
                 R.drawable.ic_home_analysis,
                 R.string.home_analysis_title,
                 R.string.home_analysis_description,
+                onClick = navigateToAnalysis,
             )
             Spacer(modifier = Modifier.height(24.dp))
             HomeMenuCard(
@@ -48,6 +52,7 @@ internal fun HomeScreen() {
                 R.drawable.ic_home_history,
                 R.string.home_history_title,
                 R.string.home_history_description,
+                onClick = navigateToHistory,
             )
             Spacer(modifier = Modifier.height(24.dp))
             HomeMenuCard(
@@ -63,5 +68,8 @@ internal fun HomeScreen() {
 @Composable
 @Preview(showSystemUi = true)
 private fun HomeScreenContentPreview() {
-    HomeScreen()
+    HomeScreen(
+        {},
+        {}
+    )
 }
