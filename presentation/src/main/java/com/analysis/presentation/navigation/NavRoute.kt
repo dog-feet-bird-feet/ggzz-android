@@ -11,4 +11,7 @@ internal sealed interface NavRoute {
 
     @Serializable
     data object Setting : NavRoute
+
+    @Serializable
+    data object HandWritingAnalysis : NavRoute
 }

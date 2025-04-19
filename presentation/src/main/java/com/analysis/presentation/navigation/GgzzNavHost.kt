@@ -3,6 +3,7 @@ package com.analysis.presentation.navigation
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.navigation.compose.NavHost
+import com.analysis.presentation.feature.handwritinganalysis.navigation.handWritingAnalysisNavGraph
 import com.analysis.presentation.feature.history.navigation.historyNavGraph
 import com.analysis.presentation.feature.home.navigation.homeNavGraph
 import com.analysis.presentation.feature.setting.navigation.settingNavGraph
@@ -19,8 +20,12 @@ internal fun GgzzNavHost(
         startDestination = startDestination,
         modifier = modifier,
     ) {
-        homeNavGraph()
+        homeNavGraph(
+            navigateToAnalysis = { navController.navigateToHandWritingAnalysis() },
+            navigateToHistory = { navController.navigateToHistory() },
+        )
         historyNavGraph()
         settingNavGraph()
+        handWritingAnalysisNavGraph()
     }
 }

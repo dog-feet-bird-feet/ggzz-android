@@ -7,9 +7,12 @@ import androidx.navigation.compose.composable
 import com.analysis.presentation.feature.home.HomeScreen
 import com.analysis.presentation.navigation.NavRoute
 
-internal fun NavGraphBuilder.homeNavGraph() {
+internal fun NavGraphBuilder.homeNavGraph(
+    navigateToAnalysis: () -> Unit,
+    navigateToHistory: () -> Unit,
+) {
     composable<NavRoute.Home> {
-        HomeScreen()
+        HomeScreen(navigateToAnalysis, navigateToHistory)
     }
 }
 
