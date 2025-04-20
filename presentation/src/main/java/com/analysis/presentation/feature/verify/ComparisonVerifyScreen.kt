@@ -1,4 +1,4 @@
-package com.analysis.presentation.feature.handwritinganalysis
+package com.analysis.presentation.feature.verify
 
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
@@ -7,7 +7,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 
 @Composable
-internal fun HandWritingAnalysisScreen() {
+internal fun ComparisonVerifyScreen() {
     Column(
         modifier = Modifier.fillMaxSize(),
     ) {

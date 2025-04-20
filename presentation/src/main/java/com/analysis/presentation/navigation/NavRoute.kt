@@ -13,5 +13,5 @@ internal sealed interface NavRoute {
     data object Setting : NavRoute
 
     @Serializable
-    data object HandWritingAnalysis : NavRoute
+    data object ComparisonVerify : NavRoute
 }
