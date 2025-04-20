@@ -60,12 +60,39 @@ internal object GgzzTypography {
             color = Gray900,
         )
 
+    val pretendardBold18 =
+        TextStyle(
+            fontFamily = GgzzFontFamily,
+            fontWeight = FontWeight.Bold,
+            fontSize = 18.sp,
+            lineHeight = 21.6.sp,
+            color = Gray900,
+        )
+
     val pretendardBold16 =
         TextStyle(
             fontFamily = GgzzFontFamily,
             fontWeight = FontWeight.Bold,
             fontSize = 16.sp,
             lineHeight = 19.1.sp,
+            color = Gray900,
+        )
+
+    val pretendardSemiBold14 =
+        TextStyle(
+            fontFamily = GgzzFontFamily,
+            fontWeight = FontWeight.SemiBold,
+            fontSize = 14.sp,
+            lineHeight = 16.8.sp,
+            color = Gray900,
+        )
+
+    val pretendardSemiBold13 =
+        TextStyle(
+            fontFamily = GgzzFontFamily,
+            fontWeight = FontWeight.SemiBold,
+            fontSize = 13.sp,
+            lineHeight = 15.6.sp,
             color = Gray900,
         )
 
@@ -120,6 +147,15 @@ internal object GgzzTypography {
             fontWeight = FontWeight.Light,
             fontSize = 24.sp,
             lineHeight = 28.6.sp,
+            color = Gray900,
+        )
+
+    val pretendardRegular18 =
+        TextStyle(
+            fontFamily = GgzzFontFamily,
+            fontWeight = FontWeight.Light,
+            fontSize = 18.sp,
+            lineHeight = 21.6.sp,
             color = Gray900,
         )
 
