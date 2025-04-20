@@ -7,9 +7,11 @@ import androidx.navigation.compose.composable
 import com.analysis.presentation.feature.verify.ComparisonVerifyScreen
 import com.analysis.presentation.navigation.NavRoute
 
-internal fun NavGraphBuilder.comparisonVerifyNavGraph() {
+internal fun NavGraphBuilder.comparisonVerifyNavGraph(
+    onClickNavigation: () -> Unit,
+) {
     composable<NavRoute.ComparisonVerify> {
-        ComparisonVerifyScreen()
+        ComparisonVerifyScreen(onClickNavigation)
     }
 }
 

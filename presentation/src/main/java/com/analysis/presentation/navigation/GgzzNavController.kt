@@ -60,4 +60,8 @@ internal class GgzzNavController(
         }
         navController.navigateToComparisonVerify(navOptions)
     }
+
+    fun popBackStack() {
+        navController.popBackStack()
+    }
 }

@@ -26,6 +26,8 @@ internal fun GgzzNavHost(
         )
         historyNavGraph()
         settingNavGraph()
-        comparisonVerifyNavGraph()
+        comparisonVerifyNavGraph(
+            onClickNavigation = { navController.popBackStack() }
+        )
     }
 }
