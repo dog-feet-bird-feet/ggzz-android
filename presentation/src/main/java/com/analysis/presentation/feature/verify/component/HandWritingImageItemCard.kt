@@ -26,11 +26,10 @@ import com.analysis.presentation.R
 internal fun HandWritingImageItemCard(
     uri: Uri,
     onClickCancelButton: (Uri) -> Unit,
+    modifier: Modifier = Modifier,
 ) {
     Box(
-        modifier = Modifier
-            .fillMaxSize()
-            .aspectRatio(1f)
+        modifier = modifier,
     ) {
         Card(
             modifier = Modifier

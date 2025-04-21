@@ -60,6 +60,9 @@ internal fun PickedPhotoList(
 
                 is ComparisonPhotoItem.Image -> {
                     HandWritingImageItemCard(
+                        modifier = Modifier
+                            .fillMaxSize()
+                            .aspectRatio(1f),
                         uri = item.uri,
                         onClickCancelButton = { removeComparisonUri(item.uri) }
                     )
