@@ -110,7 +110,7 @@ private fun ComparisonVerifyScreenContent(
                 .fillMaxWidth()
                 .height(55.dp),
             onClick = {},
-            enabled = (selectedComparisonUris.size in 1..5),
+            enabled = canGoVerificationVerifyScreen(selectedComparisonUris),
             shape = RoundedCornerShape(5.dp),
             colors = ButtonColors(
                 containerColor = Purple700,
@@ -126,6 +126,10 @@ private fun ComparisonVerifyScreenContent(
         }
     }
 }
+
+
+private fun canGoVerificationVerifyScreen(selectedComparisonUris: List<Uri>): Boolean =
+    (selectedComparisonUris.size in 1..5)
 
 @Composable
 private fun GuideComment() {

@@ -13,6 +13,7 @@ import androidx.compose.foundation.lazy.grid.rememberLazyGridState
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
+import com.analysis.presentation.feature.verify.model.ComparisonPhotoItem
 
 @Composable
 internal fun PickedPhotoList(
@@ -21,6 +22,10 @@ internal fun PickedPhotoList(
     removeComparisonUri: (Uri) -> Unit,
     modifier: Modifier = Modifier,
 ) {
+
+    val items = listOf(ComparisonPhotoItem.Picker) +
+            selectedComparisonUris.map { ComparisonPhotoItem.Image(it) }
+
     LazyVerticalGrid(
         modifier = modifier
             .fillMaxSize(),
@@ -28,27 +33,35 @@ internal fun PickedPhotoList(
         state = rememberLazyGridState(),
         verticalArrangement = Arrangement.spacedBy(20.dp),
         horizontalArrangement = Arrangement.spacedBy(20.dp),
-        contentPadding = PaddingValues(top = 20.dp)
+        contentPadding = PaddingValues(top = 30.dp, bottom = 30.dp)
     ) {
         items(
-            selectedComparisonUris.size + 1,
-            span = { GridItemSpan(1) }) { index ->
-            when (index) {
-                0 -> PhotoPickerCard(
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .aspectRatio(1f),
-                    maxSelectable = 5,
-                    pickedPhotoCount = selectedComparisonUris.size,
-                    onPickPhotos = {
-                        updatePickedComparisonUris(it)
-                    },
-                )
+            count = items.size,
+            span = { GridItemSpan(1) },
+            key = { index ->
+                when (val item: ComparisonPhotoItem = items[index]) {
+                    is ComparisonPhotoItem.Picker -> item.hashCode()
+                    is ComparisonPhotoItem.Image -> item.uri
+                }
+            },
+        ) { index ->
+            when (val item = items[index]) {
+                is ComparisonPhotoItem.Picker -> {
+                    PhotoPickerCard(
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .aspectRatio(1f),
+                        maxSelectable = 5,
+                        pickedPhotoCount = selectedComparisonUris.size,
+                        onPickPhotos = updatePickedComparisonUris
+                    )
+                }
 
-                else -> HandWritingImageItemCard(
-                    selectedComparisonUris[index - 1]
-                ) { uri ->
-                    removeComparisonUri(uri)
+                is ComparisonPhotoItem.Image -> {
+                    HandWritingImageItemCard(
+                        uri = item.uri,
+                        onClickCancelButton = { removeComparisonUri(item.uri) }
+                    )
                 }
             }
         }
