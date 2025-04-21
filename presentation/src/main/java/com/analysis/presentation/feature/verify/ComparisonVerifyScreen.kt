@@ -23,6 +23,7 @@ import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
@@ -52,7 +53,7 @@ internal fun ComparisonVerifyScreen(
             .fillMaxSize(),
         topBar = {
             GgzzTopAppBar(
-                title = "필적 감정하기",
+                title = stringResource(R.string.verify_top_app_bar_title),
                 textStyle = GgzzTheme.typography.pretendardRegular18.copy(color = Gray900),
                 navigationIcon = {
                     IconButton(onClick = onClickNavigation) {
@@ -120,7 +121,7 @@ private fun ComparisonVerifyScreenContent(
             )
         ) {
             Text(
-                text = "다음",
+                text = stringResource(R.string.next_comment),
                 style = GgzzTheme.typography.pretendardSemiBold14.copy(color = White)
             )
         }
@@ -141,14 +142,14 @@ private fun GuideComment() {
             modifier = Modifier
                 .width(70.dp)
                 .height(30.dp),
-            text = "STEP 1",
+            text = stringResource(R.string.verify_comparison_badge_message),
             style = GgzzTheme.typography.pretendardSemiBold14.copy(
                 letterSpacing = 0.5.sp
             )
         )
         Spacer(modifier = Modifier.width(10.dp))
         Text(
-            text = "대조할 필적 이미지 업로드",
+            text = stringResource(R.string.verify_comparison_guide_title),
             style = GgzzTheme.typography.pretendardBold18
         )
     }
@@ -160,11 +161,11 @@ private fun GuideComment() {
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
         Text(
-            text = "필적 분석을 위해 최대 5장의 필체 사진이 필요해요!",
+            text = stringResource(R.string.verify_comparison_guide_comment_photo_count),
             style = GgzzTheme.typography.pretendardRegular14
         )
         Text(
-            text = "* 한 장에 최대 2MB 까지 업로드 가능합니다.",
+            text = stringResource(R.string.verify_comparison_guide_comment_photo_format),
             style = GgzzTheme.typography.pretendardRegular14.copy(color = Purple500)
         )
     }

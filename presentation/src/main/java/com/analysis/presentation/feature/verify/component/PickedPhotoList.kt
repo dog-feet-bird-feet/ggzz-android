@@ -21,6 +21,7 @@ internal fun PickedPhotoList(
     updatePickedComparisonUris: (List<Uri>) -> Unit,
     removeComparisonUri: (Uri) -> Unit,
     modifier: Modifier = Modifier,
+    columnCount: Int = 2,
 ) {
 
     val items = listOf(ComparisonPhotoItem.Picker) +
@@ -29,7 +30,7 @@ internal fun PickedPhotoList(
     LazyVerticalGrid(
         modifier = modifier
             .fillMaxSize(),
-        columns = GridCells.Fixed(2),
+        columns = GridCells.Fixed(columnCount),
         state = rememberLazyGridState(),
         verticalArrangement = Arrangement.spacedBy(20.dp),
         horizontalArrangement = Arrangement.spacedBy(20.dp),

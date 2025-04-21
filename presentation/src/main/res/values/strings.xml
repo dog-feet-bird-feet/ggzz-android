@@ -16,8 +16,17 @@
     <string name="home_personality_title">필체 기반 성격 분석</string>
     <string name="home_personality_description">글씨체로 나를 분석해보세요!</string>
 
+    <!-- Verify -->
+    <string name="verify_top_app_bar_title">필적 감정하기</string>
+    <string name="verify_comparison_badge_message">STEP 1</string>
+    <string name="verify_comparison_guide_title">대조할 필적 이미지 업로드</string>
+    <string name="verify_comparison_guide_comment_photo_count">필적 분석을 위해 최대 5장의 필체 사진이 필요해요!</string>
+    <string name="verify_comparison_guide_comment_photo_format">* 한 장에 최대 2MB 까지 업로드 가능합니다.</string>
+    <string name="verify_pick_photo_message">사진을 첨부해주세요</string>
 
 
     <!-- Common -->
     <string name="unknown_error_snackbar">알 수 없는 오류가 발생했습니다.</string>
+    <string name="next_comment">다음</string>
+    <string name="photo_count">(%d / %d)</string>
 </resources>
