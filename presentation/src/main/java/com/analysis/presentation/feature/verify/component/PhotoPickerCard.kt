@@ -9,9 +9,7 @@ import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
-import androidx.compose.foundation.layout.aspectRatio
 import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.shape.RoundedCornerShape
@@ -19,10 +17,6 @@ import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableIntStateOf
-import androidx.compose.runtime.saveable.rememberSaveable
-import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
@@ -36,29 +30,32 @@ import com.analysis.presentation.theme.Purple700
 
 @Composable
 internal fun PhotoPickerCard(
-    pickedPhotoCount: Int,
-    pickPhotos: (List<Uri>) -> Unit,
+    modifier: Modifier = Modifier,
+    maxSelectable: Int = 1,
+    pickedPhotoCount: Int = 0,
+    onPickPhoto: (Uri) -> Unit = {},
+    onPickPhotos: (List<Uri>) -> Unit = {},
 ) {
 
-    val pickMultipleMedia =
-        rememberLauncherForActivityResult(PickMultipleVisualMedia(5)) { uris ->
-            pickPhotos(uris)
+    val pickMediaLauncher = rememberLauncherForActivityResult(
+        contract = if (maxSelectable == 1) PickVisualMedia() else PickMultipleVisualMedia(
+            maxSelectable
+        )
+    ) { result ->
+        if (pickSinglePhotoAvailable(maxSelectable, result)) onPickPhoto(result as Uri)
+        else if (pickMultiPhotosAvailable(maxSelectable, result)) {
+            val uris = (result as List<*>).filterIsInstance<Uri>()
+            onPickPhotos(uris)
         }
-
+    }
 
     Card(
-        modifier = Modifier
-            .fillMaxWidth()
-            .aspectRatio(1f),
+        modifier = modifier,
         shape = RoundedCornerShape(8.dp),
         colors = CardDefaults.cardColors().copy(containerColor = Purple200),
         border = BorderStroke(1.dp, Purple500),
         onClick = {
-            pickMultipleMedia.launch(
-                PickVisualMediaRequest.Builder()
-                    .setMediaType(PickVisualMedia.ImageOnly)
-                    .build()
-            )
+            pickMediaLauncher.launch(PickVisualMediaRequest(PickVisualMedia.ImageOnly))
         }
     ) {
         Column(
@@ -77,16 +74,28 @@ internal fun PhotoPickerCard(
                 text = "사진을 첨부해주세요",
                 style = GgzzTheme.typography.pretendardRegular14.copy(color = Purple700)
             )
-            Text(
-                text = "(${pickedPhotoCount} / 5)",
-                style = GgzzTheme.typography.pretendardRegular10.copy(color = Purple700)
-            )
+
+            if (maxSelectable > 1) {
+                Text(
+                    text = "($pickedPhotoCount / $maxSelectable)",
+                    style = GgzzTheme.typography.pretendardRegular10.copy(color = Purple700)
+                )
+            }
         }
     }
 }
 
+private fun pickMultiPhotosAvailable(maxSelectable: Int, result: Any?) =
+    maxSelectable > 1 && result is List<*> && result.isNotEmpty()
+
+private fun pickSinglePhotoAvailable(maxSelectable: Int, result: Any?) =
+    maxSelectable == 1 && result is Uri && result != Uri.EMPTY
+
 @Composable
 @Preview(showBackground = true, showSystemUi = true)
 fun PhotoPickerCardPreview(modifier: Modifier = Modifier) {
-    PhotoPickerCard(1,{})
+    PhotoPickerCard(
+        maxSelectable = 5,
+        pickedPhotoCount = 1
+    )
 }
