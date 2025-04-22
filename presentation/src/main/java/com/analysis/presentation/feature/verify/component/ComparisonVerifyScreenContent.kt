@@ -1,7 +1,6 @@
-package com.analysis.presentation.feature.verify
+package com.analysis.presentation.feature.verify.component
 
 import android.net.Uri
-import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
@@ -14,77 +13,29 @@ import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonColors
-import androidx.compose.material3.IconButton
-import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.LaunchedEffect
-import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import androidx.hilt.navigation.compose.hiltViewModel
-import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.analysis.presentation.R
-import com.analysis.presentation.component.GgzzTopAppBar
-import com.analysis.presentation.feature.verify.component.PickedPhotoList
-import com.analysis.presentation.feature.verify.component.StepCard
+import com.analysis.presentation.feature.verify.VerifyViewModel
 import com.analysis.presentation.theme.GgzzTheme
-import com.analysis.presentation.theme.Gray100
 import com.analysis.presentation.theme.Gray500
-import com.analysis.presentation.theme.Gray900
 import com.analysis.presentation.theme.Purple500
 import com.analysis.presentation.theme.Purple700
 import com.analysis.presentation.theme.White
-import kotlinx.coroutines.flow.collectLatest
 
 @Composable
-internal fun ComparisonVerifyScreen(
-    showErrorSnackBar: (Throwable) -> Unit,
-    onClickNavigation: () -> Unit,
-    viewModel: VerifyViewModel = hiltViewModel(),
-) {
-    val selectedComparisonUris by viewModel.selectedComparisonUris.collectAsStateWithLifecycle()
-
-    Scaffold(
-        modifier = Modifier
-            .fillMaxSize(),
-        topBar = {
-            GgzzTopAppBar(
-                title = stringResource(R.string.verify_top_app_bar_title),
-                textStyle = GgzzTheme.typography.pretendardRegular18.copy(color = Gray900),
-                navigationIcon = {
-                    IconButton(onClick = onClickNavigation) {
-                        Image(
-                            painter = painterResource(R.drawable.ic_arrow_back),
-                            contentDescription = null,
-                        )
-                    }
-                }
-            )
-        },
-        containerColor = Gray100
-    ) { innerPadding ->
-        ComparisonVerifyScreenContent(
-            innerPadding,
-            showErrorSnackBar,
-            selectedComparisonUris,
-            viewModel
-        )
-    }
-}
-
-@Composable
-private fun ComparisonVerifyScreenContent(
+internal fun ComparisonVerifyScreenContent(
     innerPadding: PaddingValues,
-    showErrorSnackBar: (Throwable) -> Unit,
     selectedComparisonUris: List<Uri>,
     viewModel: VerifyViewModel,
+    showErrorSnackBar: (Throwable) -> Unit,
+    onClickNextButton: () -> Unit,
 ) {
     Column(
         modifier = Modifier
@@ -95,6 +46,7 @@ private fun ComparisonVerifyScreenContent(
             modifier = Modifier
                 .fillMaxWidth()
                 .height(630.dp),
+            shape = RoundedCornerShape(8.dp),
             color = White,
         ) {
             Column(
@@ -115,12 +67,14 @@ private fun ComparisonVerifyScreenContent(
                 )
             }
         }
-        Spacer(modifier = Modifier.height(20.dp))
+
+        Spacer(modifier = Modifier.weight(1f))
+
         Button(
             modifier = Modifier
                 .fillMaxWidth()
                 .height(55.dp),
-            onClick = {},
+            onClick = onClickNextButton,
             enabled = canGoVerificationVerifyScreen(selectedComparisonUris),
             shape = RoundedCornerShape(5.dp),
             colors = ButtonColors(
@@ -175,14 +129,8 @@ private fun GuideComment() {
             style = GgzzTheme.typography.pretendardRegular14
         )
         Text(
-            text = stringResource(R.string.verify_comparison_guide_comment_photo_format),
+            text = stringResource(R.string.verify_guide_comment_photo_format),
             style = GgzzTheme.typography.pretendardRegular14.copy(color = Purple500)
         )
     }
-}
-
-@Composable
-@Preview(showBackground = true)
-fun ComparisonVerifyScreenPreview() {
-    ComparisonVerifyScreen({}, {})
 }
