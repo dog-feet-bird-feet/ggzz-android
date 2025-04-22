@@ -19,6 +19,7 @@ import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -40,9 +41,11 @@ import com.analysis.presentation.theme.Gray900
 import com.analysis.presentation.theme.Purple500
 import com.analysis.presentation.theme.Purple700
 import com.analysis.presentation.theme.White
+import kotlinx.coroutines.flow.collectLatest
 
 @Composable
 internal fun ComparisonVerifyScreen(
+    showErrorSnackBar: (Throwable) -> Unit,
     onClickNavigation: () -> Unit,
     viewModel: VerifyViewModel = hiltViewModel(),
 ) {
@@ -67,13 +70,19 @@ internal fun ComparisonVerifyScreen(
         },
         containerColor = Gray100
     ) { innerPadding ->
-        ComparisonVerifyScreenContent(innerPadding, selectedComparisonUris, viewModel)
+        ComparisonVerifyScreenContent(
+            innerPadding,
+            showErrorSnackBar,
+            selectedComparisonUris,
+            viewModel
+        )
     }
 }
 
 @Composable
 private fun ComparisonVerifyScreenContent(
     innerPadding: PaddingValues,
+    showErrorSnackBar: (Throwable) -> Unit,
     selectedComparisonUris: List<Uri>,
     viewModel: VerifyViewModel,
 ) {
@@ -99,6 +108,7 @@ private fun ComparisonVerifyScreenContent(
                 Spacer(modifier = Modifier.height(40.dp))
 
                 PickedPhotoList(
+                    showErrorSnackBar = showErrorSnackBar,
                     selectedComparisonUris = selectedComparisonUris,
                     updatePickedComparisonUris = { viewModel.updatePickedComparisonUris(it) },
                     removeComparisonUri = { viewModel.removeComparisonUri(it) }
@@ -174,5 +184,5 @@ private fun GuideComment() {
 @Composable
 @Preview(showBackground = true)
 fun ComparisonVerifyScreenPreview() {
-    ComparisonVerifyScreen({})
+    ComparisonVerifyScreen({}, {})
 }

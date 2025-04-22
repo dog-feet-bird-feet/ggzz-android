@@ -1,5 +1,6 @@
 package com.analysis.presentation.feature.verify.component
 
+import android.content.ContentResolver
 import android.net.Uri
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.PaddingValues
@@ -17,6 +18,7 @@ import com.analysis.presentation.feature.verify.model.ComparisonPhotoItem
 
 @Composable
 internal fun PickedPhotoList(
+    showErrorSnackBar: (Throwable) -> Unit,
     selectedComparisonUris: List<Uri>,
     updatePickedComparisonUris: (List<Uri>) -> Unit,
     removeComparisonUri: (Uri) -> Unit,
@@ -53,6 +55,7 @@ internal fun PickedPhotoList(
                             .fillMaxWidth()
                             .aspectRatio(1f),
                         maxSelectable = 5,
+                        showErrorSnackBar = showErrorSnackBar,
                         pickedPhotoCount = selectedComparisonUris.size,
                         onPickPhotos = updatePickedComparisonUris
                     )

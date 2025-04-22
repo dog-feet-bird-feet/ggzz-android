@@ -27,6 +27,7 @@ internal fun GgzzNavHost(
         historyNavGraph()
         settingNavGraph()
         comparisonVerifyNavGraph(
+            showErrorSnackbar = showErrorSnackbar,
             onClickNavigation = { navController.popBackStack() }
         )
     }

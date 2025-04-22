@@ -1,5 +1,7 @@
 package com.analysis.presentation.feature.verify.component
 
+import android.content.ContentResolver
+import android.content.Context
 import android.net.Uri
 import androidx.activity.compose.rememberLauncherForActivityResult
 import androidx.activity.result.PickVisualMediaRequest
@@ -19,11 +21,13 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.analysis.presentation.R
+import com.analysis.presentation.feature.verify.model.ImageValidator
 import com.analysis.presentation.theme.GgzzTheme
 import com.analysis.presentation.theme.Purple200
 import com.analysis.presentation.theme.Purple500
@@ -34,20 +38,27 @@ internal fun PhotoPickerCard(
     modifier: Modifier = Modifier,
     maxSelectable: Int = 1,
     pickedPhotoCount: Int = 0,
+    showErrorSnackBar: (Throwable) -> Unit,
     onPickPhoto: (Uri) -> Unit = {},
     onPickPhotos: (List<Uri>) -> Unit = {},
 ) {
+    val context = LocalContext.current
+    val contentResolver = context.contentResolver
 
     val pickMediaLauncher = rememberLauncherForActivityResult(
         contract = if (maxSelectable == 1) PickVisualMedia() else PickMultipleVisualMedia(
             maxSelectable
         )
     ) { result ->
-        if (pickSinglePhotoAvailable(maxSelectable, result)) onPickPhoto(result as Uri)
-        else if (pickMultiPhotosAvailable(maxSelectable, result)) {
-            val uris = (result as List<*>).filterIsInstance<Uri>()
-            onPickPhotos(uris)
-        }
+        handlePickResult(
+            result = result,
+            maxSelectable = maxSelectable,
+            context = context,
+            contentResolver = contentResolver,
+            showError = showErrorSnackBar,
+            onPickPhoto = onPickPhoto,
+            onPickPhotos = onPickPhotos
+        )
     }
 
     Card(
@@ -86,6 +97,33 @@ internal fun PhotoPickerCard(
     }
 }
 
+private fun handlePickResult(
+    result: Any?,
+    maxSelectable: Int,
+    context: Context,
+    contentResolver: ContentResolver,
+    showError: (Throwable) -> Unit,
+    onPickPhoto: (Uri) -> Unit,
+    onPickPhotos: (List<Uri>) -> Unit,
+) {
+    if (pickSinglePhotoAvailable(maxSelectable, result)) {
+        val uri = result as Uri
+        if (ImageValidator.isValid(uri, contentResolver)) {
+            onPickPhoto(uri)
+        } else {
+            showError(IllegalArgumentException(context.getString(R.string.verify_invalid_photo)))
+        }
+    } else if (pickMultiPhotosAvailable(maxSelectable, result)) {
+        val uris = (result as List<*>).filterIsInstance<Uri>()
+        val validUris = uris.filter { ImageValidator.isValid(it, contentResolver) }
+
+        if (validUris.size != uris.size) {
+            showError(IllegalArgumentException(context.getString(R.string.verify_invalid_photo)))
+        }
+        onPickPhotos(validUris)
+    }
+}
+
 private fun pickMultiPhotosAvailable(maxSelectable: Int, result: Any?) =
     maxSelectable > 1 && result is List<*> && result.isNotEmpty()
 
@@ -96,6 +134,7 @@ private fun pickSinglePhotoAvailable(maxSelectable: Int, result: Any?) =
 @Preview(showBackground = true, showSystemUi = true)
 fun PhotoPickerCardPreview(modifier: Modifier = Modifier) {
     PhotoPickerCard(
+        showErrorSnackBar = {},
         maxSelectable = 5,
         pickedPhotoCount = 1
     )

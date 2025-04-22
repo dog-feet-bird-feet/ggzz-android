@@ -28,9 +28,10 @@ internal fun MainScreen(navController: GgzzNavController) {
     val coroutineScope = rememberCoroutineScope()
 
     val snackBarHostState = remember { SnackbarHostState() }
-    val showErrorSnackbar: (Throwable) -> Unit = {
+    val showErrorSnackbar: (Throwable) -> Unit = { throwable ->
         coroutineScope.launch {
-            snackBarHostState.showSnackbar(context.getString(R.string.unknown_error_snackbar))
+            val message = throwable.message ?: context.getString(R.string.unknown_error_snackbar)
+            snackBarHostState.showSnackbar(message)
         }
     }
 

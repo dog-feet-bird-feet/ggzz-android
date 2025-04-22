@@ -29,4 +29,5 @@
     <string name="unknown_error_snackbar">알 수 없는 오류가 발생했습니다.</string>
     <string name="next_comment">다음</string>
     <string name="photo_count">(%d / %d)</string>
+    <string name="verify_invalid_photo">2MB 이하의 PNG, JPEG, JPG만 첨부할 수 있어요.</string>
 </resources>
