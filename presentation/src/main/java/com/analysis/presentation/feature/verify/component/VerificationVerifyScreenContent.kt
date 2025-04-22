@@ -7,8 +7,6 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
-import androidx.compose.foundation.layout.aspectRatio
-import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
@@ -47,7 +45,7 @@ fun VerificationVerifyScreenContent(
     Column(
         modifier = Modifier
             .padding(innerPadding)
-            .padding(20.dp)
+            .padding(20.dp),
     ) {
         Surface(
             modifier = Modifier
@@ -78,7 +76,7 @@ fun VerificationVerifyScreenContent(
                                 .height(160.dp),
                             maxSelectable = 1,
                             showErrorSnackBar = showErrorSnackBar,
-                            onPickPhoto = { viewModel.updatePickedVerificationUri(it) }
+                            onPickPhoto = { viewModel.updatePickedVerificationUri(it) },
                         )
                     } else {
                         HandWritingImageItemCard(
@@ -87,21 +85,20 @@ fun VerificationVerifyScreenContent(
                             modifier = Modifier
                                 .fillMaxWidth()
                                 .padding(horizontal = 25.dp)
-                                .height(160.dp)
+                                .height(160.dp),
                         )
                     }
                 }
-
 
                 Spacer(modifier = Modifier.height(8.dp))
 
                 Box(
                     modifier = Modifier.fillMaxWidth(),
-                    contentAlignment = Alignment.Center
+                    contentAlignment = Alignment.Center,
                 ) {
                     Text(
                         text = stringResource(R.string.verify_guide_comment_photo_format),
-                        style = GgzzTheme.typography.pretendardRegular14.copy(color = Purple500)
+                        style = GgzzTheme.typography.pretendardRegular14.copy(color = Purple500),
                     )
                 }
 
@@ -113,7 +110,7 @@ fun VerificationVerifyScreenContent(
         Row(
             modifier = Modifier
                 .fillMaxWidth()
-                .padding(horizontal = 20.dp)
+                .padding(horizontal = 20.dp),
         ) {
             Button(
                 modifier = Modifier
@@ -122,11 +119,11 @@ fun VerificationVerifyScreenContent(
                 onClick = onClickPreviousButton,
                 enabled = true,
                 shape = RoundedCornerShape(5.dp),
-                colors = ButtonDefaults.buttonColors().copy(containerColor = Purple700)
+                colors = ButtonDefaults.buttonColors().copy(containerColor = Purple700),
             ) {
                 Text(
                     text = stringResource(R.string.previous_comment),
-                    style = GgzzTheme.typography.pretendardSemiBold14.copy(color = White)
+                    style = GgzzTheme.typography.pretendardSemiBold14.copy(color = White),
                 )
             }
 
@@ -144,23 +141,22 @@ fun VerificationVerifyScreenContent(
                     contentColor = White,
                     disabledContentColor = White,
                     disabledContainerColor = Gray500,
-                )
+                ),
             ) {
                 Text(
                     text = stringResource(R.string.next_comment),
-                    style = GgzzTheme.typography.pretendardSemiBold14.copy(color = White)
+                    style = GgzzTheme.typography.pretendardSemiBold14.copy(color = White),
                 )
             }
         }
     }
 }
 
-
 @Composable
 private fun GuideComment() {
     Row(
         modifier = Modifier.fillMaxWidth(),
-        verticalAlignment = Alignment.CenterVertically
+        verticalAlignment = Alignment.CenterVertically,
     ) {
         StepCard(
             modifier = Modifier
@@ -168,13 +164,13 @@ private fun GuideComment() {
                 .height(30.dp),
             text = stringResource(R.string.verify_verification_badge_message),
             style = GgzzTheme.typography.pretendardSemiBold14.copy(
-                letterSpacing = 0.5.sp
-            )
+                letterSpacing = 0.5.sp,
+            ),
         )
         Spacer(modifier = Modifier.width(10.dp))
         Text(
             text = stringResource(R.string.verify_verification_guide_title),
-            style = GgzzTheme.typography.pretendardBold18
+            style = GgzzTheme.typography.pretendardBold18,
         )
     }
 
@@ -182,12 +178,12 @@ private fun GuideComment() {
 
     Box(
         modifier = Modifier.fillMaxWidth(),
-        contentAlignment = Alignment.Center
+        contentAlignment = Alignment.Center,
     ) {
         Text(
             text = stringResource(R.string.verify_verification_guide_comment_photo_count),
             style = GgzzTheme.typography.pretendardRegular14,
-            textAlign = TextAlign.Center
+            textAlign = TextAlign.Center,
         )
     }
 }

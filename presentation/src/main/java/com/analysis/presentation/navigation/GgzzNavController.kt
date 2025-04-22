@@ -6,10 +6,10 @@ import androidx.navigation.NavDestination.Companion.hasRoute
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.navOptions
-import com.analysis.presentation.feature.verify.navigation.navigateToComparisonVerify
 import com.analysis.presentation.feature.history.navigation.navigateToHistory
 import com.analysis.presentation.feature.home.navigation.navigateToHome
 import com.analysis.presentation.feature.setting.navigation.navigateToSetting
+import com.analysis.presentation.feature.verify.navigation.navigateToComparisonVerify
 
 internal class GgzzNavController(
     val navController: NavHostController,

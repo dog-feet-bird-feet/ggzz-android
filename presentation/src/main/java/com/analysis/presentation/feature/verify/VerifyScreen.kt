@@ -45,10 +45,10 @@ internal fun VerifyScreen(
                             contentDescription = null,
                         )
                     }
-                }
+                },
             )
         },
-        containerColor = Gray100
+        containerColor = Gray100,
     ) { innerPadding ->
 
         when (uploadState) {
@@ -58,7 +58,7 @@ internal fun VerifyScreen(
                     selectedComparisonUris = selectedComparisonUris,
                     viewModel = viewModel,
                     showErrorSnackBar = showErrorSnackBar,
-                    onClickNextButton = { viewModel.changeUploadState() }
+                    onClickNextButton = { viewModel.changeUploadState() },
                 )
             }
 
@@ -69,14 +69,12 @@ internal fun VerifyScreen(
                     showErrorSnackBar = showErrorSnackBar,
                     selectedVerificationUri = selectedVerificationUri,
                     onClickPreviousButton = { viewModel.changeUploadState() },
-                    onClickNextButton = { }
+                    onClickNextButton = { },
                 )
             }
         }
-
     }
 }
-
 
 @Composable
 @Preview(showBackground = true)

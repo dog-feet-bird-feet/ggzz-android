@@ -10,39 +10,43 @@ import kotlinx.coroutines.flow.asStateFlow
 import javax.inject.Inject
 
 @HiltViewModel
-class VerifyViewModel @Inject constructor() : ViewModel() {
-    private val _uploadState = MutableStateFlow<UploadState>(UploadState.ComparisonUploadState)
-    val uploadState: StateFlow<UploadState> = _uploadState.asStateFlow()
+class VerifyViewModel
+    @Inject
+    constructor() : ViewModel() {
+        private val _uploadState = MutableStateFlow<UploadState>(UploadState.ComparisonUploadState)
+        val uploadState: StateFlow<UploadState> = _uploadState.asStateFlow()
 
-    private val _selectedComparisonUris = MutableStateFlow<List<Uri>>(emptyList())
-    val selectedComparisonUris: StateFlow<List<Uri>> = _selectedComparisonUris.asStateFlow()
+        private val _selectedComparisonUris = MutableStateFlow<List<Uri>>(emptyList())
+        val selectedComparisonUris: StateFlow<List<Uri>> = _selectedComparisonUris.asStateFlow()
 
-    private val _selectedVerificationUri = MutableStateFlow<Uri?>(null)
-    val selectedVerificationUri: StateFlow<Uri?> = _selectedVerificationUri.asStateFlow()
+        private val _selectedVerificationUri = MutableStateFlow<Uri?>(null)
+        val selectedVerificationUri: StateFlow<Uri?> = _selectedVerificationUri.asStateFlow()
 
-    fun changeUploadState() {
-        when (_uploadState.value) {
-            UploadState.ComparisonUploadState -> _uploadState.value =
-                UploadState.VerificationUploadState
+        fun changeUploadState() {
+            when (_uploadState.value) {
+                UploadState.ComparisonUploadState ->
+                    _uploadState.value =
+                        UploadState.VerificationUploadState
 
-            UploadState.VerificationUploadState -> _uploadState.value =
-                UploadState.ComparisonUploadState
+                UploadState.VerificationUploadState ->
+                    _uploadState.value =
+                        UploadState.ComparisonUploadState
+            }
+        }
+
+        fun updatePickedComparisonUris(uris: List<Uri>) {
+            _selectedComparisonUris.value = uris
+        }
+
+        fun removeComparisonUri(uri: Uri) {
+            _selectedComparisonUris.value -= uri
+        }
+
+        fun updatePickedVerificationUri(uri: Uri) {
+            _selectedVerificationUri.value = uri
+        }
+
+        fun removeVerificationUri(uri: Uri) {
+            _selectedVerificationUri.value = null
         }
     }
-
-    fun updatePickedComparisonUris(uris: List<Uri>) {
-        _selectedComparisonUris.value = uris
-    }
-
-    fun removeComparisonUri(uri: Uri) {
-        _selectedComparisonUris.value -= uri
-    }
-
-    fun updatePickedVerificationUri(uri: Uri) {
-        _selectedVerificationUri.value = uri
-    }
-
-    fun removeVerificationUri(uri: Uri) {
-        _selectedVerificationUri.value = null
-    }
-}

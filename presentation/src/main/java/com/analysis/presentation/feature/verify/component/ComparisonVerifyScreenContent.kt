@@ -40,7 +40,7 @@ internal fun ComparisonVerifyScreenContent(
     Column(
         modifier = Modifier
             .padding(innerPadding)
-            .padding(20.dp)
+            .padding(20.dp),
     ) {
         Surface(
             modifier = Modifier
@@ -63,7 +63,7 @@ internal fun ComparisonVerifyScreenContent(
                     showErrorSnackBar = showErrorSnackBar,
                     selectedComparisonUris = selectedComparisonUris,
                     updatePickedComparisonUris = { viewModel.updatePickedComparisonUris(it) },
-                    removeComparisonUri = { viewModel.removeComparisonUri(it) }
+                    removeComparisonUri = { viewModel.removeComparisonUri(it) },
                 )
             }
         }
@@ -82,25 +82,23 @@ internal fun ComparisonVerifyScreenContent(
                 contentColor = White,
                 disabledContentColor = White,
                 disabledContainerColor = Gray500,
-            )
+            ),
         ) {
             Text(
                 text = stringResource(R.string.next_comment),
-                style = GgzzTheme.typography.pretendardSemiBold14.copy(color = White)
+                style = GgzzTheme.typography.pretendardSemiBold14.copy(color = White),
             )
         }
     }
 }
 
-
-private fun canGoVerificationVerifyScreen(selectedComparisonUris: List<Uri>): Boolean =
-    (selectedComparisonUris.size in 1..5)
+private fun canGoVerificationVerifyScreen(selectedComparisonUris: List<Uri>): Boolean = (selectedComparisonUris.size in 1..5)
 
 @Composable
 private fun GuideComment() {
     Row(
         modifier = Modifier.fillMaxWidth(),
-        verticalAlignment = Alignment.CenterVertically
+        verticalAlignment = Alignment.CenterVertically,
     ) {
         StepCard(
             modifier = Modifier
@@ -108,13 +106,13 @@ private fun GuideComment() {
                 .height(30.dp),
             text = stringResource(R.string.verify_comparison_badge_message),
             style = GgzzTheme.typography.pretendardSemiBold14.copy(
-                letterSpacing = 0.5.sp
-            )
+                letterSpacing = 0.5.sp,
+            ),
         )
         Spacer(modifier = Modifier.width(10.dp))
         Text(
             text = stringResource(R.string.verify_comparison_guide_title),
-            style = GgzzTheme.typography.pretendardBold18
+            style = GgzzTheme.typography.pretendardBold18,
         )
     }
 
@@ -122,15 +120,15 @@ private fun GuideComment() {
 
     Column(
         modifier = Modifier.fillMaxWidth(),
-        horizontalAlignment = Alignment.CenterHorizontally
+        horizontalAlignment = Alignment.CenterHorizontally,
     ) {
         Text(
             text = stringResource(R.string.verify_comparison_guide_comment_photo_count),
-            style = GgzzTheme.typography.pretendardRegular14
+            style = GgzzTheme.typography.pretendardRegular14,
         )
         Text(
             text = stringResource(R.string.verify_guide_comment_photo_format),
-            style = GgzzTheme.typography.pretendardRegular14.copy(color = Purple500)
+            style = GgzzTheme.typography.pretendardRegular14.copy(color = Purple500),
         )
     }
 }

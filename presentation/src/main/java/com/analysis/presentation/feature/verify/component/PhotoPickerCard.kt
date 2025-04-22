@@ -46,9 +46,13 @@ internal fun PhotoPickerCard(
     val contentResolver = context.contentResolver
 
     val pickMediaLauncher = rememberLauncherForActivityResult(
-        contract = if (maxSelectable == 1) PickVisualMedia() else PickMultipleVisualMedia(
-            maxSelectable
-        )
+        contract = if (maxSelectable == 1) {
+            PickVisualMedia()
+        } else {
+            PickMultipleVisualMedia(
+                maxSelectable,
+            )
+        },
     ) { result ->
         handlePickResult(
             result = result,
@@ -57,7 +61,7 @@ internal fun PhotoPickerCard(
             contentResolver = contentResolver,
             showError = showErrorSnackBar,
             onPickPhoto = onPickPhoto,
-            onPickPhotos = onPickPhotos
+            onPickPhotos = onPickPhotos,
         )
     }
 
@@ -68,29 +72,29 @@ internal fun PhotoPickerCard(
         border = BorderStroke(1.dp, Purple500),
         onClick = {
             pickMediaLauncher.launch(PickVisualMediaRequest(PickVisualMedia.ImageOnly))
-        }
+        },
     ) {
         Column(
             modifier = Modifier.fillMaxSize(),
-            horizontalAlignment = Alignment.CenterHorizontally
+            horizontalAlignment = Alignment.CenterHorizontally,
         ) {
             Image(
                 painter = painterResource(R.drawable.ic_camera),
                 contentDescription = null,
                 modifier = Modifier
                     .padding(top = 35.dp)
-                    .padding(horizontal = 45.dp)
+                    .padding(horizontal = 45.dp),
             )
             Spacer(modifier = Modifier.height(10.dp))
             Text(
                 text = stringResource(R.string.verify_pick_photo_message),
-                style = GgzzTheme.typography.pretendardRegular14.copy(color = Purple700)
+                style = GgzzTheme.typography.pretendardRegular14.copy(color = Purple700),
             )
 
             if (maxSelectable > 1) {
                 Text(
                     text = stringResource(R.string.photo_count, pickedPhotoCount, maxSelectable),
-                    style = GgzzTheme.typography.pretendardRegular10.copy(color = Purple700)
+                    style = GgzzTheme.typography.pretendardRegular10.copy(color = Purple700),
                 )
             }
         }
@@ -124,11 +128,15 @@ private fun handlePickResult(
     }
 }
 
-private fun pickMultiPhotosAvailable(maxSelectable: Int, result: Any?) =
-    maxSelectable > 1 && result is List<*> && result.isNotEmpty()
+private fun pickMultiPhotosAvailable(
+    maxSelectable: Int,
+    result: Any?,
+) = maxSelectable > 1 && result is List<*> && result.isNotEmpty()
 
-private fun pickSinglePhotoAvailable(maxSelectable: Int, result: Any?) =
-    maxSelectable == 1 && result is Uri && result != Uri.EMPTY
+private fun pickSinglePhotoAvailable(
+    maxSelectable: Int,
+    result: Any?,
+) = maxSelectable == 1 && result is Uri && result != Uri.EMPTY
 
 @Composable
 @Preview(showBackground = true, showSystemUi = true)
@@ -136,6 +144,6 @@ fun PhotoPickerCardPreview(modifier: Modifier = Modifier) {
     PhotoPickerCard(
         showErrorSnackBar = {},
         maxSelectable = 5,
-        pickedPhotoCount = 1
+        pickedPhotoCount = 1,
     )
 }

@@ -1,6 +1,5 @@
 package com.analysis.presentation.feature.verify.component
 
-import android.content.ContentResolver
 import android.net.Uri
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.PaddingValues
@@ -25,9 +24,8 @@ internal fun PickedPhotoList(
     modifier: Modifier = Modifier,
     columnCount: Int = 2,
 ) {
-
     val items = listOf(ComparisonPhotoItem.Picker) +
-            selectedComparisonUris.map { ComparisonPhotoItem.Image(it) }
+        selectedComparisonUris.map { ComparisonPhotoItem.Image(it) }
 
     LazyVerticalGrid(
         modifier = modifier
@@ -36,7 +34,7 @@ internal fun PickedPhotoList(
         state = rememberLazyGridState(),
         verticalArrangement = Arrangement.spacedBy(20.dp),
         horizontalArrangement = Arrangement.spacedBy(20.dp),
-        contentPadding = PaddingValues(top = 30.dp, bottom = 30.dp)
+        contentPadding = PaddingValues(top = 30.dp, bottom = 30.dp),
     ) {
         items(
             count = items.size,
@@ -57,7 +55,7 @@ internal fun PickedPhotoList(
                         maxSelectable = 5,
                         showErrorSnackBar = showErrorSnackBar,
                         pickedPhotoCount = selectedComparisonUris.size,
-                        onPickPhotos = updatePickedComparisonUris
+                        onPickPhotos = updatePickedComparisonUris,
                     )
                 }
 
@@ -68,7 +66,7 @@ internal fun PickedPhotoList(
                             .aspectRatio(1f)
                             .animateItem(),
                         uri = item.uri,
-                        onClickCancelButton = { removeComparisonUri(item.uri) }
+                        onClickCancelButton = { removeComparisonUri(item.uri) },
                     )
                 }
             }

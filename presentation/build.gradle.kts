@@ -76,7 +76,6 @@ dependencies {
     // serialization
     implementation(libs.kotlinx.serialization.json)
 
-
     // robolectric
     testImplementation(libs.robolectric)
 

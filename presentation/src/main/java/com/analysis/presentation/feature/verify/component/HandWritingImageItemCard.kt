@@ -3,7 +3,6 @@ package com.analysis.presentation.feature.verify.component
 import android.net.Uri
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Box
-import androidx.compose.foundation.layout.aspectRatio
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.offset
 import androidx.compose.foundation.layout.padding
@@ -49,11 +48,11 @@ internal fun HandWritingImageItemCard(
                 .size(18.dp)
                 .align(Alignment.TopEnd)
                 .offset(x = 9.dp, y = (-9).dp),
-            onClick = { onClickCancelButton(uri) }
+            onClick = { onClickCancelButton(uri) },
         ) {
             Image(
                 painter = painterResource(R.drawable.ic_cancel),
-                contentDescription = null
+                contentDescription = null,
             )
         }
     }
@@ -63,10 +62,8 @@ internal fun HandWritingImageItemCard(
 @Preview(showBackground = true, showSystemUi = true)
 fun HandWritingImageItemCardPreview(modifier: Modifier = Modifier) {
     Surface(
-        modifier = Modifier.padding(30.dp)
+        modifier = Modifier.padding(30.dp),
     ) {
         HandWritingImageItemCard(uri = Uri.EMPTY, onClickCancelButton = {})
     }
 }
-
-
