@@ -65,7 +65,8 @@ internal fun PickedPhotoList(
                     HandWritingImageItemCard(
                         modifier = Modifier
                             .fillMaxSize()
-                            .aspectRatio(1f),
+                            .aspectRatio(1f)
+                            .animateItem(),
                         uri = item.uri,
                         onClickCancelButton = { removeComparisonUri(item.uri) }
                     )

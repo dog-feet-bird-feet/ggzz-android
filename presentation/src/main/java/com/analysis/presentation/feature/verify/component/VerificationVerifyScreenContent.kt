@@ -1,6 +1,7 @@
 package com.analysis.presentation.feature.verify.component
 
 import android.net.Uri
+import androidx.compose.animation.AnimatedContent
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
@@ -65,26 +66,32 @@ fun VerificationVerifyScreenContent(
 
                 Spacer(modifier = Modifier.height(45.dp))
 
-                if (selectedVerificationUri == null) {
-                    PhotoPickerCard(
-                        modifier = Modifier
-                            .fillMaxWidth()
-                            .padding(horizontal = 25.dp)
-                            .height(160.dp),
-                        maxSelectable = 1,
-                        showErrorSnackBar = showErrorSnackBar,
-                        onPickPhoto = { viewModel.updatePickedVerificationUri(it) }
-                    )
-                } else {
-                    HandWritingImageItemCard(
-                        uri = selectedVerificationUri,
-                        onClickCancelButton = { viewModel.removeVerificationUri(it) },
-                        modifier = Modifier
-                            .fillMaxWidth()
-                            .padding(horizontal = 25.dp)
-                            .height(160.dp)
-                    )
+                AnimatedContent(
+                    targetState = selectedVerificationUri,
+                    label = "",
+                ) { uri ->
+                    if (uri == null) {
+                        PhotoPickerCard(
+                            modifier = Modifier
+                                .fillMaxWidth()
+                                .padding(horizontal = 25.dp)
+                                .height(160.dp),
+                            maxSelectable = 1,
+                            showErrorSnackBar = showErrorSnackBar,
+                            onPickPhoto = { viewModel.updatePickedVerificationUri(it) }
+                        )
+                    } else {
+                        HandWritingImageItemCard(
+                            uri = uri,
+                            onClickCancelButton = { viewModel.removeVerificationUri(it) },
+                            modifier = Modifier
+                                .fillMaxWidth()
+                                .padding(horizontal = 25.dp)
+                                .height(160.dp)
+                        )
+                    }
                 }
+
 
                 Spacer(modifier = Modifier.height(8.dp))
 
