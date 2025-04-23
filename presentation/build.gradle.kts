@@ -85,6 +85,7 @@ dependencies {
     testImplementation(libs.assertj.core)
     testImplementation(libs.core.testing)
     testImplementation(libs.kotlinx.coroutines.test)
+    testImplementation(libs.mockk)
 
     // ui test
     testImplementation(libs.androidx.junit)

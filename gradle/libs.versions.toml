@@ -22,6 +22,7 @@ robolectric = "4.13"
 hiltNavigationCompose = "1.2.0"
 kotlinxSerializationJson = "1.8.0"
 kotlinxSerialization = "2.1.0"
+mockk = "1.13.11"
 
 [libraries]
 androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "coreKtx" }
@@ -70,6 +71,9 @@ junit-vintage-engine = { group = "org.junit.vintage", name = "junit-vintage-engi
 assertj-core = { group = "org.assertj", name = "assertj-core", version = "3.25.3" }
 core-testing = { group = "androidx.arch.core", name = "core-testing", version.ref = "core-test" }
 robolectric = { module = "org.robolectric:robolectric", version.ref = "robolectric" }
+
+# mockk
+mockk = { group = "io.mockk", name = "mockk", version.ref = "mockk" }
 
 # ui test
 androidx-ui-test-junit4 = { group = "androidx.compose.ui", name = "ui-test-junit4" }
