@@ -59,6 +59,9 @@ dependencies {
     implementation(libs.androidx.ui.tooling.preview)
     debugImplementation(libs.androidx.ui.tooling)
 
+    // coil
+    implementation(libs.coil.compose)
+
     // viewmodel
     implementation(libs.androidx.lifecycle.viewmodel.ktx)
 
@@ -82,6 +85,7 @@ dependencies {
     testImplementation(libs.assertj.core)
     testImplementation(libs.core.testing)
     testImplementation(libs.kotlinx.coroutines.test)
+    testImplementation(libs.mockk)
 
     // ui test
     testImplementation(libs.androidx.junit)

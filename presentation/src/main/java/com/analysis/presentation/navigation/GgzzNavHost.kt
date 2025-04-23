@@ -3,10 +3,10 @@ package com.analysis.presentation.navigation
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.navigation.compose.NavHost
-import com.analysis.presentation.feature.handwritinganalysis.navigation.handWritingAnalysisNavGraph
 import com.analysis.presentation.feature.history.navigation.historyNavGraph
 import com.analysis.presentation.feature.home.navigation.homeNavGraph
 import com.analysis.presentation.feature.setting.navigation.settingNavGraph
+import com.analysis.presentation.feature.verify.navigation.comparisonVerifyNavGraph
 
 @Composable
 internal fun GgzzNavHost(
@@ -21,11 +21,14 @@ internal fun GgzzNavHost(
         modifier = modifier,
     ) {
         homeNavGraph(
-            navigateToAnalysis = { navController.navigateToHandWritingAnalysis() },
+            navigateToAnalysis = { navController.navigateToComparisonVerify() },
             navigateToHistory = { navController.navigateToHistory() },
         )
         historyNavGraph()
         settingNavGraph()
-        handWritingAnalysisNavGraph()
+        comparisonVerifyNavGraph(
+            showErrorSnackbar = showErrorSnackbar,
+            onClickNavigation = { navController.popBackStack() },
+        )
     }
 }

@@ -1,5 +1,6 @@
 [versions]
 agp = "8.5.0"
+coilCompose = "2.5.0"
 junit = "5.11.4"
 androidJunit5 = "1.11.3.0"
 kotlin = "2.1.0"
@@ -21,6 +22,7 @@ robolectric = "4.13"
 hiltNavigationCompose = "1.2.0"
 kotlinxSerializationJson = "1.8.0"
 kotlinxSerialization = "2.1.0"
+mockk = "1.13.11"
 
 [libraries]
 androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "coreKtx" }
@@ -35,6 +37,9 @@ androidx-ui-tooling = { group = "androidx.compose.ui", name = "ui-tooling" }
 androidx-ui-tooling-preview = { group = "androidx.compose.ui", name = "ui-tooling-preview" }
 androidx-material3 = { group = "androidx.compose.material3", name = "material3" }
 androidx-compose-navigation = { group = "androidx.navigation", name = "navigation-compose", version.ref = "composeNavigation" }
+
+# coil
+coil-compose = { module = "io.coil-kt:coil-compose", version.ref = "coilCompose" }
 
 # viewmodel
 androidx-lifecycle-viewmodel-ktx = { module = "androidx.lifecycle:lifecycle-viewmodel-ktx", version.ref = "lifecycleRuntimeKtx" }
@@ -66,6 +71,9 @@ junit-vintage-engine = { group = "org.junit.vintage", name = "junit-vintage-engi
 assertj-core = { group = "org.assertj", name = "assertj-core", version = "3.25.3" }
 core-testing = { group = "androidx.arch.core", name = "core-testing", version.ref = "core-test" }
 robolectric = { module = "org.robolectric:robolectric", version.ref = "robolectric" }
+
+# mockk
+mockk = { group = "io.mockk", name = "mockk", version.ref = "mockk" }
 
 # ui test
 androidx-ui-test-junit4 = { group = "androidx.compose.ui", name = "ui-test-junit4" }

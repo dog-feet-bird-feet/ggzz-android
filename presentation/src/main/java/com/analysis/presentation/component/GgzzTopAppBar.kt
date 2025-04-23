@@ -12,6 +12,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
 import com.analysis.presentation.R
@@ -22,6 +23,7 @@ import com.analysis.presentation.theme.GgzzTypography
 internal fun GgzzTopAppBar(
     modifier: Modifier = Modifier,
     title: String = "",
+    textStyle: TextStyle? = null,
     navigationIcon: @Composable () -> Unit = {},
     actions: @Composable () -> Unit = {},
 ) {
@@ -34,7 +36,7 @@ internal fun GgzzTopAppBar(
         title = {
             Text(
                 text = title,
-                style = GgzzTypography.pretendardBold28,
+                style = textStyle ?: GgzzTypography.pretendardBold28,
                 maxLines = 1,
                 overflow = TextOverflow.Ellipsis,
             )
