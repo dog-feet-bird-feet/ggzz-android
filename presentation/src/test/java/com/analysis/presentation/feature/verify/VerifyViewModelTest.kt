@@ -9,7 +9,6 @@ import org.junit.Rule
 import org.junit.Test
 import org.junit.jupiter.api.DisplayName
 
-
 class VerifyViewModelTest {
     @get:Rule
     val dispatcherRule = MainDispatcherRule()
