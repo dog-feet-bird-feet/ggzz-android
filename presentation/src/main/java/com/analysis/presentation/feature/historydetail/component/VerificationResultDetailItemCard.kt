@@ -29,9 +29,7 @@ import com.analysis.presentation.theme.White
 import com.analysis.presentation.util.modifier.dropShadow
 
 @Composable
-fun VerificationResultDetailItemCard(
-    verificationIndicator: VerificationIndicator,
-) {
+fun VerificationResultDetailItemCard(verificationIndicator: VerificationIndicator) {
     Card(
         modifier = Modifier
             .fillMaxWidth()
@@ -40,7 +38,7 @@ fun VerificationResultDetailItemCard(
                 color = Color.Black.copy(0.05f),
                 blur = 10.dp,
                 offsetY = 2.dp,
-                offsetX = 2.dp
+                offsetX = 2.dp,
             ),
         colors = CardDefaults.cardColors().copy(containerColor = White),
         shape = RoundedCornerShape(15.dp),
@@ -54,17 +52,17 @@ fun VerificationResultDetailItemCard(
             Row(
                 modifier = Modifier
                     .fillMaxWidth(),
-                verticalAlignment = Alignment.CenterVertically
+                verticalAlignment = Alignment.CenterVertically,
             ) {
                 Text(
                     modifier = Modifier.weight(1f),
                     text = stringResource(verificationIndicator.title),
-                    style = GgzzTheme.typography.pretendardBold24.copy(color = Blue300)
+                    style = GgzzTheme.typography.pretendardBold24.copy(color = Blue300),
                 )
 
                 Text(
                     text = stringResource(R.string.percent, verificationIndicator.percentage.toInt()),
-                    style = GgzzTheme.typography.pretendardSemiBold30.copy(color = Blue300)
+                    style = GgzzTheme.typography.pretendardSemiBold30.copy(color = Blue300),
                 )
             }
 
@@ -72,7 +70,7 @@ fun VerificationResultDetailItemCard(
 
             Text(
                 text = verificationIndicator.description,
-                style = GgzzTheme.typography.pretendardMedium16.copy(color = Blue200)
+                style = GgzzTheme.typography.pretendardMedium16.copy(color = Blue200),
             )
 
             Spacer(modifier = Modifier.height(14.dp))
@@ -93,7 +91,7 @@ fun VerificationResultDetailItemCard(
 @Preview(showBackground = true, showSystemUi = true)
 fun VerificationResultDetailItemCardPreview(modifier: Modifier = Modifier) {
     Column(
-        modifier = Modifier.fillMaxSize()
+        modifier = Modifier.fillMaxSize(),
     ) {
         val uiModel = VerificationIndicator.Similarity(43.2f)
         VerificationResultDetailItemCard(uiModel)

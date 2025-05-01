@@ -6,8 +6,8 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.navigation.compose.NavHost
 import com.analysis.presentation.feature.history.navigation.historyNavGraph
-import com.analysis.presentation.feature.home.navigation.homeNavGraph
 import com.analysis.presentation.feature.historydetail.navigation.historyDetailNavGraph
+import com.analysis.presentation.feature.home.navigation.homeNavGraph
 import com.analysis.presentation.feature.setting.navigation.settingNavGraph
 import com.analysis.presentation.feature.verify.navigation.comparisonVerifyNavGraph
 
@@ -25,14 +25,14 @@ internal fun GgzzNavHost(
         enterTransition = { EnterTransition.None },
         exitTransition = { ExitTransition.None },
         popEnterTransition = { EnterTransition.None },
-        popExitTransition = { ExitTransition.None }
+        popExitTransition = { ExitTransition.None },
     ) {
         homeNavGraph(
             navigateToAnalysis = { navController.navigateToComparisonVerify() },
             navigateToHistory = { navController.navigateToHistory() },
         )
         historyNavGraph(
-            navigateToResult = { navController.navigateToResult(it) }
+            navigateToResult = { navController.navigateToResult(it) },
         )
         settingNavGraph()
         comparisonVerifyNavGraph(
@@ -41,7 +41,7 @@ internal fun GgzzNavHost(
         )
         historyDetailNavGraph(
             showErrorSnackbar = showErrorSnackbar,
-            onClickNavigation = { navController.popBackStack() }
+            onClickNavigation = { navController.popBackStack() },
         )
     }
 }

@@ -18,6 +18,9 @@ internal fun NavGraphBuilder.historyDetailNavGraph(
     }
 }
 
-internal fun NavController.navigateToResult(historyId: String, navigateOptions: NavOptions) {
+internal fun NavController.navigateToResult(
+    historyId: String,
+    navigateOptions: NavOptions,
+) {
     this.navigate(NavRoute.HistoryDetail(historyId), navigateOptions)
 }

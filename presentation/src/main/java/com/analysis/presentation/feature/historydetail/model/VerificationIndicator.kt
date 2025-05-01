@@ -2,12 +2,10 @@ package com.analysis.presentation.feature.historydetail.model
 
 import androidx.annotation.StringRes
 import androidx.compose.ui.graphics.Color
-import com.analysis.domain.model.VerificationResult
 import com.analysis.presentation.R
 import com.analysis.presentation.theme.Green400
 import com.analysis.presentation.theme.Red400
 import com.analysis.presentation.theme.Yellow400
-import java.time.LocalDateTime
 
 sealed class VerificationIndicator(
     @StringRes val title: Int,
@@ -23,7 +21,7 @@ sealed class VerificationIndicator(
             score >= 50 -> "두 필기체에 일부 유사한 특징이 있습니다."
             else -> "두 필기체의 형태 차이가 큽니다."
         },
-        progressColor = Green400
+        progressColor = Green400,
     )
 
     class Pressure(score: Float) : VerificationIndicator(
@@ -34,7 +32,7 @@ sealed class VerificationIndicator(
             score >= 50 -> "두 필기체의 필압 경향이 일부 비슷합니다."
             else -> "두 필기체의 필압에 차이가 있습니다."
         },
-        progressColor = Red400
+        progressColor = Red400,
     )
 
     class Inclination(score: Float) : VerificationIndicator(
@@ -45,6 +43,6 @@ sealed class VerificationIndicator(
             score >= 50 -> "두 필기체의 기울기 패턴이 일부 비슷합니다."
             else -> "두 필기체의 기울기 차이가 큽니다."
         },
-        progressColor = Yellow400
+        progressColor = Yellow400,
     )
 }

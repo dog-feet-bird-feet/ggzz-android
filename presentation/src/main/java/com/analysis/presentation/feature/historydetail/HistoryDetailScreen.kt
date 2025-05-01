@@ -3,13 +3,11 @@ package com.analysis.presentation.feature.historydetail
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.RoundedCornerShape
@@ -28,11 +26,9 @@ import androidx.compose.ui.unit.dp
 import coil3.compose.AsyncImage
 import coil3.request.ImageRequest
 import coil3.request.crossfade
-import com.analysis.domain.model.History
 import com.analysis.domain.model.VerificationResult
 import com.analysis.presentation.R
 import com.analysis.presentation.component.GgzzTopAppBar
-import com.analysis.presentation.feature.history.component.HistoryItemCard
 import com.analysis.presentation.feature.historydetail.component.VerificationResultDetailItemCard
 import com.analysis.presentation.feature.historydetail.model.VerificationResultUiModel
 import com.analysis.presentation.feature.historydetail.model.toVerificationResultUiModel
@@ -50,7 +46,6 @@ fun HistoryDetailScreen(
     showErrorSnackBar: (Throwable) -> Unit,
     onClickNavigation: () -> Unit,
 ) {
-
     val uiModel = VerificationResult(
         id = "1",
         title = "A필기체 검증 기록",
@@ -59,8 +54,8 @@ fun HistoryDetailScreen(
         pressure = 51.1f,
         inclination = 21.1f,
         verificationImgUrl = "https://images.unsplash.com/photo-1742240867115" +
-                "-7a2f22a5b93b?q=80&w=3270&auto=format&fit=crop&ixlib=rb-4.0.3&ixi" +
-                "d=M3wxMjA3fDF8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+            "-7a2f22a5b93b?q=80&w=3270&auto=format&fit=crop&ixlib=rb-4.0.3&ixi" +
+            "d=M3wxMjA3fDF8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
     ).toVerificationResultUiModel()
 
     Scaffold(
@@ -84,14 +79,14 @@ fun HistoryDetailScreen(
                         text = uiModel.createdAt.toFormattedString(),
                         style = GgzzTheme.typography.pretendardRegular12.copy(color = Black),
                     )
-                }
+                },
             )
         },
         containerColor = Gray100,
     ) { innerPadding ->
         HistoryDetailScreenContent(
             uiModel = uiModel,
-            modifier = Modifier.padding(innerPadding)
+            modifier = Modifier.padding(innerPadding),
         )
     }
 }
@@ -109,7 +104,7 @@ private fun HistoryDetailScreenContent(
         color = White,
     ) {
         Column(
-            modifier = Modifier.fillMaxSize()
+            modifier = Modifier.fillMaxSize(),
         ) {
             AsyncImage(
                 model = ImageRequest.Builder(LocalContext.current)
@@ -159,10 +154,9 @@ fun HistoryDetailScreenContentPreview(modifier: Modifier = Modifier) {
         pressure = 51.1f,
         inclination = 21.1f,
         verificationImgUrl = "https://images.unsplash.com/photo-1742240867115" +
-                "-7a2f22a5b93b?q=80&w=3270&auto=format&fit=crop&ixlib=rb-4.0.3&ixi" +
-                "d=M3wxMjA3fDF8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+            "-7a2f22a5b93b?q=80&w=3270&auto=format&fit=crop&ixlib=rb-4.0.3&ixi" +
+            "d=M3wxMjA3fDF8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
     ).toVerificationResultUiModel()
-
 
     HistoryDetailScreenContent(uiModel)
 }

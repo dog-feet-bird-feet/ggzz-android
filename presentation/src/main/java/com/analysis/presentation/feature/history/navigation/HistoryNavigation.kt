@@ -7,9 +7,7 @@ import androidx.navigation.compose.composable
 import com.analysis.presentation.feature.history.HistoryScreen
 import com.analysis.presentation.navigation.NavRoute
 
-internal fun NavGraphBuilder.historyNavGraph(
-    navigateToResult: (String) -> Unit,
-) {
+internal fun NavGraphBuilder.historyNavGraph(navigateToResult: (String) -> Unit) {
     composable<NavRoute.History> {
         HistoryScreen(navigateToResult)
     }

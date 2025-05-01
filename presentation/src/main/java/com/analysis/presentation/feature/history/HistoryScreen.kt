@@ -19,17 +19,15 @@ import com.analysis.presentation.theme.Gray100
 import java.time.LocalDateTime
 
 @Composable
-internal fun HistoryScreen(
-    navigateToResult: (String) -> Unit,
-) {
+internal fun HistoryScreen(navigateToResult: (String) -> Unit) {
     val historyItems = (1..20).map {
         History(
             id = it.toString(),
             title = "테스트 결과",
             createdAt = LocalDateTime.now(),
             verificationImgUrl = "https://images.unsplash.com/photo-1742240867115" +
-                    "-7a2f22a5b93b?q=80&w=3270&auto=format&fit=crop&ixlib=rb-4.0.3&ixi" +
-                    "d=M3wxMjA3fDF8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+                "-7a2f22a5b93b?q=80&w=3270&auto=format&fit=crop&ixlib=rb-4.0.3&ixi" +
+                "d=M3wxMjA3fDF8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
         )
     }
 

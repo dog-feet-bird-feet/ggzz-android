@@ -7,7 +7,7 @@ data class VerificationResultUiModel(
     val title: String,
     val imageUrl: String,
     val createdAt: LocalDateTime,
-    val indicators: List<VerificationIndicator>
+    val indicators: List<VerificationIndicator>,
 )
 
 fun VerificationResult.toVerificationResultUiModel(): VerificationResultUiModel {
@@ -18,7 +18,7 @@ fun VerificationResult.toVerificationResultUiModel(): VerificationResultUiModel 
         indicators = listOf(
             VerificationIndicator.Similarity(similarity),
             VerificationIndicator.Pressure(pressure),
-            VerificationIndicator.Inclination(inclination)
-        )
+            VerificationIndicator.Inclination(inclination),
+        ),
     )
 }
