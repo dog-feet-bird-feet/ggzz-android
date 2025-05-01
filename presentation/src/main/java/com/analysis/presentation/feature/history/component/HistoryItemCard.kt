@@ -32,6 +32,8 @@ import coil3.request.ImageRequest
 import coil3.request.crossfade
 import com.analysis.domain.model.HistoryItem
 import com.analysis.presentation.R
+import com.analysis.presentation.component.GgzzDropMenuButton
+import com.analysis.presentation.model.DropMenuItem
 import com.analysis.presentation.theme.Black
 import com.analysis.presentation.theme.GgzzTheme
 import com.analysis.presentation.theme.White
@@ -96,14 +98,12 @@ fun HistoryItemCard(
 
                 Spacer(modifier = Modifier.width(2.dp))
 
-                IconButton(
-                    onClick = {}
-                ) {
-                    Image(
-                        painter = painterResource(R.drawable.ic_kebab_menu),
-                        contentDescription = null,
+                GgzzDropMenuButton(
+                    listOf(
+                        DropMenuItem("수정하기", {}),
+                        DropMenuItem("삭제하기", {})
                     )
-                }
+                )
             }
         }
 

@@ -1,12 +1,15 @@
 package com.analysis.presentation.feature.history
 
 import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.input.pointer.motionEventSpy
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import com.analysis.domain.model.HistoryItem
@@ -38,7 +41,8 @@ internal fun HistoryScreen() {
         LazyColumn(
             modifier = Modifier
                 .padding(innerPadding)
-                .padding(20.dp),
+                .padding(horizontal = 20.dp)
+                .padding(top = 20.dp),
             verticalArrangement = Arrangement.spacedBy(16.dp),
         ) {
             items(
@@ -49,6 +53,10 @@ internal fun HistoryScreen() {
                     historyItem = it,
                     {},
                 )
+            }
+
+            item {
+                Spacer(modifier = Modifier.height(20.dp))
             }
         }
     }
