@@ -1,6 +1,7 @@
 package com.analysis.presentation.component
 
 import androidx.compose.animation.AnimatedVisibility
+import androidx.compose.animation.ExitTransition
 import androidx.compose.animation.fadeIn
 import androidx.compose.animation.fadeOut
 import androidx.compose.foundation.layout.RowScope
@@ -44,7 +45,7 @@ internal fun GgzzNavigationBar(
     AnimatedVisibility(
         visible = isVisible,
         enter = fadeIn(),
-        exit = fadeOut(),
+        exit = ExitTransition.None,
     ) {
         NavigationBar(
             modifier = modifier
