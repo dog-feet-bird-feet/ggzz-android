@@ -82,7 +82,7 @@ fun HistoryItemCard(
                         .crossfade(true)
                         .build(),
                     contentDescription = null,
-                    contentScale = ContentScale.Fit,
+                    contentScale = ContentScale.Crop,
                     modifier = Modifier
                         .width(90.dp)
                         .height(73.dp)

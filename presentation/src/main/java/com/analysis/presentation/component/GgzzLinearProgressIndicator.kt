@@ -18,7 +18,7 @@ import com.analysis.presentation.theme.GgzzTheme
 import com.analysis.presentation.theme.Gray300
 
 @Composable
-internal fun CustomLinearProgressIndicator(
+internal fun GgzzLinearProgressIndicator(
     modifier: Modifier = Modifier,
     progress: Float,
     progressColor: Color,
@@ -45,7 +45,7 @@ internal fun CustomLinearProgressIndicator(
 @Preview(showSystemUi = true)
 private fun CustomLinearProgressIndicatorPreview() {
     Column {
-        CustomLinearProgressIndicator(
+        GgzzLinearProgressIndicator(
             modifier = Modifier.fillMaxWidth(),
             progress = 0.3f,
             progressColor = GgzzTheme.colorScheme.primary,

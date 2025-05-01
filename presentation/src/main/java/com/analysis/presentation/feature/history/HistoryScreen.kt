@@ -25,7 +25,7 @@ internal fun HistoryScreen(
     val historyItems = (1..20).map {
         History(
             id = it.toString(),
-            name = "테스트 결과",
+            title = "테스트 결과",
             createdAt = LocalDateTime.now(),
             verificationImgUrl = "https://images.unsplash.com/photo-1742240867115" +
                     "-7a2f22a5b93b?q=80&w=3270&auto=format&fit=crop&ixlib=rb-4.0.3&ixi" +
