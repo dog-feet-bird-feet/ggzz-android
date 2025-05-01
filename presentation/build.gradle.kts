@@ -61,6 +61,7 @@ dependencies {
 
     // coil
     implementation(libs.coil.compose)
+    implementation(libs.coil.network)
 
     // viewmodel
     implementation(libs.androidx.lifecycle.viewmodel.ktx)
