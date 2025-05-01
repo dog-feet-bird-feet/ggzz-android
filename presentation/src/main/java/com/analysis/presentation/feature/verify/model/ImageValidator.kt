@@ -4,7 +4,7 @@ import android.content.ContentResolver
 import android.net.Uri
 
 object ImageValidator {
-    private const val MAX_SIZE_BYTES = 2 * 1024 * 1024
+    private const val MAX_SIZE_BYTES = 10 * 1024 * 1024
     private val ALLOWED_MIME_TYPES = listOf("image/png", "image/jpeg", "image/jpg")
 
     fun isValid(
