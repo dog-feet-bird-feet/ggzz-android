@@ -61,7 +61,7 @@ fun HistoryItemCard(
                     .weight(1f),
             ) {
                 Text(
-                    text = history.name,
+                    text = history.title,
                     style = GgzzTheme.typography.pretendardSemiBold14.copy(color = Black),
                 )
 
@@ -107,7 +107,7 @@ fun HistoryItemCard(
 fun HistoryItemCardPreview() {
     val history = History(
         id = "01JRSYFFCD6R6C88JJFA0JTZPB",
-        name = "테스트 결과",
+        title = "테스트 결과",
         createdAt = LocalDateTime.now(),
         verificationImgUrl = "https://images.unsplash.com/photo-1742240867115-7a2f22a5b93b?" +
             "q=80&w=3270&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDF8MHxwaG90by1wYWdlf" +

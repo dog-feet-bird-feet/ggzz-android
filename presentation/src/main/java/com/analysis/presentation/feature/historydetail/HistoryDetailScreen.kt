@@ -28,7 +28,7 @@ fun HistoryDetailScreen(
 ) {
     val history = History(
         id = "1",
-        name = "A필기체 검증 기록",
+        title = "A필기체 검증 기록",
         createdAt = LocalDateTime.now(),
         verificationImgUrl = "https://images.unsplash.com/photo-1742240867115" +
                 "-7a2f22a5b93b?q=80&w=3270&auto=format&fit=crop&ixlib=rb-4.0.3&ixi" +
@@ -40,7 +40,7 @@ fun HistoryDetailScreen(
             .fillMaxSize(),
         topBar = {
             GgzzTopAppBar(
-                title = history.name,
+                title = history.title,
                 textStyle = GgzzTheme.typography.pretendardRegular18.copy(color = Gray900),
                 navigationIcon = {
                     IconButton(onClick = onClickNavigation) {
