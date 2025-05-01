@@ -34,4 +34,5 @@
     <string name="next_comment">다음</string>
     <string name="photo_count">(%d / %d)</string>
     <string name="verify_invalid_photo">2MB 이하의 PNG, JPEG, JPG만 첨부할 수 있어요.</string>
+    <string name="datetime">yyyy년 M월 d일 HH:mm</string>
 </resources>
