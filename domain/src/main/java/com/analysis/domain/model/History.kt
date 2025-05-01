@@ -2,7 +2,7 @@ package com.analysis.domain.model
 
 import java.time.LocalDateTime
 
-data class HistoryItem(
+data class History(
     val id: String,
     val name: String,
     val createdAt: LocalDateTime?,
