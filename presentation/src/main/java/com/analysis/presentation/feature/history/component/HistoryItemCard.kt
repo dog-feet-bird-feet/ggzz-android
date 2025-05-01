@@ -43,15 +43,11 @@ fun HistoryItemCard(
     historyItem: HistoryItem,
     onHistoryClick: (String) -> Unit,
 ) {
-    val interactionSource = remember { MutableInteractionSource() }
-
     Card(
         modifier =
         Modifier
             .fillMaxWidth()
             .clickable(
-                interactionSource = interactionSource,
-                indication = null,
                 onClick = { onHistoryClick(historyItem.id) },
             ),
         colors = CardDefaults.cardColors().copy(containerColor = White),
