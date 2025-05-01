@@ -8,6 +8,7 @@ import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.navOptions
 import com.analysis.presentation.feature.history.navigation.navigateToHistory
 import com.analysis.presentation.feature.home.navigation.navigateToHome
+import com.analysis.presentation.feature.historydetail.navigation.navigateToResult
 import com.analysis.presentation.feature.setting.navigation.navigateToSetting
 import com.analysis.presentation.feature.verify.navigation.navigateToComparisonVerify
 
@@ -59,6 +60,13 @@ internal class GgzzNavController(
             launchSingleTop = true
         }
         navController.navigateToComparisonVerify(navOptions)
+    }
+
+    fun navigateToResult(historyId: String) {
+        val navOptions = navOptions {
+            launchSingleTop = true
+        }
+        navController.navigateToResult(historyId, navOptions)
     }
 
     fun popBackStack() {
