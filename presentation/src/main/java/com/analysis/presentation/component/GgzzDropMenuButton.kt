@@ -41,7 +41,7 @@ fun GgzzDropMenuButton(
 ) {
     var expanded by rememberSaveable { mutableStateOf(false) }
 
-    Box{
+    Box {
         IconButton(onClick = { expanded = expanded.not() }) {
             Icon(
                 painter = painterResource(id = R.drawable.ic_kebab_menu),
@@ -53,7 +53,7 @@ fun GgzzDropMenuButton(
             expanded = expanded,
             onDismissRequest = { expanded = false },
             offset = DpOffset((-20).dp, (-8).dp),
-            modifier = modifier.background(White, shape = RoundedCornerShape(5.dp))
+            modifier = modifier.background(White, shape = RoundedCornerShape(5.dp)),
         ) {
             items.forEachIndexed { index, item ->
                 DropdownMenuItem(
@@ -61,18 +61,18 @@ fun GgzzDropMenuButton(
                         Box(
                             modifier = Modifier
                                 .fillMaxWidth(),
-                            contentAlignment = Alignment.Center
+                            contentAlignment = Alignment.Center,
                         ) {
                             Text(
                                 text = item.label,
-                                style = GgzzTheme.typography.pretendardRegular14.copy(color = Black)
+                                style = GgzzTheme.typography.pretendardRegular14.copy(color = Black),
                             )
                         }
                     },
                     onClick = {
                         expanded = false
                         item.onClick()
-                    }
+                    },
                 )
 
                 if (index != items.lastIndex) {
@@ -80,7 +80,7 @@ fun GgzzDropMenuButton(
                         modifier = Modifier
                             .padding(horizontal = 12.dp)
                             .height(1.dp),
-                        color = Gray300
+                        color = Gray300,
                     )
                 }
             }
@@ -98,7 +98,7 @@ fun GgzzDropMenuPreview(modifier: Modifier = Modifier) {
 
         Row(
             modifier = Modifier.fillMaxWidth(),
-            horizontalArrangement = Arrangement.End
+            horizontalArrangement = Arrangement.End,
         ) {
             GgzzDropMenuButton(items = items)
         }
