@@ -106,6 +106,7 @@ private fun HistoryDetailScreenContent(
         Column(
             modifier = Modifier.fillMaxSize(),
         ) {
+            Spacer(modifier = Modifier.height(20.dp))
             AsyncImage(
                 model = ImageRequest.Builder(LocalContext.current)
                     .data(uiModel.imageUrl)
