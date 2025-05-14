@@ -26,7 +26,7 @@ import androidx.compose.ui.unit.dp
 import coil3.compose.AsyncImage
 import coil3.request.ImageRequest
 import coil3.request.crossfade
-import com.analysis.domain.model.VerificationResult
+import com.analysis.domain.model.AnalysisResult
 import com.analysis.presentation.R
 import com.analysis.presentation.component.GgzzTopAppBar
 import com.analysis.presentation.feature.historydetail.component.VerificationResultDetailItemCard
@@ -46,7 +46,7 @@ fun HistoryDetailScreen(
     showErrorSnackBar: (Throwable) -> Unit,
     onClickNavigation: () -> Unit,
 ) {
-    val uiModel = VerificationResult(
+    val uiModel = AnalysisResult(
         id = "1",
         title = "A필기체 검증 기록",
         createdAt = LocalDateTime.now(),
@@ -147,7 +147,7 @@ private fun HistoryDetailScreenContent(
 @Composable
 @Preview(showBackground = true, showSystemUi = true)
 fun HistoryDetailScreenContentPreview(modifier: Modifier = Modifier) {
-    val uiModel = VerificationResult(
+    val uiModel = AnalysisResult(
         id = "1",
         title = "A필기체 검증 기록",
         createdAt = LocalDateTime.now(),

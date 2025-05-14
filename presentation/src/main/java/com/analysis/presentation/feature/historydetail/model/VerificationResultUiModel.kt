@@ -1,6 +1,6 @@
 package com.analysis.presentation.feature.historydetail.model
 
-import com.analysis.domain.model.VerificationResult
+import com.analysis.domain.model.AnalysisResult
 import java.time.LocalDateTime
 
 data class VerificationResultUiModel(
@@ -10,7 +10,7 @@ data class VerificationResultUiModel(
     val indicators: List<VerificationIndicator>,
 )
 
-fun VerificationResult.toVerificationResultUiModel(): VerificationResultUiModel {
+fun AnalysisResult.toVerificationResultUiModel(): VerificationResultUiModel {
     return VerificationResultUiModel(
         title = title,
         imageUrl = verificationImgUrl,
