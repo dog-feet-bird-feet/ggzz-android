@@ -144,7 +144,7 @@ fun VerificationVerifyScreenContent(
                 ),
             ) {
                 Text(
-                    text = stringResource(R.string.next_comment),
+                    text = stringResource(R.string.analysis_comment),
                     style = GgzzTheme.typography.pretendardSemiBold14.copy(color = White),
                 )
             }
