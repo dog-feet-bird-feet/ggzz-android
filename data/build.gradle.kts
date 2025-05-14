@@ -1,4 +1,6 @@
 import org.jetbrains.kotlin.gradle.dsl.JvmTarget
+import java.io.FileInputStream
+import java.util.Properties
 
 plugins {
     alias(libs.plugins.android.library)
@@ -11,11 +13,30 @@ android {
     namespace = "com.analysis.data"
     compileSdk = 35
 
+    val properties =
+        Properties().apply {
+            try {
+                load(FileInputStream(rootProject.file("local.properties")))
+            } catch (e: Exception) {
+                e.printStackTrace()
+            }
+        }
+
     defaultConfig {
         minSdk = 26
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
         consumerProguardFiles("consumer-rules.pro")
+
+        val baseUrl = properties.getProperty("base_url")
+        val testToken = properties.getProperty("test_token")
+
+        buildConfigField("String", "BASE_URL", "\"$baseUrl\"")
+        buildConfigField("String", "TEST_TOKEN", "\"$testToken\"")
+    }
+
+    buildFeatures {
+        buildConfig = true
     }
 
     compileOptions {
@@ -31,6 +52,20 @@ android {
 
 dependencies {
     implementation(project(":domain"))
+
+    // Serialization
+    implementation(libs.kotlinx.serialization.json)
+
+    // DataStore
+    implementation(libs.androidx.datastore.preferences)
+
+    // Okhttp3
+    implementation(libs.okhttp)
+
+    // Retrofit
+    implementation(libs.retrofit)
+    implementation(libs.retrofit.converter.gson)
+    implementation(libs.retrofit.kotlinx.serialization)
 
     // room
     implementation(libs.androidx.room.runtime)
