@@ -7,8 +7,7 @@ import java.time.LocalDateTime
 import java.time.format.DateTimeFormatter
 
 @Composable
-fun LocalDateTime?.toFormattedString(): String {
-    if (this == null) return ""
+fun LocalDateTime.toFormattedString(): String {
     val formatPattern = stringResource(id = R.string.datetime)
     val formatter = DateTimeFormatter.ofPattern(formatPattern)
     return this.format(formatter)

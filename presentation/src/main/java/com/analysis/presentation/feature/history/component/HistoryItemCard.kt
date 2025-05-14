@@ -24,7 +24,7 @@ import androidx.compose.ui.unit.dp
 import coil3.compose.AsyncImage
 import coil3.request.ImageRequest
 import coil3.request.crossfade
-import com.analysis.domain.model.HistoryItem
+import com.analysis.domain.model.History
 import com.analysis.presentation.component.GgzzDropMenuButton
 import com.analysis.presentation.model.DropMenuItem
 import com.analysis.presentation.theme.Black
@@ -35,7 +35,7 @@ import java.time.LocalDateTime
 
 @Composable
 fun HistoryItemCard(
-    historyItem: HistoryItem,
+    history: History,
     onHistoryClick: (String) -> Unit,
 ) {
     Card(
@@ -43,7 +43,7 @@ fun HistoryItemCard(
             Modifier
                 .fillMaxWidth()
                 .clickable(
-                    onClick = { onHistoryClick(historyItem.id) },
+                    onClick = { onHistoryClick(history.id) },
                 ),
         colors = CardDefaults.cardColors().copy(containerColor = White),
         shape = RoundedCornerShape(4.dp),
@@ -61,14 +61,14 @@ fun HistoryItemCard(
                     .weight(1f),
             ) {
                 Text(
-                    text = historyItem.name,
+                    text = history.title,
                     style = GgzzTheme.typography.pretendardSemiBold14.copy(color = Black),
                 )
 
                 Spacer(modifier = Modifier.height(8.dp))
 
                 Text(
-                    text = historyItem.createdAt.toFormattedString(),
+                    text = history.createdAt.toFormattedString(),
                     style = GgzzTheme.typography.pretendardRegular12.copy(color = Black),
                 )
             }
@@ -78,11 +78,11 @@ fun HistoryItemCard(
             ) {
                 AsyncImage(
                     model = ImageRequest.Builder(LocalContext.current)
-                        .data(historyItem.verificationImgUrl)
+                        .data(history.verificationImgUrl)
                         .crossfade(true)
                         .build(),
                     contentDescription = null,
-                    contentScale = ContentScale.Fit,
+                    contentScale = ContentScale.Crop,
                     modifier = Modifier
                         .width(90.dp)
                         .height(73.dp)
@@ -105,9 +105,9 @@ fun HistoryItemCard(
 @Composable
 @Preview(showBackground = true, showSystemUi = true)
 fun HistoryItemCardPreview() {
-    val historyItem = HistoryItem(
+    val history = History(
         id = "01JRSYFFCD6R6C88JJFA0JTZPB",
-        name = "테스트 결과",
+        title = "테스트 결과",
         createdAt = LocalDateTime.now(),
         verificationImgUrl = "https://images.unsplash.com/photo-1742240867115-7a2f22a5b93b?" +
             "q=80&w=3270&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDF8MHxwaG90by1wYWdlf" +
@@ -116,7 +116,7 @@ fun HistoryItemCardPreview() {
 
     Column {
         HistoryItemCard(
-            historyItem = historyItem,
+            history = history,
             onHistoryClick = {},
         )
     }
