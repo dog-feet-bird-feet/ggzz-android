@@ -8,6 +8,7 @@ import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
@@ -19,6 +20,7 @@ import com.analysis.presentation.R
 import com.analysis.presentation.component.GgzzTopAppBar
 import com.analysis.presentation.feature.history.component.HistoryItemCard
 import com.analysis.presentation.theme.Gray100
+import kotlinx.coroutines.flow.collectLatest
 import java.time.LocalDateTime
 
 @Composable
@@ -26,8 +28,19 @@ internal fun HistoryScreen(
     navigateToResult: (String) -> Unit,
     viewModel: HistoryViewModel = hiltViewModel(),
 ) {
-//    val histories by viewModel.histories.collectAsStateWithLifecycle()
+    LaunchedEffect(Unit) {
+        viewModel.isModifySuccess.collectLatest {
+            if (it) viewModel.fetchHistories()
+        }
+    }
 
+    LaunchedEffect(Unit) {
+        viewModel.isRemoveSuccess.collectLatest {
+            if (it) viewModel.fetchHistories()
+        }
+    }
+
+//    val histories by viewModel.histories.collectAsStateWithLifecycle()
     val histories = (1..20).map {
         History(
             id = it.toString(),
@@ -60,9 +73,12 @@ internal fun HistoryScreen(
             ) {
                 HistoryItemCard(
                     history = it,
-                ) { historyId ->
-                    navigateToResult(historyId)
-                }
+                    { navigateToResult(it) },
+                    { id, newTitle ->
+                        viewModel.modifyHistoryTitle(id, newTitle)
+                    },
+                    { viewModel.removeHistory(it) }
+                )
             }
 
             item {

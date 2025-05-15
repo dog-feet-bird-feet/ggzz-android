@@ -27,6 +27,11 @@
     <string name="verify_guide_comment_photo_format">* 한 장에 최대 2MB 까지 업로드 가능합니다.</string>
     <string name="verify_pick_photo_message">사진을 첨부해주세요</string>
 
+    <!-- History -->
+    <string name="history_modify">수정하기</string>
+    <string name="history_remove">삭제하기</string>
+
+
     <!-- HistoryDetail -->
     <string name="history_detail_similarity">유사도</string>
     <string name="history_detail_inclination">기울기</string>
