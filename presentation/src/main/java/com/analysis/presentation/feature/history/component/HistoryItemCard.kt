@@ -14,30 +14,39 @@ import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.saveable.rememberSaveable
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import coil3.compose.AsyncImage
 import coil3.request.ImageRequest
 import coil3.request.crossfade
 import com.analysis.domain.model.History
+import com.analysis.presentation.R
+import com.analysis.presentation.component.GgzzAlertDialog
 import com.analysis.presentation.component.GgzzDropMenuButton
 import com.analysis.presentation.model.DropMenuItem
 import com.analysis.presentation.theme.Black
 import com.analysis.presentation.theme.GgzzTheme
 import com.analysis.presentation.theme.White
-import com.analysis.presentation.util.toFormattedString
-import java.time.LocalDateTime
 
 @Composable
 fun HistoryItemCard(
     history: History,
     onHistoryClick: (String) -> Unit,
+    onModifyHistoryTitle: (String, String) -> Unit,
+    onRemoveHistory: (String) -> Unit,
 ) {
+    var showModifyDialog by rememberSaveable { mutableStateOf(false) }
+
     Card(
         modifier =
             Modifier
@@ -68,7 +77,7 @@ fun HistoryItemCard(
                 Spacer(modifier = Modifier.height(8.dp))
 
                 Text(
-                    text = history.createdAt.toFormattedString(),
+                    text = history.createdAt,
                     style = GgzzTheme.typography.pretendardRegular12.copy(color = Black),
                 )
             }
@@ -93,13 +102,27 @@ fun HistoryItemCard(
 
                 GgzzDropMenuButton(
                     listOf(
-                        DropMenuItem("수정하기", {}),
-                        DropMenuItem("삭제하기", {}),
+                        DropMenuItem(stringResource(R.string.history_modify)) {
+                            showModifyDialog = true
+                        },
+                        DropMenuItem(stringResource(R.string.history_remove)) {
+                            onRemoveHistory(history.id)
+                        },
                     ),
                 )
             }
         }
     }
+
+    GgzzAlertDialog(
+        "제목 수정하기",
+        history.title,
+        showModifyDialog,
+        { showModifyDialog = false },
+        { newTitle ->
+            onModifyHistoryTitle(history.id, newTitle)
+        },
+    )
 }
 
 @Composable
@@ -108,16 +131,20 @@ fun HistoryItemCardPreview() {
     val history = History(
         id = "01JRSYFFCD6R6C88JJFA0JTZPB",
         title = "테스트 결과",
-        createdAt = LocalDateTime.now(),
+        createdAt = "2025.05.07 04:23",
         verificationImgUrl = "https://images.unsplash.com/photo-1742240867115-7a2f22a5b93b?" +
             "q=80&w=3270&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDF8MHxwaG90by1wYWdlf" +
             "Hx8fGVufDB8fHx8fA%3D%3D",
     )
 
+    val tmp: (String, String) -> Unit = { a, b -> }
+
     Column {
         HistoryItemCard(
             history = history,
             onHistoryClick = {},
+            tmp,
+            {},
         )
     }
 }

@@ -8,33 +8,42 @@ import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
-import com.analysis.domain.model.History
+import androidx.hilt.navigation.compose.hiltViewModel
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.analysis.presentation.R
 import com.analysis.presentation.component.GgzzTopAppBar
 import com.analysis.presentation.feature.history.component.HistoryItemCard
 import com.analysis.presentation.theme.Gray100
-import java.time.LocalDateTime
+import kotlinx.coroutines.flow.collectLatest
 
 @Composable
-internal fun HistoryScreen(navigateToResult: (String) -> Unit) {
-    val historyItems = (1..20).map {
-        History(
-            id = it.toString(),
-            title = "테스트 결과",
-            createdAt = LocalDateTime.now(),
-            verificationImgUrl = "https://images.unsplash.com/photo-1742240867115" +
-                "-7a2f22a5b93b?q=80&w=3270&auto=format&fit=crop&ixlib=rb-4.0.3&ixi" +
-                "d=M3wxMjA3fDF8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
-        )
+internal fun HistoryScreen(
+    navigateToResult: (String) -> Unit,
+    viewModel: HistoryViewModel = hiltViewModel(),
+) {
+    LaunchedEffect(Unit) {
+        viewModel.isModifySuccess.collectLatest {
+            if (it) viewModel.fetchHistories()
+        }
     }
+
+    LaunchedEffect(Unit) {
+        viewModel.isRemoveSuccess.collectLatest {
+            if (it) viewModel.fetchHistories()
+        }
+    }
+
+    val histories by viewModel.histories.collectAsStateWithLifecycle()
 
     Scaffold(
         topBar = {
             GgzzTopAppBar(
-                title = stringResource(R.string.home_top_app_bar_title),
+                title = stringResource(R.string.history_top_app_bar_title),
             )
         },
         containerColor = Gray100,
@@ -47,14 +56,17 @@ internal fun HistoryScreen(navigateToResult: (String) -> Unit) {
             verticalArrangement = Arrangement.spacedBy(16.dp),
         ) {
             items(
-                items = historyItems,
+                items = histories,
                 key = { it.id },
             ) {
                 HistoryItemCard(
                     history = it,
-                ) { historyId ->
-                    navigateToResult(historyId)
-                }
+                    { navigateToResult(it) },
+                    { id, newTitle ->
+                        viewModel.modifyHistoryTitle(id, newTitle)
+                    },
+                    { viewModel.removeHistory(it) },
+                )
             }
 
             item {
