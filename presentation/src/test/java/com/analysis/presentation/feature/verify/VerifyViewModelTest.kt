@@ -2,7 +2,7 @@ package com.analysis.presentation.feature.verify
 
 import android.net.Uri
 import com.analysis.presentation.feature.verify.model.UploadState
-import com.focus.presentation.rule.MainDispatcherRule
+import com.analysis.presentation.rule.MainDispatcherRule
 import io.mockk.mockk
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.Rule
