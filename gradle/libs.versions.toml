@@ -27,6 +27,7 @@ kotlinxSerialization = "2.1.0"
 mockk = "1.13.11"
 datastore = "1.1.6"
 retrofit = "2.11.0"
+splashScreen = "1.0.1"
 
 [libraries]
 androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "coreKtx" }
@@ -79,6 +80,9 @@ kotlinx-coroutines-test = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-t
 
 # serialization
 kotlinx-serialization-json = { module = "org.jetbrains.kotlinx:kotlinx-serialization-json", version.ref = "kotlinxSerializationJson" }
+
+#splash
+androidx-core-splash-screen = {group="androidx.core", name="core-splashscreen", version.ref = "splashScreen"}
 
 # unit test
 junit-jupiter-api = { module = "org.junit.jupiter:junit-jupiter-api", version.ref = "junit" }

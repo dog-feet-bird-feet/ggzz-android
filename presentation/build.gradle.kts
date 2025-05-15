@@ -77,6 +77,9 @@ dependencies {
     // serialization
     implementation(libs.kotlinx.serialization.json)
 
+    // splash
+    implementation(libs.androidx.core.splash.screen)
+
     // robolectric
     testImplementation(libs.robolectric)
 
@@ -93,4 +96,6 @@ dependencies {
     testImplementation(libs.androidx.ui.test.junit4)
     testImplementation(libs.androidx.ui.test.manifest)
     testImplementation(libs.androidx.navigation.testing)
+
+
 }
