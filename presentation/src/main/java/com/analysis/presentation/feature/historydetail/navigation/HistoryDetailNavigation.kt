@@ -12,9 +12,8 @@ internal fun NavGraphBuilder.historyDetailNavGraph(
     showErrorSnackbar: (Throwable) -> Unit,
     onClickNavigation: () -> Unit,
 ) {
-    composable<NavRoute.HistoryDetail> { backStackEntry ->
-        val historyDetail: NavRoute.HistoryDetail = backStackEntry.toRoute()
-        HistoryDetailScreen(historyDetail.historyId, showErrorSnackbar, onClickNavigation)
+    composable<NavRoute.HistoryDetail> {
+        HistoryDetailScreen(showErrorSnackbar, onClickNavigation)
     }
 }
 

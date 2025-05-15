@@ -8,9 +8,12 @@ import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
+import androidx.hilt.navigation.compose.hiltViewModel
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.analysis.domain.model.History
 import com.analysis.presentation.R
 import com.analysis.presentation.component.GgzzTopAppBar
@@ -19,8 +22,13 @@ import com.analysis.presentation.theme.Gray100
 import java.time.LocalDateTime
 
 @Composable
-internal fun HistoryScreen(navigateToResult: (String) -> Unit) {
-    val historyItems = (1..20).map {
+internal fun HistoryScreen(
+    navigateToResult: (String) -> Unit,
+    viewModel: HistoryViewModel = hiltViewModel(),
+) {
+//    val histories by viewModel.histories.collectAsStateWithLifecycle()
+
+    val histories = (1..20).map {
         History(
             id = it.toString(),
             title = "테스트 결과",
@@ -47,7 +55,7 @@ internal fun HistoryScreen(navigateToResult: (String) -> Unit) {
             verticalArrangement = Arrangement.spacedBy(16.dp),
         ) {
             items(
-                items = historyItems,
+                items = histories,
                 key = { it.id },
             ) {
                 HistoryItemCard(

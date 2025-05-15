@@ -16,6 +16,7 @@ import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.layout.ContentScale
@@ -23,6 +24,8 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.hilt.navigation.compose.hiltViewModel
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import coil3.compose.AsyncImage
 import coil3.request.ImageRequest
 import coil3.request.crossfade
@@ -40,10 +43,12 @@ import com.analysis.presentation.theme.White
 
 @Composable
 fun HistoryDetailScreen(
-    historyId: String,
     showErrorSnackBar: (Throwable) -> Unit,
     onClickNavigation: () -> Unit,
+    viewModel: HistoryDetailViewModel = hiltViewModel(),
 ) {
+    val historyDetail by viewModel.history.collectAsStateWithLifecycle()
+//    val uiModel = historyDetail?.toVerificationResultUiModel() ?: throw IllegalArgumentException()
     val uiModel = AnalysisResult(
         id = "1",
         title = "A필기체 검증 기록",
@@ -52,8 +57,8 @@ fun HistoryDetailScreen(
         pressure = 51.1f,
         inclination = 21.1f,
         verificationImgUrl = "https://images.unsplash.com/photo-1742240867115" +
-            "-7a2f22a5b93b?q=80&w=3270&auto=format&fit=crop&ixlib=rb-4.0.3&ixi" +
-            "d=M3wxMjA3fDF8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+                "-7a2f22a5b93b?q=80&w=3270&auto=format&fit=crop&ixlib=rb-4.0.3&ixi" +
+                "d=M3wxMjA3fDF8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
     ).toVerificationResultUiModel()
 
     Scaffold(
@@ -153,8 +158,8 @@ fun HistoryDetailScreenContentPreview(modifier: Modifier = Modifier) {
         pressure = 51.1f,
         inclination = 21.1f,
         verificationImgUrl = "https://images.unsplash.com/photo-1742240867115" +
-            "-7a2f22a5b93b?q=80&w=3270&auto=format&fit=crop&ixlib=rb-4.0.3&ixi" +
-            "d=M3wxMjA3fDF8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+                "-7a2f22a5b93b?q=80&w=3270&auto=format&fit=crop&ixlib=rb-4.0.3&ixi" +
+                "d=M3wxMjA3fDF8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
     ).toVerificationResultUiModel()
 
     HistoryDetailScreenContent(uiModel)

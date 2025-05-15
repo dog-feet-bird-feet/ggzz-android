@@ -1,7 +1,6 @@
 package com.analysis.data.di
 
 import com.analysis.data.repository.HistoryRepositoryImpl
-import com.analysis.data.source.HistoryDataSource
 import com.analysis.domain.repository.HistoryRepository
 import dagger.Binds
 import dagger.Module
