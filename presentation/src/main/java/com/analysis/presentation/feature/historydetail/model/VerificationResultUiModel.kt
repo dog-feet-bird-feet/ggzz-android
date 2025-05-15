@@ -6,7 +6,7 @@ import java.time.LocalDateTime
 data class VerificationResultUiModel(
     val title: String,
     val imageUrl: String,
-    val createdAt: LocalDateTime,
+    val createdAt: String,
     val indicators: List<VerificationIndicator>,
 )
 

@@ -30,8 +30,6 @@ import com.analysis.presentation.model.DropMenuItem
 import com.analysis.presentation.theme.Black
 import com.analysis.presentation.theme.GgzzTheme
 import com.analysis.presentation.theme.White
-import com.analysis.presentation.util.toFormattedString
-import java.time.LocalDateTime
 
 @Composable
 fun HistoryItemCard(
@@ -68,7 +66,7 @@ fun HistoryItemCard(
                 Spacer(modifier = Modifier.height(8.dp))
 
                 Text(
-                    text = history.createdAt.toFormattedString(),
+                    text = history.createdAt,
                     style = GgzzTheme.typography.pretendardRegular12.copy(color = Black),
                 )
             }
@@ -108,7 +106,7 @@ fun HistoryItemCardPreview() {
     val history = History(
         id = "01JRSYFFCD6R6C88JJFA0JTZPB",
         title = "테스트 결과",
-        createdAt = LocalDateTime.now(),
+        createdAt = "2025.05.07 04:23",
         verificationImgUrl = "https://images.unsplash.com/photo-1742240867115-7a2f22a5b93b?" +
             "q=80&w=3270&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDF8MHxwaG90by1wYWdlf" +
             "Hx8fGVufDB8fHx8fA%3D%3D",

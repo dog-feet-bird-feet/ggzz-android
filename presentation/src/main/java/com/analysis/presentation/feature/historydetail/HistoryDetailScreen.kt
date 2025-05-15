@@ -37,8 +37,6 @@ import com.analysis.presentation.theme.GgzzTheme
 import com.analysis.presentation.theme.Gray100
 import com.analysis.presentation.theme.Gray900
 import com.analysis.presentation.theme.White
-import com.analysis.presentation.util.toFormattedString
-import java.time.LocalDateTime
 
 @Composable
 fun HistoryDetailScreen(
@@ -49,7 +47,7 @@ fun HistoryDetailScreen(
     val uiModel = AnalysisResult(
         id = "1",
         title = "A필기체 검증 기록",
-        createdAt = LocalDateTime.now(),
+        createdAt = "2025.05.07 04:23",
         similarity = 71.1f,
         pressure = 51.1f,
         inclination = 21.1f,
@@ -76,7 +74,7 @@ fun HistoryDetailScreen(
                 actions = {
                     Text(
                         modifier = Modifier.padding(end = 20.dp),
-                        text = uiModel.createdAt.toFormattedString(),
+                        text = uiModel.createdAt,
                         style = GgzzTheme.typography.pretendardRegular12.copy(color = Black),
                     )
                 },
@@ -150,7 +148,7 @@ fun HistoryDetailScreenContentPreview(modifier: Modifier = Modifier) {
     val uiModel = AnalysisResult(
         id = "1",
         title = "A필기체 검증 기록",
-        createdAt = LocalDateTime.now(),
+        createdAt = "2025.05.07 04:23",
         similarity = 71.1f,
         pressure = 51.1f,
         inclination = 21.1f,

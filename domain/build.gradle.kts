@@ -12,6 +12,9 @@ dependencies {
     // di
     implementation(libs.javax.inject)
 
+    // coroutines
+    implementation(libs.kotlinx.coroutines.core)
+
     // unit test
     testImplementation(libs.assertj.core)
     testImplementation(libs.junit.jupiter.api)
