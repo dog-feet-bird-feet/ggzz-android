@@ -43,7 +43,7 @@ internal fun HistoryScreen(
     Scaffold(
         topBar = {
             GgzzTopAppBar(
-                title = stringResource(R.string.home_top_app_bar_title),
+                title = stringResource(R.string.history_top_app_bar_title),
             )
         },
         containerColor = Gray100,
