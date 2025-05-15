@@ -15,21 +15,20 @@ private const val GGZZ_DATA_STORE_NAME = "ggzz_data_store"
 private val Context.dataStore: DataStore<Preferences> by preferencesDataStore(name = GGZZ_DATA_STORE_NAME)
 
 class GgzzDataStore
-@Inject
-constructor(
-    @ApplicationContext private val context: Context,
-) {
-    val userAccessToken: Flow<String?> = context.dataStore.data
-        .map { preferences -> preferences[USER_ACCESS_TOKEN] }
+    @Inject
+    constructor(
+        @ApplicationContext private val context: Context,
+    ) {
+        val userAccessToken: Flow<String?> = context.dataStore.data
+            .map { preferences -> preferences[USER_ACCESS_TOKEN] }
 
+        suspend fun setAccessToken(accessToken: String) {
+            context.dataStore.edit { preferences ->
+                preferences[USER_ACCESS_TOKEN] = accessToken
+            }
+        }
 
-    suspend fun setAccessToken(accessToken: String) {
-        context.dataStore.edit { preferences ->
-            preferences[USER_ACCESS_TOKEN] = accessToken
+        companion object {
+            private val USER_ACCESS_TOKEN = stringPreferencesKey("user_access_token")
         }
     }
-
-    companion object {
-        private val USER_ACCESS_TOKEN = stringPreferencesKey("user_access_token")
-    }
-}

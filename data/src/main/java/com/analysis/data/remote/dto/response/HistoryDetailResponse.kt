@@ -15,12 +15,13 @@ data class HistoryDetailResponse(
     @SerialName("createdAt") val createdAt: String,
 )
 
-fun HistoryDetailResponse.toAnalysisResult() = AnalysisResult(
-    id = this.id,
-    title = this.title,
-    similarity = this.similarity,
-    pressure = this.pressure,
-    inclination = this.inclination,
-    verificationImgUrl = this.verificationImgUrl,
-    createdAt = this.createdAt
-)
+fun HistoryDetailResponse.toAnalysisResult() =
+    AnalysisResult(
+        id = this.id,
+        title = this.title,
+        similarity = this.similarity,
+        pressure = this.pressure,
+        inclination = this.inclination,
+        verificationImgUrl = this.verificationImgUrl,
+        createdAt = this.createdAt,
+    )

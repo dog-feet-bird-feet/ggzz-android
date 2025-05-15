@@ -56,7 +56,7 @@ fun HistoryDetailScreen(
         HistoryDetailUiState.Loading -> HistoryDetailScreenLoading(onClickNavigation)
         is HistoryDetailUiState.HistoryDetail -> HistoryDetailScreenLoaded(
             historyDetailUiState as HistoryDetailUiState.HistoryDetail,
-            onClickNavigation
+            onClickNavigation,
         )
     }
 }
@@ -86,7 +86,7 @@ private fun HistoryDetailScreenLoading(onClickNavigation: () -> Unit) {
                 .padding(innerPadding)
                 .fillMaxWidth()
                 .height(112.dp),
-            contentAlignment = Alignment.Center
+            contentAlignment = Alignment.Center,
         ) {
             CircularProgressIndicator(
                 color = GgzzTheme.colorScheme.primary,
@@ -197,12 +197,12 @@ fun HistoryDetailScreenContentPreview(modifier: Modifier = Modifier) {
         pressure = 51.1f,
         inclination = 21.1f,
         verificationImgUrl = "https://images.unsplash.com/photo-1742240867115" +
-                "-7a2f22a5b93b?q=80&w=3270&auto=format&fit=crop&ixlib=rb-4.0.3&ixi" +
-                "d=M3wxMjA3fDF8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+            "-7a2f22a5b93b?q=80&w=3270&auto=format&fit=crop&ixlib=rb-4.0.3&ixi" +
+            "d=M3wxMjA3fDF8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
     ).toHistoryDetailUiState()
 
     HistoryDetailScreenLoaded(
         uiModel as HistoryDetailUiState.HistoryDetail,
-        {}
+        {},
     )
 }

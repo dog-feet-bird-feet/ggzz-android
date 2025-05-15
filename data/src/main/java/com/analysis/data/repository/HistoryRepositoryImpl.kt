@@ -11,24 +11,29 @@ import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
 import javax.inject.Inject
 
-class HistoryRepositoryImpl @Inject constructor(
-    private val historyDataSource: HistoryDataSource,
-) : HistoryRepository {
-    override fun fetchHistories(): Flow<List<History>> {
-        return historyDataSource.fetchHistories().map {
-            it.map { it.toHistory() }
+class HistoryRepositoryImpl
+    @Inject
+    constructor(
+        private val historyDataSource: HistoryDataSource,
+    ) : HistoryRepository {
+        override fun fetchHistories(): Flow<List<History>> {
+            return historyDataSource.fetchHistories().map {
+                it.map { it.toHistory() }
+            }
+        }
+
+        override fun fetchHistoryDetail(id: String): Flow<AnalysisResult> {
+            return historyDataSource.fetchHistoryDetail(id).map { it.toAnalysisResult() }
+        }
+
+        override fun modifyHistoryTitle(
+            id: String,
+            title: String,
+        ): Flow<Unit> {
+            return historyDataSource.modifyHistoryTitle(id, HistoryRequest(title))
+        }
+
+        override fun removeHistory(id: String): Flow<Unit> {
+            return historyDataSource.removeHistory(id)
         }
     }
-
-    override fun fetchHistoryDetail(id: String): Flow<AnalysisResult> {
-        return historyDataSource.fetchHistoryDetail(id).map { it.toAnalysisResult() }
-    }
-
-    override fun modifyHistoryTitle(id: String, title: String): Flow<Unit> {
-        return historyDataSource.modifyHistoryTitle(id, HistoryRequest(title))
-    }
-
-    override fun removeHistory(id: String): Flow<Unit> {
-        return historyDataSource.removeHistory(id)
-    }
-}

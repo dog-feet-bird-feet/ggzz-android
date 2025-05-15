@@ -51,8 +51,9 @@ internal fun HomeScreen(
                 R.drawable.ic_home_how_to_use,
                 R.string.home_how_to_use_title,
                 R.string.home_how_to_use_description,
-            ){
-                val intent = Intent(Intent.ACTION_VIEW, Uri.parse("https://positive-printer-b18.notion.site/1f456972e71080e49ce1cc2b49ae2415?pvs=4"))
+            ) {
+                val intent =
+                    Intent(Intent.ACTION_VIEW, Uri.parse("https://positive-printer-b18.notion.site/1f456972e71080e49ce1cc2b49ae2415?pvs=4"))
                 context.startActivity(intent)
             }
             Spacer(modifier = Modifier.height(24.dp))

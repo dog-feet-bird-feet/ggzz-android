@@ -13,7 +13,6 @@ import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.Text
-import androidx.compose.material3.TextField
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -50,11 +49,11 @@ fun HistoryItemCard(
 
     Card(
         modifier =
-        Modifier
-            .fillMaxWidth()
-            .clickable(
-                onClick = { onHistoryClick(history.id) },
-            ),
+            Modifier
+                .fillMaxWidth()
+                .clickable(
+                    onClick = { onHistoryClick(history.id) },
+                ),
         colors = CardDefaults.cardColors().copy(containerColor = White),
         shape = RoundedCornerShape(4.dp),
     ) {
@@ -74,7 +73,6 @@ fun HistoryItemCard(
                     text = history.title,
                     style = GgzzTheme.typography.pretendardSemiBold14.copy(color = Black),
                 )
-
 
                 Spacer(modifier = Modifier.height(8.dp))
 
@@ -116,7 +114,6 @@ fun HistoryItemCard(
         }
     }
 
-
     GgzzAlertDialog(
         "제목 수정하기",
         history.title,
@@ -124,7 +121,7 @@ fun HistoryItemCard(
         { showModifyDialog = false },
         { newTitle ->
             onModifyHistoryTitle(history.id, newTitle)
-        }
+        },
     )
 }
 
@@ -136,8 +133,8 @@ fun HistoryItemCardPreview() {
         title = "테스트 결과",
         createdAt = "2025.05.07 04:23",
         verificationImgUrl = "https://images.unsplash.com/photo-1742240867115-7a2f22a5b93b?" +
-                "q=80&w=3270&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDF8MHxwaG90by1wYWdlf" +
-                "Hx8fGVufDB8fHx8fA%3D%3D",
+            "q=80&w=3270&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDF8MHxwaG90by1wYWdlf" +
+            "Hx8fGVufDB8fHx8fA%3D%3D",
     )
 
     val tmp: (String, String) -> Unit = { a, b -> }
@@ -147,7 +144,7 @@ fun HistoryItemCardPreview() {
             history = history,
             onHistoryClick = {},
             tmp,
-            {}
+            {},
         )
     }
 }

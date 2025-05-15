@@ -15,13 +15,11 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
-import com.analysis.domain.model.History
 import com.analysis.presentation.R
 import com.analysis.presentation.component.GgzzTopAppBar
 import com.analysis.presentation.feature.history.component.HistoryItemCard
 import com.analysis.presentation.theme.Gray100
 import kotlinx.coroutines.flow.collectLatest
-import java.time.LocalDateTime
 
 @Composable
 internal fun HistoryScreen(
@@ -67,7 +65,7 @@ internal fun HistoryScreen(
                     { id, newTitle ->
                         viewModel.modifyHistoryTitle(id, newTitle)
                     },
-                    { viewModel.removeHistory(it) }
+                    { viewModel.removeHistory(it) },
                 )
             }
 

@@ -12,9 +12,10 @@ data class HistoryResponse(
     @SerialName("verificationImgUrl") val verificationImgUrl: String,
 )
 
-fun HistoryResponse.toHistory() = History(
-    id = this.id,
-    title = this.title,
-    createdAt = this.createdAt,
-    verificationImgUrl = this.verificationImgUrl
-)
+fun HistoryResponse.toHistory() =
+    History(
+        id = this.id,
+        title = this.title,
+        createdAt = this.createdAt,
+        verificationImgUrl = this.verificationImgUrl,
+    )

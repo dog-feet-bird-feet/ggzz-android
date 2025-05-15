@@ -61,7 +61,7 @@ fun VerificationResultDetailItemCard(verificationIndicator: VerificationIndicato
                 )
 
                 Text(
-                    text = stringResource(R.string.percent, (verificationIndicator.percentage*100).toInt()),
+                    text = stringResource(R.string.percent, (verificationIndicator.percentage * 100).toInt()),
                     style = GgzzTheme.typography.pretendardSemiBold30.copy(color = Blue300),
                 )
             }

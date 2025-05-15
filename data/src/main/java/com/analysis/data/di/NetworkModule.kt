@@ -27,9 +27,7 @@ object NetworkModule {
 
     @Provides
     @Singleton
-    fun provideOkHttpClient(
-        interceptor: GgzzInterceptor,
-    ): OkHttpClient =
+    fun provideOkHttpClient(interceptor: GgzzInterceptor): OkHttpClient =
         OkHttpClient.Builder()
             .addInterceptor(interceptor)
             .build()
@@ -50,6 +48,5 @@ object NetworkModule {
 
     @Provides
     @Singleton
-    fun provideHistoryApiService(retrofit: Retrofit): HistoryApiService =
-        retrofit.create(HistoryApiService::class.java)
+    fun provideHistoryApiService(retrofit: Retrofit): HistoryApiService = retrofit.create(HistoryApiService::class.java)
 }

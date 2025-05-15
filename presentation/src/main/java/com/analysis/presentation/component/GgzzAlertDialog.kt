@@ -44,8 +44,8 @@ fun GgzzAlertDialog(
                     colors = TextFieldDefaults.colors(
                         unfocusedContainerColor = White,
                         focusedContainerColor = White,
-                        disabledContainerColor = White
-                    )
+                        disabledContainerColor = White,
+                    ),
                 )
             },
             confirmButton = {
@@ -53,7 +53,7 @@ fun GgzzAlertDialog(
                     onClick = {
                         onClickConfirm(newText)
                         onDismissRequest(false)
-                    }
+                    },
                 ) {
                     Text(
                         "확인",
@@ -71,11 +71,10 @@ fun GgzzAlertDialog(
                     )
                 }
             },
-            containerColor = White
+            containerColor = White,
         )
     }
 }
-
 
 @Composable
 @Preview(showBackground = true)
@@ -85,6 +84,6 @@ fun GgzzAlertDialogPreview(modifier: Modifier = Modifier) {
         "Test1234",
         true,
         {},
-        {}
+        {},
     )
 }

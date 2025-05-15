@@ -4,7 +4,6 @@ import androidx.navigation.NavController
 import androidx.navigation.NavGraphBuilder
 import androidx.navigation.NavOptions
 import androidx.navigation.compose.composable
-import androidx.navigation.toRoute
 import com.analysis.presentation.feature.historydetail.HistoryDetailScreen
 import com.analysis.presentation.navigation.NavRoute
 
