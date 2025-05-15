@@ -40,17 +40,7 @@ internal fun HistoryScreen(
         }
     }
 
-//    val histories by viewModel.histories.collectAsStateWithLifecycle()
-    val histories = (1..20).map {
-        History(
-            id = it.toString(),
-            title = "테스트 결과",
-            createdAt = "2025.05.07 04:23",
-            verificationImgUrl = "https://images.unsplash.com/photo-1742240867115" +
-                    "-7a2f22a5b93b?q=80&w=3270&auto=format&fit=crop&ixlib=rb-4.0.3&ixi" +
-                    "d=M3wxMjA3fDF8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
-        )
-    }
+    val histories by viewModel.histories.collectAsStateWithLifecycle()
 
     Scaffold(
         topBar = {

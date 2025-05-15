@@ -2,6 +2,7 @@ package com.analysis.presentation.feature.historydetail
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
@@ -11,12 +12,14 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.layout.ContentScale
@@ -33,8 +36,8 @@ import com.analysis.domain.model.AnalysisResult
 import com.analysis.presentation.R
 import com.analysis.presentation.component.GgzzTopAppBar
 import com.analysis.presentation.feature.historydetail.component.VerificationResultDetailItemCard
-import com.analysis.presentation.feature.historydetail.model.VerificationResultUiModel
-import com.analysis.presentation.feature.historydetail.model.toVerificationResultUiModel
+import com.analysis.presentation.feature.historydetail.model.HistoryDetailUiState
+import com.analysis.presentation.feature.historydetail.model.toHistoryDetailUiState
 import com.analysis.presentation.theme.Black
 import com.analysis.presentation.theme.GgzzTheme
 import com.analysis.presentation.theme.Gray100
@@ -47,26 +50,62 @@ fun HistoryDetailScreen(
     onClickNavigation: () -> Unit,
     viewModel: HistoryDetailViewModel = hiltViewModel(),
 ) {
-    val historyDetail by viewModel.history.collectAsStateWithLifecycle()
-//    val uiModel = historyDetail?.toVerificationResultUiModel() ?: throw IllegalArgumentException()
-    val uiModel = AnalysisResult(
-        id = "1",
-        title = "A필기체 검증 기록",
-        createdAt = "2025.05.07 04:23",
-        similarity = 71.1f,
-        pressure = 51.1f,
-        inclination = 21.1f,
-        verificationImgUrl = "https://images.unsplash.com/photo-1742240867115" +
-                "-7a2f22a5b93b?q=80&w=3270&auto=format&fit=crop&ixlib=rb-4.0.3&ixi" +
-                "d=M3wxMjA3fDF8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
-    ).toVerificationResultUiModel()
+    val historyDetailUiState by viewModel.history.collectAsStateWithLifecycle()
 
+    when (historyDetailUiState) {
+        HistoryDetailUiState.Loading -> HistoryDetailScreenLoading(onClickNavigation)
+        is HistoryDetailUiState.HistoryDetail -> HistoryDetailScreenLoaded(
+            historyDetailUiState as HistoryDetailUiState.HistoryDetail,
+            onClickNavigation
+        )
+    }
+}
+
+@Composable
+private fun HistoryDetailScreenLoading(onClickNavigation: () -> Unit) {
     Scaffold(
         modifier = Modifier
             .fillMaxSize(),
         topBar = {
             GgzzTopAppBar(
-                title = uiModel.title,
+                title = "",
+                navigationIcon = {
+                    IconButton(onClick = onClickNavigation) {
+                        Image(
+                            painter = painterResource(R.drawable.ic_arrow_back),
+                            contentDescription = null,
+                        )
+                    }
+                },
+            )
+        },
+        containerColor = Gray100,
+    ) { innerPadding ->
+        Box(
+            modifier = Modifier
+                .padding(innerPadding)
+                .fillMaxWidth()
+                .height(112.dp),
+            contentAlignment = Alignment.Center
+        ) {
+            CircularProgressIndicator(
+                color = GgzzTheme.colorScheme.primary,
+            )
+        }
+    }
+}
+
+@Composable
+private fun HistoryDetailScreenLoaded(
+    historyDetailUiState: HistoryDetailUiState.HistoryDetail,
+    onClickNavigation: () -> Unit,
+) {
+    Scaffold(
+        modifier = Modifier
+            .fillMaxSize(),
+        topBar = {
+            GgzzTopAppBar(
+                title = historyDetailUiState.title,
                 textStyle = GgzzTheme.typography.pretendardRegular18.copy(color = Gray900),
                 navigationIcon = {
                     IconButton(onClick = onClickNavigation) {
@@ -79,7 +118,7 @@ fun HistoryDetailScreen(
                 actions = {
                     Text(
                         modifier = Modifier.padding(end = 20.dp),
-                        text = uiModel.createdAt,
+                        text = historyDetailUiState.createdAt,
                         style = GgzzTheme.typography.pretendardRegular12.copy(color = Black),
                     )
                 },
@@ -88,7 +127,7 @@ fun HistoryDetailScreen(
         containerColor = Gray100,
     ) { innerPadding ->
         HistoryDetailScreenContent(
-            uiModel = uiModel,
+            historyDetailUiState = historyDetailUiState,
             modifier = Modifier.padding(innerPadding),
         )
     }
@@ -96,7 +135,7 @@ fun HistoryDetailScreen(
 
 @Composable
 private fun HistoryDetailScreenContent(
-    uiModel: VerificationResultUiModel,
+    historyDetailUiState: HistoryDetailUiState.HistoryDetail,
     modifier: Modifier = Modifier,
 ) {
     Surface(
@@ -112,7 +151,7 @@ private fun HistoryDetailScreenContent(
             Spacer(modifier = Modifier.height(20.dp))
             AsyncImage(
                 model = ImageRequest.Builder(LocalContext.current)
-                    .data(uiModel.imageUrl)
+                    .data(historyDetailUiState.verificationImgUrl)
                     .crossfade(true)
                     .build(),
                 contentDescription = null,
@@ -132,7 +171,7 @@ private fun HistoryDetailScreenContent(
                 verticalArrangement = Arrangement.spacedBy(30.dp),
             ) {
                 items(
-                    items = uiModel.indicators,
+                    items = historyDetailUiState.indicators,
                 ) {
                     VerificationResultDetailItemCard(
                         verificationIndicator = it,
@@ -160,7 +199,10 @@ fun HistoryDetailScreenContentPreview(modifier: Modifier = Modifier) {
         verificationImgUrl = "https://images.unsplash.com/photo-1742240867115" +
                 "-7a2f22a5b93b?q=80&w=3270&auto=format&fit=crop&ixlib=rb-4.0.3&ixi" +
                 "d=M3wxMjA3fDF8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
-    ).toVerificationResultUiModel()
+    ).toHistoryDetailUiState()
 
-    HistoryDetailScreenContent(uiModel)
+    HistoryDetailScreenLoaded(
+        uiModel as HistoryDetailUiState.HistoryDetail,
+        {}
+    )
 }

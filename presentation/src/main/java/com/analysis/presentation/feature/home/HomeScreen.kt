@@ -1,5 +1,7 @@
 package com.analysis.presentation.feature.home
 
+import android.content.Intent
+import android.net.Uri
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
@@ -8,6 +10,7 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
@@ -21,6 +24,8 @@ internal fun HomeScreen(
     navigateToAnalysis: () -> Unit,
     navigateToHistory: () -> Unit,
 ) {
+    val context = LocalContext.current
+
     Scaffold(
         topBar = {
             GgzzTopAppBar(
@@ -46,7 +51,10 @@ internal fun HomeScreen(
                 R.drawable.ic_home_how_to_use,
                 R.string.home_how_to_use_title,
                 R.string.home_how_to_use_description,
-            )
+            ){
+                val intent = Intent(Intent.ACTION_VIEW, Uri.parse("https://positive-printer-b18.notion.site/1f456972e71080e49ce1cc2b49ae2415?pvs=4"))
+                context.startActivity(intent)
+            }
             Spacer(modifier = Modifier.height(24.dp))
             HomeMenuCard(
                 R.drawable.ic_home_history,

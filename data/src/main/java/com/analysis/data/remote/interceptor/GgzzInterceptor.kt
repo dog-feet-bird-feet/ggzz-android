@@ -2,33 +2,24 @@ package com.analysis.data.remote.interceptor
 
 import com.analysis.data.BuildConfig
 import com.analysis.data.local.GgzzDataStore
-import okhttp3.Authenticator
-import okhttp3.Request
+import okhttp3.Interceptor
 import okhttp3.Response
-import okhttp3.Route
 import javax.inject.Inject
 
 class GgzzInterceptor @Inject constructor(
     private val ggzzDataStore: GgzzDataStore,
-) : Authenticator {
-    override fun authenticate(
-        route: Route?,
-        response: Response,
-    ): Request? {
-        if (response.request.header(AUTHORIZATION_HEADER) != null) {
-            return null
-        }
+) : Interceptor {
 
-//        val accessToken = ggzzDataStore.userAccessToken
-        val accessToken = BuildConfig.TEST_TOKEN
-
-        return response.request.newBuilder()
-            .header(AUTHORIZATION_HEADER, "$TOKEN_PREFIX$accessToken")
+    override fun intercept(chain: Interceptor.Chain): Response {
+        val accessToken = BuildConfig.TEST_TOKEN // or ggzzDataStore.userAccessToken
+        val newReq = chain.request().newBuilder()
+            .addHeader(AUTHORIZATION_HEADER, "$TOKEN_PREFIX $accessToken")
             .build()
+        return chain.proceed(newReq)
     }
 
     companion object {
         private const val AUTHORIZATION_HEADER = "Authorization"
-        private const val TOKEN_PREFIX = "Bearer "
+        private const val TOKEN_PREFIX = "Bearer"
     }
 }

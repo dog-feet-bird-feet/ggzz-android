@@ -31,7 +31,7 @@ object NetworkModule {
         interceptor: GgzzInterceptor,
     ): OkHttpClient =
         OkHttpClient.Builder()
-            .authenticator(interceptor)
+            .addInterceptor(interceptor)
             .build()
 
     @Provides

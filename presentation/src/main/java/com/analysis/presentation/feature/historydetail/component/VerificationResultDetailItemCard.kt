@@ -61,7 +61,7 @@ fun VerificationResultDetailItemCard(verificationIndicator: VerificationIndicato
                 )
 
                 Text(
-                    text = stringResource(R.string.percent, verificationIndicator.percentage.toInt()),
+                    text = stringResource(R.string.percent, (verificationIndicator.percentage*100).toInt()),
                     style = GgzzTheme.typography.pretendardSemiBold30.copy(color = Blue300),
                 )
             }
@@ -77,7 +77,7 @@ fun VerificationResultDetailItemCard(verificationIndicator: VerificationIndicato
 
             GgzzLinearProgressIndicator(
                 modifier = Modifier.fillMaxWidth(),
-                progress = verificationIndicator.percentage / 100,
+                progress = verificationIndicator.percentage,
                 progressColor = verificationIndicator.progressColor,
                 backgroundColor = Gray200,
             )
@@ -93,7 +93,7 @@ fun VerificationResultDetailItemCardPreview(modifier: Modifier = Modifier) {
     Column(
         modifier = Modifier.fillMaxSize(),
     ) {
-        val uiModel = VerificationIndicator.Similarity(43.2f)
+        val uiModel = VerificationIndicator.Similarity(0.43f)
         VerificationResultDetailItemCard(uiModel)
     }
 }

@@ -6,6 +6,8 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.analysis.domain.model.AnalysisResult
 import com.analysis.domain.usecase.FetchHistoryDetailUseCase
+import com.analysis.presentation.feature.historydetail.model.HistoryDetailUiState
+import com.analysis.presentation.feature.historydetail.model.toHistoryDetailUiState
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
@@ -21,23 +23,21 @@ class HistoryDetailViewModel @Inject constructor(
 ) : ViewModel() {
     private val id = requireNotNull(savedStateHandle.get<String>("historyId"))
 
-    private val _history = MutableStateFlow<AnalysisResult?>(null)
-    val history: StateFlow<AnalysisResult?> = _history.asStateFlow()
+    private val _history = MutableStateFlow<HistoryDetailUiState>(HistoryDetailUiState.Loading)
+    val history: StateFlow<HistoryDetailUiState> = _history.asStateFlow()
 
 
     init {
-        Log.e("seogi", id)
-//        fetchHistoryDetail()
+        fetchHistoryDetail()
     }
 
     private fun fetchHistoryDetail() {
         viewModelScope.launch {
             fetchHistoryDetailUseCase(id).catch {
-                // 에러 핸들링 필요
+                Log.e("seogi","HistoryViewModel: ${it.message}")
             }.collect {
-                _history.emit(it)
+                _history.emit(it.toHistoryDetailUiState())
             }
         }
     }
-
 }
