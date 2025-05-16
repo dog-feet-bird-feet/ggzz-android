@@ -1,7 +1,9 @@
 package com.analysis.data.di
 
 import com.analysis.data.BuildConfig
+import com.analysis.data.remote.api.AnalysisApiService
 import com.analysis.data.remote.api.HistoryApiService
+import com.analysis.data.remote.api.UploadApiService
 import com.analysis.data.remote.interceptor.GgzzInterceptor
 import com.jakewharton.retrofit2.converter.kotlinx.serialization.asConverterFactory
 import dagger.Module
@@ -49,4 +51,12 @@ object NetworkModule {
     @Provides
     @Singleton
     fun provideHistoryApiService(retrofit: Retrofit): HistoryApiService = retrofit.create(HistoryApiService::class.java)
+
+    @Provides
+    @Singleton
+    fun provideUploadApiService(retrofit: Retrofit): UploadApiService = retrofit.create(UploadApiService::class.java)
+
+    @Provides
+    @Singleton
+    fun provideAnalysisApiService(retrofit: Retrofit): AnalysisApiService = retrofit.create(AnalysisApiService::class.java)
 }

@@ -16,6 +16,6 @@ interface UploadApiService {
     @Multipart
     @POST("/api/v1/s3/upload/verification")
     suspend fun postVerification(
-        @Part("verification-file") images: MultipartBody.Part,
+        @Part("verification-file") image: MultipartBody.Part,
     ): Response<String>
 }
