@@ -1,10 +1,10 @@
 package com.analysis.data.repository
 
 import com.analysis.data.remote.dto.request.HistoryRequest
-import com.analysis.data.remote.dto.response.toAnalysisResult
+import com.analysis.data.remote.dto.response.toHistoryDetail
 import com.analysis.data.remote.dto.response.toHistory
 import com.analysis.data.source.HistoryDataSource
-import com.analysis.domain.model.AnalysisResult
+import com.analysis.domain.model.HistoryDetail
 import com.analysis.domain.model.History
 import com.analysis.domain.repository.HistoryRepository
 import kotlinx.coroutines.flow.Flow
@@ -22,8 +22,8 @@ class HistoryRepositoryImpl
             }
         }
 
-        override fun fetchHistoryDetail(id: String): Flow<AnalysisResult> {
-            return historyDataSource.fetchHistoryDetail(id).map { it.toAnalysisResult() }
+        override fun fetchHistoryDetail(id: String): Flow<HistoryDetail> {
+            return historyDataSource.fetchHistoryDetail(id).map { it.toHistoryDetail() }
         }
 
         override fun modifyHistoryTitle(

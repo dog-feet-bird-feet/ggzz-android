@@ -1,6 +1,6 @@
 package com.analysis.data.remote.dto.response
 
-import com.analysis.domain.model.AnalysisResult
+import com.analysis.domain.model.HistoryDetail
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
@@ -15,8 +15,8 @@ data class HistoryDetailResponse(
     @SerialName("createdAt") val createdAt: String,
 )
 
-fun HistoryDetailResponse.toAnalysisResult() =
-    AnalysisResult(
+fun HistoryDetailResponse.toHistoryDetail() =
+    HistoryDetail(
         id = this.id,
         title = this.title,
         similarity = this.similarity,

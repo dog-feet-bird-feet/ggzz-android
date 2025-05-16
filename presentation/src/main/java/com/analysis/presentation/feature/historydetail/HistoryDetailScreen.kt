@@ -32,7 +32,7 @@ import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import coil3.compose.AsyncImage
 import coil3.request.ImageRequest
 import coil3.request.crossfade
-import com.analysis.domain.model.AnalysisResult
+import com.analysis.domain.model.HistoryDetail
 import com.analysis.presentation.R
 import com.analysis.presentation.component.GgzzTopAppBar
 import com.analysis.presentation.feature.historydetail.component.VerificationResultDetailItemCard
@@ -189,7 +189,7 @@ private fun HistoryDetailScreenContent(
 @Composable
 @Preview(showBackground = true, showSystemUi = true)
 fun HistoryDetailScreenContentPreview(modifier: Modifier = Modifier) {
-    val uiModel = AnalysisResult(
+    val uiModel = HistoryDetail(
         id = "1",
         title = "A필기체 검증 기록",
         createdAt = "2025.05.07 04:23",

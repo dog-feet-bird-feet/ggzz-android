@@ -1,6 +1,6 @@
 package com.analysis.domain.model
 
-data class AnalysisResult(
+data class HistoryDetail(
     val id: String,
     val title: String,
     val similarity: Float,
