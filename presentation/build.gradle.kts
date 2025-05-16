@@ -96,6 +96,4 @@ dependencies {
     testImplementation(libs.androidx.ui.test.junit4)
     testImplementation(libs.androidx.ui.test.manifest)
     testImplementation(libs.androidx.navigation.testing)
-
-
 }
