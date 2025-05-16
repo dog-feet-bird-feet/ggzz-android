@@ -1,5 +1,6 @@
 package com.analysis.data.remote.dto.response
 
+import com.analysis.domain.model.AnalysisResult
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
@@ -10,4 +11,12 @@ data class AnalysisResponse(
     @SerialName("inclination") val inclination: Float,
     @SerialName("verificationImgUrl") val verificationImgUrl: String,
     @SerialName("createdAt") val createdAt: String,
+)
+
+fun AnalysisResponse.toAnalysisResult() = AnalysisResult(
+    similarity = similarity,
+    pressure = pressure,
+    inclination = inclination,
+    verificationImgUrl = verificationImgUrl,
+    createdAt = createdAt
 )
