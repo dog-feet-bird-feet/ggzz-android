@@ -4,7 +4,7 @@ import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
 @Serializable
-data class AnalysisRequest(
+data class AppraisalRequest(
     @SerialName("verificationImageUrl") val verificationImageUrl: String,
     @SerialName("comparisonImageUrls") val comparisonImageUrls: List<String>,
 )

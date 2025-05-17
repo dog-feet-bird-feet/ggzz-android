@@ -7,13 +7,13 @@ import com.analysis.presentation.theme.Green400
 import com.analysis.presentation.theme.Red400
 import com.analysis.presentation.theme.Yellow400
 
-sealed class VerificationIndicator(
+sealed class HistoryDetailResultIndicator(
     @StringRes val title: Int,
     val percentage: Float,
     val description: String,
     val progressColor: Color,
 ) {
-    class Similarity(score: Float) : VerificationIndicator(
+    class Similarity(score: Float) : HistoryDetailResultIndicator(
         title = R.string.history_detail_similarity,
         percentage = score,
         description = when {
@@ -24,7 +24,7 @@ sealed class VerificationIndicator(
         progressColor = Green400,
     )
 
-    class Pressure(score: Float) : VerificationIndicator(
+    class Pressure(score: Float) : HistoryDetailResultIndicator(
         title = R.string.history_detail_pressure,
         percentage = score,
         description = when {
@@ -35,7 +35,7 @@ sealed class VerificationIndicator(
         progressColor = Red400,
     )
 
-    class Inclination(score: Float) : VerificationIndicator(
+    class Inclination(score: Float) : HistoryDetailResultIndicator(
         title = R.string.history_detail_inclination,
         percentage = score,
         description = when {

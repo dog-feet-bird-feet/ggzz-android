@@ -1,10 +1,12 @@
-package com.analysis.presentation.feature.historydetail.model
+package com.analysis.presentation.feature.verify.model
 
-import androidx.compose.runtime.Immutable
 import androidx.compose.runtime.Stable
-import com.analysis.domain.model.HistoryDetail
 
 @Stable
+sealed interface VerificationResultUiModel {
+}
+
+/*@Stable
 sealed interface HistoryDetailUiState {
     @Immutable
     data object Loading : HistoryDetailUiState
@@ -14,7 +16,7 @@ sealed interface HistoryDetailUiState {
         val title: String,
         val verificationImgUrl: String,
         val createdAt: String,
-        val indicators: List<HistoryDetailResultIndicator>,
+        val indicators: List<VerificationIndicator>,
     ) : HistoryDetailUiState
 }
 
@@ -24,8 +26,9 @@ fun HistoryDetail.toHistoryDetailUiState(): HistoryDetailUiState =
         verificationImgUrl = this.verificationImgUrl,
         createdAt = this.createdAt,
         indicators = listOf(
-            HistoryDetailResultIndicator.Similarity(similarity),
-            HistoryDetailResultIndicator.Pressure(pressure),
-            HistoryDetailResultIndicator.Inclination(inclination),
+            VerificationIndicator.Similarity(similarity),
+            VerificationIndicator.Pressure(pressure),
+            VerificationIndicator.Inclination(inclination),
         ),
-    )
+    )*/
+

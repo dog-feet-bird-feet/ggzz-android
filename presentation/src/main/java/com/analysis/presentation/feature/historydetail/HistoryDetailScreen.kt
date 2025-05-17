@@ -35,7 +35,7 @@ import coil3.request.crossfade
 import com.analysis.domain.model.HistoryDetail
 import com.analysis.presentation.R
 import com.analysis.presentation.component.GgzzTopAppBar
-import com.analysis.presentation.feature.historydetail.component.VerificationResultDetailItemCard
+import com.analysis.presentation.component.ResultDetailItemCard
 import com.analysis.presentation.feature.historydetail.model.HistoryDetailUiState
 import com.analysis.presentation.feature.historydetail.model.toHistoryDetailUiState
 import com.analysis.presentation.theme.Black
@@ -173,8 +173,8 @@ private fun HistoryDetailScreenContent(
                 items(
                     items = historyDetailUiState.indicators,
                 ) {
-                    VerificationResultDetailItemCard(
-                        verificationIndicator = it,
+                    ResultDetailItemCard(
+                        historyDetailResultIndicator = it,
                     )
                 }
 

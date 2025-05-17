@@ -7,6 +7,7 @@ import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
@@ -16,6 +17,7 @@ import com.analysis.presentation.R
 import com.analysis.presentation.component.GgzzTopAppBar
 import com.analysis.presentation.feature.verify.component.ComparisonVerifyScreenContent
 import com.analysis.presentation.feature.verify.component.VerificationVerifyScreenContent
+import com.analysis.presentation.feature.verify.model.ImageMultipartUtil
 import com.analysis.presentation.feature.verify.model.UploadState
 import com.analysis.presentation.theme.GgzzTheme
 import com.analysis.presentation.theme.Gray100
@@ -30,6 +32,8 @@ internal fun VerifyScreen(
     val selectedComparisonUris by viewModel.selectedComparisonUris.collectAsStateWithLifecycle()
     val selectedVerificationUri by viewModel.selectedVerificationUri.collectAsStateWithLifecycle()
     val uploadState by viewModel.uploadState.collectAsStateWithLifecycle()
+    val context = LocalContext.current
+    val contentResolver = context.contentResolver
 
     Scaffold(
         modifier = Modifier
@@ -69,7 +73,29 @@ internal fun VerifyScreen(
                     showErrorSnackBar = showErrorSnackBar,
                     selectedVerificationUri = selectedVerificationUri,
                     onClickPreviousButton = { viewModel.changeUploadState() },
-                    onClickNextButton = { },
+                    onClickAnalysisButton = {
+
+                        val comparisonParts = selectedComparisonUris.map { uri ->
+                            ImageMultipartUtil.uriToMultipart(
+                                partName = "comparison-file",
+                                uri = uri,
+                                resolver = contentResolver
+                            )
+                        }
+
+                        val verUri = selectedVerificationUri
+                            ?: throw IllegalStateException("검증물이 선택되지 않았습니다.")
+                        val verificationPart = ImageMultipartUtil.uriToMultipart(
+                            partName = "verification-file",
+                            uri = verUri,
+                            resolver = contentResolver
+                        )
+
+                        viewModel.executeAnalysis(
+                            comparisons = comparisonParts,
+                            verification = verificationPart
+                        )
+                    },
                 )
             }
         }
