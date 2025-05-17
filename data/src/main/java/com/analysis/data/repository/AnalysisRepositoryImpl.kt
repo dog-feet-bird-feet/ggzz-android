@@ -1,6 +1,5 @@
 package com.analysis.data.repository
 
-import android.util.Log
 import com.analysis.data.remote.dto.request.AppraisalRequest
 import com.analysis.data.remote.dto.response.toAnalysisResult
 import com.analysis.data.source.AnalysisDataSource

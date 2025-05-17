@@ -4,4 +4,6 @@ sealed interface UploadState {
     data object ComparisonUploadState : UploadState
 
     data object VerificationUploadState : UploadState
+
+    data object ResultState : UploadState
 }

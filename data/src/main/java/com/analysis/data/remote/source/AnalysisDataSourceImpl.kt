@@ -1,6 +1,5 @@
 package com.analysis.data.remote.source
 
-import android.util.Log
 import com.analysis.data.remote.api.AnalysisApiService
 import com.analysis.data.remote.dto.request.AppraisalRequest
 import com.analysis.data.remote.dto.response.AnalysisResponse
@@ -14,14 +13,8 @@ class AnalysisDataSourceImpl @Inject constructor(
 ) : AnalysisDataSource {
     override fun executeAnalysis(appraisalRequest: AppraisalRequest): Flow<AnalysisResponse> {
         return flow {
-            val res = analysisApiService.postAnalysis(appraisalRequest)
-            Log.e("seogi", "AnalysisDataSource body: ${res.body()}")
-            Log.e("seogi", "AnalysisDataSource code: ${res.code()}")
-            Log.e("seogi", "AnalysisDataSource msg: ${res.message()}")
-            Log.e("seogi", "AnalysisDataSource errBody: ${res.errorBody()?.toString()}")
-
             emit(
-                res.body()
+                analysisApiService.postAnalysis(appraisalRequest).body()
                     ?: throw IllegalArgumentException()
             )
         }

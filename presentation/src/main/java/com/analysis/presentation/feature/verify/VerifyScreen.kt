@@ -16,6 +16,7 @@ import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.analysis.presentation.R
 import com.analysis.presentation.component.GgzzTopAppBar
 import com.analysis.presentation.feature.verify.component.ComparisonVerifyScreenContent
+import com.analysis.presentation.feature.verify.component.ResultScreen
 import com.analysis.presentation.feature.verify.component.VerificationVerifyScreenContent
 import com.analysis.presentation.feature.verify.model.ImageMultipartUtil
 import com.analysis.presentation.feature.verify.model.UploadState
@@ -27,10 +28,12 @@ import com.analysis.presentation.theme.Gray900
 internal fun VerifyScreen(
     showErrorSnackBar: (Throwable) -> Unit,
     onClickNavigation: () -> Unit,
+    onClickHomeButton: () -> Unit,
     viewModel: VerifyViewModel = hiltViewModel(),
 ) {
     val selectedComparisonUris by viewModel.selectedComparisonUris.collectAsStateWithLifecycle()
     val selectedVerificationUri by viewModel.selectedVerificationUri.collectAsStateWithLifecycle()
+    val resultUiState by viewModel.verificationResultUiState.collectAsStateWithLifecycle()
     val uploadState by viewModel.uploadState.collectAsStateWithLifecycle()
     val context = LocalContext.current
     val contentResolver = context.contentResolver
@@ -98,6 +101,12 @@ internal fun VerifyScreen(
                     },
                 )
             }
+
+            UploadState.ResultState -> ResultScreen(
+                innerPadding = innerPadding,
+                resultUiState = resultUiState,
+                onClickHomeButton = { onClickHomeButton() }
+            )
         }
     }
 }
@@ -105,5 +114,5 @@ internal fun VerifyScreen(
 @Composable
 @Preview(showBackground = true)
 fun ComparisonVerifyScreenPreview() {
-    VerifyScreen({}, {})
+    VerifyScreen({}, {}, {})
 }

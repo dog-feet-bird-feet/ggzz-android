@@ -3,6 +3,7 @@ package com.analysis.presentation.feature.historydetail.model
 import androidx.compose.runtime.Immutable
 import androidx.compose.runtime.Stable
 import com.analysis.domain.model.HistoryDetail
+import com.analysis.presentation.model.ResultIndicator
 
 @Stable
 sealed interface HistoryDetailUiState {
@@ -14,7 +15,7 @@ sealed interface HistoryDetailUiState {
         val title: String,
         val verificationImgUrl: String,
         val createdAt: String,
-        val indicators: List<HistoryDetailResultIndicator>,
+        val indicators: List<ResultIndicator>,
     ) : HistoryDetailUiState
 }
 
@@ -24,8 +25,8 @@ fun HistoryDetail.toHistoryDetailUiState(): HistoryDetailUiState =
         verificationImgUrl = this.verificationImgUrl,
         createdAt = this.createdAt,
         indicators = listOf(
-            HistoryDetailResultIndicator.Similarity(similarity),
-            HistoryDetailResultIndicator.Pressure(pressure),
-            HistoryDetailResultIndicator.Inclination(inclination),
+            ResultIndicator.Similarity(similarity),
+            ResultIndicator.Pressure(pressure),
+            ResultIndicator.Inclination(inclination),
         ),
     )

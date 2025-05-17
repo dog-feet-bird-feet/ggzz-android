@@ -10,9 +10,10 @@ import com.analysis.presentation.navigation.NavRoute
 internal fun NavGraphBuilder.comparisonVerifyNavGraph(
     showErrorSnackbar: (Throwable) -> Unit,
     onClickNavigation: () -> Unit,
+    onClickHomeButton: () -> Unit,
 ) {
     composable<NavRoute.ComparisonVerify> {
-        VerifyScreen(showErrorSnackbar, onClickNavigation)
+        VerifyScreen(showErrorSnackbar, onClickNavigation, onClickHomeButton)
     }
 }
 

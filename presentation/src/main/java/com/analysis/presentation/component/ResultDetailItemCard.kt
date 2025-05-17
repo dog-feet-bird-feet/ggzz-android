@@ -19,7 +19,7 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.analysis.presentation.R
-import com.analysis.presentation.feature.historydetail.model.HistoryDetailResultIndicator
+import com.analysis.presentation.model.ResultIndicator
 import com.analysis.presentation.theme.Blue200
 import com.analysis.presentation.theme.Blue300
 import com.analysis.presentation.theme.GgzzTheme
@@ -28,7 +28,7 @@ import com.analysis.presentation.theme.White
 import com.analysis.presentation.util.modifier.dropShadow
 
 @Composable
-fun ResultDetailItemCard(historyDetailResultIndicator: HistoryDetailResultIndicator) {
+fun ResultDetailItemCard(resultIndicator: ResultIndicator) {
     Card(
         modifier = Modifier
             .fillMaxWidth()
@@ -55,12 +55,12 @@ fun ResultDetailItemCard(historyDetailResultIndicator: HistoryDetailResultIndica
             ) {
                 Text(
                     modifier = Modifier.weight(1f),
-                    text = stringResource(historyDetailResultIndicator.title),
+                    text = stringResource(resultIndicator.title),
                     style = GgzzTheme.typography.pretendardBold24.copy(color = Blue300),
                 )
 
                 Text(
-                    text = stringResource(R.string.percent, (historyDetailResultIndicator.percentage * 100).toInt()),
+                    text = stringResource(R.string.percent, (resultIndicator.percentage * 100).toInt()),
                     style = GgzzTheme.typography.pretendardSemiBold30.copy(color = Blue300),
                 )
             }
@@ -68,7 +68,7 @@ fun ResultDetailItemCard(historyDetailResultIndicator: HistoryDetailResultIndica
             Spacer(modifier = Modifier.height(7.dp))
 
             Text(
-                text = historyDetailResultIndicator.description,
+                text = resultIndicator.description,
                 style = GgzzTheme.typography.pretendardMedium16.copy(color = Blue200),
             )
 
@@ -76,8 +76,8 @@ fun ResultDetailItemCard(historyDetailResultIndicator: HistoryDetailResultIndica
 
             GgzzLinearProgressIndicator(
                 modifier = Modifier.fillMaxWidth(),
-                progress = historyDetailResultIndicator.percentage,
-                progressColor = historyDetailResultIndicator.progressColor,
+                progress = resultIndicator.percentage,
+                progressColor = resultIndicator.progressColor,
                 backgroundColor = Gray200,
             )
 
@@ -92,7 +92,7 @@ fun ResultDetailItemCardPreview(modifier: Modifier = Modifier) {
     Column(
         modifier = Modifier.fillMaxSize(),
     ) {
-        val uiModel = HistoryDetailResultIndicator.Similarity(0.43f)
+        val uiModel = ResultIndicator.Similarity(0.43f)
         ResultDetailItemCard(uiModel)
     }
 }

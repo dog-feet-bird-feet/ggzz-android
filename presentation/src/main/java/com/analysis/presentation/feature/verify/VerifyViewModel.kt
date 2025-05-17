@@ -1,12 +1,12 @@
 package com.analysis.presentation.feature.verify
 
 import android.net.Uri
-import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.analysis.domain.model.AnalysisResult
 import com.analysis.domain.usecase.AnalysisUseCase
 import com.analysis.presentation.feature.verify.model.UploadState
+import com.analysis.presentation.feature.verify.model.VerificationResultUiState
+import com.analysis.presentation.feature.verify.model.toVerificationResultUiState
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
@@ -29,8 +29,10 @@ class VerifyViewModel @Inject constructor(
     private val _selectedVerificationUri = MutableStateFlow<Uri?>(null)
     val selectedVerificationUri: StateFlow<Uri?> = _selectedVerificationUri.asStateFlow()
 
-    private val _analysisResult = MutableStateFlow<AnalysisResult?>(null)
-    val analysisResult: StateFlow<AnalysisResult?> = _analysisResult.asStateFlow()
+    private val _verificationResultUiState =
+        MutableStateFlow<VerificationResultUiState>(VerificationResultUiState.Loading)
+    val verificationResultUiState: StateFlow<VerificationResultUiState> =
+        _verificationResultUiState.asStateFlow()
 
     fun changeUploadState() {
         when (_uploadState.value) {
@@ -41,6 +43,9 @@ class VerifyViewModel @Inject constructor(
             UploadState.VerificationUploadState ->
                 _uploadState.value =
                     UploadState.ComparisonUploadState
+
+            UploadState.ResultState ->
+                _uploadState.value = UploadState.ResultState
         }
     }
 
@@ -64,13 +69,13 @@ class VerifyViewModel @Inject constructor(
         comparisons: List<MultipartBody.Part>,
         verification: MultipartBody.Part,
     ) {
+        _uploadState.value = UploadState.ResultState
+
         viewModelScope.launch {
             analysisUseCase(comparisons, verification).catch {
-                Log.e("seogi","executeAnalysis error: ${it}")
-                Log.e("seogi","executeAnalysis errorMSG: ${it.message}")
+
             }.collect {
-                Log.e("seogi","executeAnalysis result: ${it}")
-                _analysisResult.emit(it)
+                _verificationResultUiState.emit(it.toVerificationResultUiState())
             }
         }
     }

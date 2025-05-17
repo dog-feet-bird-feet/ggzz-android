@@ -174,7 +174,7 @@ private fun HistoryDetailScreenContent(
                     items = historyDetailUiState.indicators,
                 ) {
                     ResultDetailItemCard(
-                        historyDetailResultIndicator = it,
+                        resultIndicator = it,
                     )
                 }
 
@@ -193,9 +193,9 @@ fun HistoryDetailScreenContentPreview(modifier: Modifier = Modifier) {
         id = "1",
         title = "A필기체 검증 기록",
         createdAt = "2025.05.07 04:23",
-        similarity = 71.1f,
-        pressure = 51.1f,
-        inclination = 21.1f,
+        similarity = 0.7f,
+        pressure = 0.5f,
+        inclination = 0.2f,
         verificationImgUrl = "https://images.unsplash.com/photo-1742240867115" +
             "-7a2f22a5b93b?q=80&w=3270&auto=format&fit=crop&ixlib=rb-4.0.3&ixi" +
             "d=M3wxMjA3fDF8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",

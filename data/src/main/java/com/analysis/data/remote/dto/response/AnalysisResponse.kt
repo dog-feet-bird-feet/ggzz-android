@@ -9,14 +9,10 @@ data class AnalysisResponse(
     @SerialName("similarity") val similarity: Float,
     @SerialName("pressure") val pressure: Float,
     @SerialName("inclination") val inclination: Float,
-    @SerialName("verificationImgUrl") val verificationImgUrl: String,
-    @SerialName("createdAt") val createdAt: String,
 )
 
 fun AnalysisResponse.toAnalysisResult() = AnalysisResult(
     similarity = similarity,
     pressure = pressure,
     inclination = inclination,
-    verificationImgUrl = verificationImgUrl,
-    createdAt = createdAt
 )
