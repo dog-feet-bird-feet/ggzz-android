@@ -77,12 +77,11 @@ internal fun VerifyScreen(
                     selectedVerificationUri = selectedVerificationUri,
                     onClickPreviousButton = { viewModel.changeUploadState() },
                     onClickAnalysisButton = {
-
                         val comparisonParts = selectedComparisonUris.map { uri ->
                             ImageMultipartUtil.uriToMultipart(
                                 partName = "comparison-file",
                                 uri = uri,
-                                resolver = contentResolver
+                                resolver = contentResolver,
                             )
                         }
 
@@ -91,12 +90,12 @@ internal fun VerifyScreen(
                         val verificationPart = ImageMultipartUtil.uriToMultipart(
                             partName = "verification-file",
                             uri = verUri,
-                            resolver = contentResolver
+                            resolver = contentResolver,
                         )
 
                         viewModel.executeAnalysis(
                             comparisons = comparisonParts,
-                            verification = verificationPart
+                            verification = verificationPart,
                         )
                     },
                 )
@@ -105,7 +104,7 @@ internal fun VerifyScreen(
             UploadState.ResultState -> ResultScreen(
                 innerPadding = innerPadding,
                 resultUiState = resultUiState,
-                onClickHomeButton = { onClickHomeButton() }
+                onClickHomeButton = { onClickHomeButton() },
             )
         }
     }

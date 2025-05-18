@@ -3,7 +3,6 @@ package com.analysis.presentation.feature.verify.model
 import android.content.ContentResolver
 import android.net.Uri
 import android.provider.OpenableColumns
-import okhttp3.MediaType.Companion.toMediaType
 import okhttp3.MediaType.Companion.toMediaTypeOrNull
 import okhttp3.MultipartBody
 import okhttp3.RequestBody.Companion.toRequestBody
@@ -14,7 +13,7 @@ object ImageMultipartUtil {
 
     fun isValid(
         uri: Uri,
-        resolver: ContentResolver
+        resolver: ContentResolver,
     ): Boolean {
         val size = resolver.openAssetFileDescriptor(uri, "r")?.use { it.length }
             ?: return false
@@ -27,7 +26,7 @@ object ImageMultipartUtil {
     fun uriToMultipart(
         partName: String,
         uri: Uri,
-        resolver: ContentResolver
+        resolver: ContentResolver,
     ): MultipartBody.Part {
         // 1) 실제 파일명 추출
         val fileName = resolver.query(uri, arrayOf(OpenableColumns.DISPLAY_NAME), null, null, null)

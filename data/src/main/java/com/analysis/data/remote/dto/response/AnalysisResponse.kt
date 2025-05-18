@@ -11,8 +11,9 @@ data class AnalysisResponse(
     @SerialName("inclination") val inclination: Float,
 )
 
-fun AnalysisResponse.toAnalysisResult() = AnalysisResult(
-    similarity = similarity,
-    pressure = pressure,
-    inclination = inclination,
-)
+fun AnalysisResponse.toAnalysisResult() =
+    AnalysisResult(
+        similarity = similarity,
+        pressure = pressure,
+        inclination = inclination,
+    )

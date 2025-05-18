@@ -58,16 +58,13 @@ object NetworkModule {
 
     @Provides
     @Singleton
-    fun provideHistoryApiService(retrofit: Retrofit): HistoryApiService =
-        retrofit.create(HistoryApiService::class.java)
+    fun provideHistoryApiService(retrofit: Retrofit): HistoryApiService = retrofit.create(HistoryApiService::class.java)
 
     @Provides
     @Singleton
-    fun provideUploadApiService(retrofit: Retrofit): UploadApiService =
-        retrofit.create(UploadApiService::class.java)
+    fun provideUploadApiService(retrofit: Retrofit): UploadApiService = retrofit.create(UploadApiService::class.java)
 
     @Provides
     @Singleton
-    fun provideAnalysisApiService(retrofit: Retrofit): AnalysisApiService =
-        retrofit.create(AnalysisApiService::class.java)
+    fun provideAnalysisApiService(retrofit: Retrofit): AnalysisApiService = retrofit.create(AnalysisApiService::class.java)
 }

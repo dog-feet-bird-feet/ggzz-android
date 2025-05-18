@@ -6,11 +6,7 @@ import kotlinx.coroutines.flow.Flow
 import okhttp3.MultipartBody
 
 interface UploadDataSource {
-    fun saveComparisons(
-        images: List<MultipartBody.Part>,
-    ): Flow<ComparisonsResponse>
+    fun saveComparisons(images: List<MultipartBody.Part>): Flow<ComparisonsResponse>
 
-    fun saveVerification(
-        image: MultipartBody.Part,
-    ): Flow<VerificationResponse>
+    fun saveVerification(image: MultipartBody.Part): Flow<VerificationResponse>
 }

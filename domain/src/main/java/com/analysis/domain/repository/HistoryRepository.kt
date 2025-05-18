@@ -1,7 +1,7 @@
 package com.analysis.domain.repository
 
-import com.analysis.domain.model.HistoryDetail
 import com.analysis.domain.model.History
+import com.analysis.domain.model.HistoryDetail
 import kotlinx.coroutines.flow.Flow
 
 interface HistoryRepository {

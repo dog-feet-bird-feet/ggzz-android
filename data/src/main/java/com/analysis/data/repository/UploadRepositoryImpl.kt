@@ -7,14 +7,16 @@ import kotlinx.coroutines.flow.map
 import okhttp3.MultipartBody
 import javax.inject.Inject
 
-class UploadRepositoryImpl @Inject constructor(
-    private val uploadDataSource: UploadDataSource,
-) : UploadRepository {
-    override fun saveComparisons(images: List<MultipartBody.Part>): Flow<List<String>> {
-        return uploadDataSource.saveComparisons(images).map { it.comparisonUrls }
-    }
+class UploadRepositoryImpl
+    @Inject
+    constructor(
+        private val uploadDataSource: UploadDataSource,
+    ) : UploadRepository {
+        override fun saveComparisons(images: List<MultipartBody.Part>): Flow<List<String>> {
+            return uploadDataSource.saveComparisons(images).map { it.comparisonUrls }
+        }
 
-    override fun saveVerification(image: MultipartBody.Part): Flow<String> {
-        return uploadDataSource.saveVerification(image).map { it.verificationUrl }
+        override fun saveVerification(image: MultipartBody.Part): Flow<String> {
+            return uploadDataSource.saveVerification(image).map { it.verificationUrl }
+        }
     }
-}

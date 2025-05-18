@@ -9,6 +9,6 @@ import retrofit2.http.POST
 interface AnalysisApiService {
     @POST("/appraisal")
     suspend fun postAnalysis(
-        @Body appraisalRequest: AppraisalRequest
+        @Body appraisalRequest: AppraisalRequest,
     ): Response<AnalysisResponse>
 }

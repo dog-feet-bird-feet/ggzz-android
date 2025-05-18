@@ -51,7 +51,7 @@ internal class GgzzNavController(
         }
     }
 
-    fun navigateToHome(){
+    fun navigateToHome()  {
         val navOptions = navOptions {
             popUpTo(navController.graph.id)
             launchSingleTop = true

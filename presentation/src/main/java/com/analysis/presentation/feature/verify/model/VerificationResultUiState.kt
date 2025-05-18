@@ -24,4 +24,3 @@ fun AnalysisResult.toVerificationResultUiState(): VerificationResultUiState =
             ResultIndicator.Inclination(inclination),
         ),
     )
-

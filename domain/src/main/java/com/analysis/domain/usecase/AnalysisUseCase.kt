@@ -10,25 +10,27 @@ import kotlinx.coroutines.flow.flatMapLatest
 import okhttp3.MultipartBody
 import javax.inject.Inject
 
-class AnalysisUseCase @Inject constructor(
-    private val uploadRepository: UploadRepository,
-    private val analysisRepository: AnalysisRepository,
-) {
-    @OptIn(ExperimentalCoroutinesApi::class)
-    operator fun invoke(
-        comparisons: List<MultipartBody.Part>,
-        verification: MultipartBody.Part,
-    ): Flow<AnalysisResult> {
-        return uploadRepository
-            .saveComparisons(comparisons)
-            .combine(uploadRepository.saveVerification(verification)) { list, single ->
-                list to single
-            }
-            .flatMapLatest { (comparisonUrls, verificationUrl) ->
-                analysisRepository.executeAnalysis(
-                    verificationImageUrl = verificationUrl,
-                    comparisonImageUrls = comparisonUrls
-                )
-            }
+class AnalysisUseCase
+    @Inject
+    constructor(
+        private val uploadRepository: UploadRepository,
+        private val analysisRepository: AnalysisRepository,
+    ) {
+        @OptIn(ExperimentalCoroutinesApi::class)
+        operator fun invoke(
+            comparisons: List<MultipartBody.Part>,
+            verification: MultipartBody.Part,
+        ): Flow<AnalysisResult> {
+            return uploadRepository
+                .saveComparisons(comparisons)
+                .combine(uploadRepository.saveVerification(verification)) { list, single ->
+                    list to single
+                }
+                .flatMapLatest { (comparisonUrls, verificationUrl) ->
+                    analysisRepository.executeAnalysis(
+                        verificationImageUrl = verificationUrl,
+                        comparisonImageUrls = comparisonUrls,
+                    )
+                }
+        }
     }
-}

@@ -9,17 +9,19 @@ import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
 import javax.inject.Inject
 
-class AnalysisRepositoryImpl @Inject constructor(
-    private val analysisDataSource: AnalysisDataSource,
-) : AnalysisRepository {
-    override fun executeAnalysis(
-        verificationImageUrl: String,
-        comparisonImageUrls: List<String>,
-    ): Flow<AnalysisResult> {
-        return analysisDataSource.executeAnalysis(
-            AppraisalRequest(verificationImageUrl, comparisonImageUrls)
-        ).map {
-            it.toAnalysisResult()
+class AnalysisRepositoryImpl
+    @Inject
+    constructor(
+        private val analysisDataSource: AnalysisDataSource,
+    ) : AnalysisRepository {
+        override fun executeAnalysis(
+            verificationImageUrl: String,
+            comparisonImageUrls: List<String>,
+        ): Flow<AnalysisResult> {
+            return analysisDataSource.executeAnalysis(
+                AppraisalRequest(verificationImageUrl, comparisonImageUrls),
+            ).map {
+                it.toAnalysisResult()
+            }
         }
     }
-}

@@ -8,15 +8,17 @@ import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
 import javax.inject.Inject
 
-class AnalysisDataSourceImpl @Inject constructor(
-    private val analysisApiService: AnalysisApiService,
-) : AnalysisDataSource {
-    override fun executeAnalysis(appraisalRequest: AppraisalRequest): Flow<AnalysisResponse> {
-        return flow {
-            emit(
-                analysisApiService.postAnalysis(appraisalRequest).body()
-                    ?: throw IllegalArgumentException()
-            )
+class AnalysisDataSourceImpl
+    @Inject
+    constructor(
+        private val analysisApiService: AnalysisApiService,
+    ) : AnalysisDataSource {
+        override fun executeAnalysis(appraisalRequest: AppraisalRequest): Flow<AnalysisResponse> {
+            return flow {
+                emit(
+                    analysisApiService.postAnalysis(appraisalRequest).body()
+                        ?: throw IllegalArgumentException(),
+                )
+            }
         }
     }
-}

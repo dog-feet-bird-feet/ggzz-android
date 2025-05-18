@@ -7,7 +7,6 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
-import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
@@ -16,9 +15,7 @@ import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.layout.wrapContentHeight
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
-import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.Card
@@ -46,12 +43,10 @@ import com.analysis.presentation.feature.verify.model.VerificationResultUiState
 import com.analysis.presentation.feature.verify.model.toVerificationResultUiState
 import com.analysis.presentation.theme.Blue300
 import com.analysis.presentation.theme.GgzzTheme
-import com.analysis.presentation.theme.Gray900
 import com.analysis.presentation.theme.Purple700
 import com.analysis.presentation.theme.Red500
 import com.analysis.presentation.theme.White
 import com.analysis.presentation.util.modifier.dropShadow
-
 
 @Composable
 fun ResultScreen(
@@ -65,12 +60,10 @@ fun ResultScreen(
             ResultScreenContent(
                 innerPadding,
                 resultUiState,
-                onClickHomeButton
+                onClickHomeButton,
             )
     }
-
 }
-
 
 @Composable
 fun ResultScreenContent(
@@ -86,7 +79,7 @@ fun ResultScreenContent(
                 .fillMaxSize()
                 .padding(top = 20.dp)
                 .padding(horizontal = 20.dp)
-        }
+        },
     ) {
         // 1) Surface 영역을 weight(1f)로 남은 공간 채우기
         Surface(
@@ -94,13 +87,13 @@ fun ResultScreenContent(
                 .fillMaxWidth()
                 .weight(1f),
             shape = RoundedCornerShape(8.dp),
-            color = White
+            color = White,
         ) {
             Column(
                 modifier = Modifier
                     .fillMaxSize()
                     .padding(top = 20.dp)
-                    .padding(horizontal = 20.dp)
+                    .padding(horizontal = 20.dp),
             ) {
                 GuideComment()
                 Spacer(modifier = Modifier.height(32.dp))
@@ -117,14 +110,14 @@ fun ResultScreenContent(
                             color = Color.Black.copy(0.05f),
                         ),
                     shape = RoundedCornerShape(15.dp),
-                    colors = CardDefaults.cardColors(containerColor = White)
+                    colors = CardDefaults.cardColors(containerColor = White),
                 ) {
                     Spacer(modifier = Modifier.height(5.dp))
                     Column(
                         modifier = Modifier
                             .fillMaxWidth()
                             .wrapContentHeight(),
-                        horizontalAlignment = Alignment.CenterHorizontally
+                        horizontalAlignment = Alignment.CenterHorizontally,
                     ) {
                         if (isSimilar) {
                             Image(
@@ -142,7 +135,7 @@ fun ResultScreenContent(
 
                         Text(
                             text = "감정 완료",
-                            style = GgzzTheme.typography.pretendardBold28.copy(color = Blue300)
+                            style = GgzzTheme.typography.pretendardBold28.copy(color = Blue300),
                         )
 
                         Spacer(modifier = Modifier.height(13.dp))
@@ -160,7 +153,7 @@ fun ResultScreenContent(
                         .fillMaxWidth()
                         .weight(1f),
                     verticalArrangement = Arrangement.spacedBy(30.dp),
-                    contentPadding = PaddingValues(bottom = 40.dp)
+                    contentPadding = PaddingValues(bottom = 40.dp),
                 ) {
                     items(resultUiState.indicators) {
                         ResultDetailItemCard(resultIndicator = it)
@@ -177,11 +170,11 @@ fun ResultScreenContent(
                 .fillMaxWidth()
                 .height(55.dp),
             shape = RoundedCornerShape(5.dp),
-            colors = ButtonDefaults.buttonColors(containerColor = Purple700)
+            colors = ButtonDefaults.buttonColors(containerColor = Purple700),
         ) {
             Text(
                 text = stringResource(R.string.verify_move_home_comment),
-                style = GgzzTheme.typography.pretendardSemiBold14.copy(color = White)
+                style = GgzzTheme.typography.pretendardSemiBold14.copy(color = White),
             )
         }
 
@@ -201,14 +194,14 @@ private fun SimilarityResultText(isSimilar: Boolean) {
                 style = SpanStyle(
                     color = highlightColor,
                     fontSize = semiBold30.fontSize,
-                    fontWeight = semiBold30.fontWeight
-                )
+                    fontWeight = semiBold30.fontWeight,
+                ),
             ) {
                 append(highlightText)
             }
             append("입니다")
         },
-        style = GgzzTheme.typography.pretendardRegular24.copy(color = Blue300)
+        style = GgzzTheme.typography.pretendardRegular24.copy(color = Blue300),
     )
 }
 
@@ -249,11 +242,11 @@ fun ResultScreenLoading(innerPadding: PaddingValues) {
 
             Column(
                 modifier = Modifier.fillMaxWidth(),
-                horizontalAlignment = Alignment.CenterHorizontally
+                horizontalAlignment = Alignment.CenterHorizontally,
             ) {
                 Text(
                     text = "필적 감정 중",
-                    style = GgzzTheme.typography.pretendardBold16
+                    style = GgzzTheme.typography.pretendardBold16,
                 )
 
                 Spacer(modifier = Modifier.height(12.dp))
@@ -261,12 +254,11 @@ fun ResultScreenLoading(innerPadding: PaddingValues) {
                 Text(
                     text = "업로드한 필적을 비교하고 있어요.\n 조금만 기다려주세요!",
                     style = GgzzTheme.typography.pretendardRegular14,
-                    textAlign = TextAlign.Center
+                    textAlign = TextAlign.Center,
                 )
             }
 
             Spacer(modifier = Modifier.height(100.dp))
-
         }
     }
 }
@@ -306,7 +298,7 @@ fun ResultScreenContentPreview() {
     ResultScreenContent(
         innerPadding = PaddingValues(10.dp),
         uiModel as VerificationResultUiState.VerificationResult,
-        {}
+        {},
     )
 }
 

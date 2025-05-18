@@ -33,7 +33,6 @@ class HistoryDetailViewModel
         private fun fetchHistoryDetail() {
             viewModelScope.launch {
                 fetchHistoryDetailUseCase(id).catch {
-
                 }.collect {
                     _history.emit(it.toHistoryDetailUiState())
                 }
