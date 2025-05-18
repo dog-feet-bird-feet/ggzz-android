@@ -19,6 +19,9 @@ dependencies {
     testImplementation(libs.assertj.core)
     testImplementation(libs.junit.jupiter.api)
     testRuntimeOnly(libs.junit.jupiter.engine)
+
+    // Okhttp3
+    implementation(libs.okhttp)
 }
 
 tasks.test {

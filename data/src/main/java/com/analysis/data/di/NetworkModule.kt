@@ -1,7 +1,9 @@
 package com.analysis.data.di
 
 import com.analysis.data.BuildConfig
+import com.analysis.data.remote.api.AnalysisApiService
 import com.analysis.data.remote.api.HistoryApiService
+import com.analysis.data.remote.api.UploadApiService
 import com.analysis.data.remote.interceptor.GgzzInterceptor
 import com.jakewharton.retrofit2.converter.kotlinx.serialization.asConverterFactory
 import dagger.Module
@@ -11,7 +13,9 @@ import dagger.hilt.components.SingletonComponent
 import kotlinx.serialization.json.Json
 import okhttp3.MediaType.Companion.toMediaType
 import okhttp3.OkHttpClient
+import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
+import java.util.concurrent.TimeUnit
 import javax.inject.Singleton
 
 @Module
@@ -25,10 +29,16 @@ object NetworkModule {
             isLenient = true
         }
 
+    private val logging = HttpLoggingInterceptor().apply {
+        level = HttpLoggingInterceptor.Level.BODY
+    }
+
     @Provides
     @Singleton
     fun provideOkHttpClient(interceptor: GgzzInterceptor): OkHttpClient =
         OkHttpClient.Builder()
+            .readTimeout(120, TimeUnit.SECONDS)
+            .addInterceptor(logging)
             .addInterceptor(interceptor)
             .build()
 
@@ -49,4 +59,12 @@ object NetworkModule {
     @Provides
     @Singleton
     fun provideHistoryApiService(retrofit: Retrofit): HistoryApiService = retrofit.create(HistoryApiService::class.java)
+
+    @Provides
+    @Singleton
+    fun provideUploadApiService(retrofit: Retrofit): UploadApiService = retrofit.create(UploadApiService::class.java)
+
+    @Provides
+    @Singleton
+    fun provideAnalysisApiService(retrofit: Retrofit): AnalysisApiService = retrofit.create(AnalysisApiService::class.java)
 }

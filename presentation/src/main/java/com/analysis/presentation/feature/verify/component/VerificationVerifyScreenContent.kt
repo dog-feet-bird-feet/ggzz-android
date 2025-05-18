@@ -39,7 +39,7 @@ fun VerificationVerifyScreenContent(
     viewModel: VerifyViewModel,
     showErrorSnackBar: (Throwable) -> Unit,
     onClickPreviousButton: () -> Unit,
-    onClickNextButton: () -> Unit,
+    onClickAnalysisButton: () -> Unit,
     selectedVerificationUri: Uri? = null,
 ) {
     Column(
@@ -133,7 +133,7 @@ fun VerificationVerifyScreenContent(
                 modifier = Modifier
                     .height(55.dp)
                     .weight(1f),
-                onClick = onClickNextButton,
+                onClick = onClickAnalysisButton,
                 enabled = selectedVerificationUri != null,
                 shape = RoundedCornerShape(5.dp),
                 colors = ButtonColors(

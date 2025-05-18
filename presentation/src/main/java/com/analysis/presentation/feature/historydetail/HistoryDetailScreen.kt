@@ -32,10 +32,10 @@ import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import coil3.compose.AsyncImage
 import coil3.request.ImageRequest
 import coil3.request.crossfade
-import com.analysis.domain.model.AnalysisResult
+import com.analysis.domain.model.HistoryDetail
 import com.analysis.presentation.R
 import com.analysis.presentation.component.GgzzTopAppBar
-import com.analysis.presentation.feature.historydetail.component.VerificationResultDetailItemCard
+import com.analysis.presentation.component.ResultDetailItemCard
 import com.analysis.presentation.feature.historydetail.model.HistoryDetailUiState
 import com.analysis.presentation.feature.historydetail.model.toHistoryDetailUiState
 import com.analysis.presentation.theme.Black
@@ -173,8 +173,8 @@ private fun HistoryDetailScreenContent(
                 items(
                     items = historyDetailUiState.indicators,
                 ) {
-                    VerificationResultDetailItemCard(
-                        verificationIndicator = it,
+                    ResultDetailItemCard(
+                        resultIndicator = it,
                     )
                 }
 
@@ -189,13 +189,13 @@ private fun HistoryDetailScreenContent(
 @Composable
 @Preview(showBackground = true, showSystemUi = true)
 fun HistoryDetailScreenContentPreview(modifier: Modifier = Modifier) {
-    val uiModel = AnalysisResult(
+    val uiModel = HistoryDetail(
         id = "1",
         title = "A필기체 검증 기록",
         createdAt = "2025.05.07 04:23",
-        similarity = 71.1f,
-        pressure = 51.1f,
-        inclination = 21.1f,
+        similarity = 0.7f,
+        pressure = 0.5f,
+        inclination = 0.2f,
         verificationImgUrl = "https://images.unsplash.com/photo-1742240867115" +
             "-7a2f22a5b93b?q=80&w=3270&auto=format&fit=crop&ixlib=rb-4.0.3&ixi" +
             "d=M3wxMjA3fDF8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",

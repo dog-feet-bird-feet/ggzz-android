@@ -26,6 +26,7 @@
     <string name="verify_verification_guide_comment_photo_count">감정할 필적 사진이 필요해요!\n기존에 작성된 필적 사진을 업로드 해주세요.</string>
     <string name="verify_guide_comment_photo_format">* 한 장에 최대 2MB 까지 업로드 가능합니다.</string>
     <string name="verify_pick_photo_message">사진을 첨부해주세요</string>
+    <string name="verify_move_home_comment">홈으로 이동</string>
 
     <!-- History -->
     <string name="history_top_app_bar_title">히스토리</string>

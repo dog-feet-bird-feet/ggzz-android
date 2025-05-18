@@ -1,6 +1,7 @@
 package com.analysis.presentation.feature.verify
 
 import android.net.Uri
+import com.analysis.domain.usecase.AnalysisUseCase
 import com.analysis.presentation.feature.verify.model.UploadState
 import com.analysis.presentation.rule.MainDispatcherRule
 import io.mockk.mockk
@@ -13,7 +14,8 @@ class VerifyViewModelTest {
     @get:Rule
     val dispatcherRule = MainDispatcherRule()
 
-    private val viewModel = VerifyViewModel()
+    private val fakeAnalysisUseCase: AnalysisUseCase = mockk()
+    private val viewModel = VerifyViewModel(fakeAnalysisUseCase)
 
     @Test
     @DisplayName("초기 업로드 상태는 대조물 업로드이다.")

@@ -77,6 +77,9 @@ dependencies {
     // serialization
     implementation(libs.kotlinx.serialization.json)
 
+    // splash
+    implementation(libs.androidx.core.splash.screen)
+
     // robolectric
     testImplementation(libs.robolectric)
 
