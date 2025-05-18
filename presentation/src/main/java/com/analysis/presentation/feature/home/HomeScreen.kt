@@ -23,6 +23,7 @@ import com.analysis.presentation.theme.Gray100
 internal fun HomeScreen(
     navigateToAnalysis: () -> Unit,
     navigateToHistory: () -> Unit,
+    navigateToPersonality:()->Unit,
 ) {
     val context = LocalContext.current
 
@@ -68,6 +69,7 @@ internal fun HomeScreen(
                 R.drawable.ic_home_personality,
                 R.string.home_personality_title,
                 R.string.home_personality_description,
+                onClick = navigateToPersonality,
             )
         }
     }
@@ -79,5 +81,6 @@ private fun HomeScreenContentPreview() {
     HomeScreen(
         {},
         {},
+        {}
     )
 }

@@ -10,6 +10,7 @@ import com.analysis.presentation.feature.historydetail.navigation.historyDetailN
 import com.analysis.presentation.feature.home.navigation.homeNavGraph
 import com.analysis.presentation.feature.setting.navigation.settingNavGraph
 import com.analysis.presentation.feature.verify.navigation.comparisonVerifyNavGraph
+import com.analysis.presentation.personality.navigation.personalityNavGraph
 
 @Composable
 internal fun GgzzNavHost(
@@ -30,6 +31,7 @@ internal fun GgzzNavHost(
         homeNavGraph(
             navigateToAnalysis = { navController.navigateToComparisonVerify() },
             navigateToHistory = { navController.navigateToHistory() },
+            navigateToPersonality = {navController.navigateToPersonality()}
         )
         historyNavGraph(
             navigateToResult = { navController.navigateToResult(it) },
@@ -43,6 +45,11 @@ internal fun GgzzNavHost(
         historyDetailNavGraph(
             showErrorSnackbar = showErrorSnackbar,
             onClickNavigation = { navController.popBackStack() },
+        )
+
+        personalityNavGraph(
+            onClickNavigation = { navController.popBackStack() },
+            navigateToHome = { navController.navigateToHome() }
         )
     }
 }
