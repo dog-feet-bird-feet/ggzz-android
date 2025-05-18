@@ -23,8 +23,7 @@
     <string name="verify_comparison_guide_title">대조할 필적 이미지 업로드</string>
     <string name="verify_verification_guide_title">감정할 필적 이미지 업로드</string>
     <string name="verify_comparison_guide_comment_photo_count">필적 분석을 위해 최대 5장의 필체 사진이 필요해요!</string>
-    <string name="verify_verification_guide_comment_photo_count">감정할 필적 사진이 필요해요!\n기존에 작성된 필적 사진을 업로드 해주세요.</string>
-    <string name="verify_guide_comment_photo_format">* 한 장에 최대 2MB 까지 업로드 가능합니다.</string>
+    <string name="verify_verification_guide_comment_photo_upload">감정할 필적 사진이 필요해요!\n기존에 작성된 필적 사진을 업로드 해주세요.</string>
     <string name="verify_pick_photo_message">사진을 첨부해주세요</string>
     <string name="verify_move_home_comment">홈으로 이동</string>
 
@@ -42,13 +41,19 @@
     <!-- Setting -->
     <string name="setting_top_app_bar_title">설정</string>
 
+    <!-- Personality -->
+    <string name="personality_top_app_bar_title">성격 분석하기</string>
+    <string name="personality_guide_title">분석할 필체 이미지 업로드</string>
+    <string name="personality_guide_comment_photo_upload">당신의 성격을 알아볼 시간이에요!\n글씨가 담긴 이미지를 업로드해주세요.</string>
+
     <!-- Common -->
     <string name="unknown_error_snackbar">알 수 없는 오류가 발생했습니다.</string>
     <string name="previous_comment">이전</string>
     <string name="next_comment">다음</string>
     <string name="analysis_comment">감정하기</string>
     <string name="photo_count">(%d / %d)</string>
-    <string name="verify_invalid_photo">2MB 이하의 PNG, JPEG, JPG만 첨부할 수 있어요.</string>
+    <string name="guide_comment_photo_format">* 한 장에 최대 10MB 까지 업로드 가능합니다.</string>
+    <string name="verify_invalid_photo">10MB 이하의 PNG, JPEG, JPG만 첨부할 수 있어요.</string>
     <string name="datetime">yyyy년 M월 d일 HH:mm</string>
     <string name="percent">%d%%</string>
 </resources>
