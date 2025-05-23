@@ -1,8 +1,6 @@
 package com.analysis.data.remote.dto.response
 
 import com.analysis.domain.model.Personality
-import com.analysis.domain.model.TraitDetail
-import com.analysis.domain.model.Traits
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
