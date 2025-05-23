@@ -20,7 +20,7 @@ fun PersonalityScreen(
     onClickNavigation: () -> Unit,
     navigateToHome: () -> Unit,
 ) {
-    Scaffold(
+   /* Scaffold(
         modifier = Modifier
             .fillMaxSize(),
         topBar = {
@@ -89,7 +89,7 @@ fun PersonalityScreen(
 //                onClickHomeButton = { onClickHomeButton() },
 //            )
 //        }
-    }
+    }*/
 }
 
 @Composable

@@ -11,7 +11,7 @@ internal fun NavGraphBuilder.personalityNavGraph(
     onClickNavigation: () -> Unit,
     navigateToHome: () -> Unit,
 ) {
-    composable<NavRoute.Home> {
+    composable<NavRoute.Personality> {
         PersonalityScreen(onClickNavigation,navigateToHome)
     }
 }
