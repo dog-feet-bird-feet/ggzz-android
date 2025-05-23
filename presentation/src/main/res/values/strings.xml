@@ -51,6 +51,7 @@
     <string name="previous_comment">이전</string>
     <string name="next_comment">다음</string>
     <string name="analysis_comment">감정하기</string>
+    <string name="analyze_comment">분석하기</string>
     <string name="photo_count">(%d / %d)</string>
     <string name="guide_comment_photo_format">* 한 장에 최대 10MB 까지 업로드 가능합니다.</string>
     <string name="verify_invalid_photo">10MB 이하의 PNG, JPEG, JPG만 첨부할 수 있어요.</string>

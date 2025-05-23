@@ -8,11 +8,12 @@ import com.analysis.presentation.navigation.NavRoute
 import com.analysis.presentation.personality.PersonalityScreen
 
 internal fun NavGraphBuilder.personalityNavGraph(
+    showErrorSnackbar: (Throwable) -> Unit,
     onClickNavigation: () -> Unit,
     navigateToHome: () -> Unit,
 ) {
     composable<NavRoute.Personality> {
-        PersonalityScreen(onClickNavigation,navigateToHome)
+        PersonalityScreen(showErrorSnackbar, onClickNavigation, navigateToHome)
     }
 }
 

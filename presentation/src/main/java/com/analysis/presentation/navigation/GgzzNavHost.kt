@@ -31,7 +31,7 @@ internal fun GgzzNavHost(
         homeNavGraph(
             navigateToAnalysis = { navController.navigateToComparisonVerify() },
             navigateToHistory = { navController.navigateToHistory() },
-            navigateToPersonality = {navController.navigateToPersonality()}
+            navigateToPersonality = { navController.navigateToPersonality() }
         )
         historyNavGraph(
             navigateToResult = { navController.navigateToResult(it) },
@@ -48,6 +48,7 @@ internal fun GgzzNavHost(
         )
 
         personalityNavGraph(
+            showErrorSnackbar = showErrorSnackbar,
             onClickNavigation = { navController.popBackStack() },
             navigateToHome = { navController.navigateToHome() }
         )

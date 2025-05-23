@@ -34,8 +34,10 @@ import com.analysis.presentation.theme.White
 @Composable
 fun HandWritingUploadScreen(
     innerPadding: PaddingValues,
-    onClickAnalyzingButton: () -> Unit,
     showErrorSnackBar: (Throwable) -> Unit,
+    onPickPhoto: (Uri) -> Unit = {},
+    onClickCancelButton: (Uri) -> Unit,
+    onClickAnalyzingButton: () -> Unit,
     selectedHandWritingUri: Uri? = null,
 ) {
     Column(
@@ -72,12 +74,12 @@ fun HandWritingUploadScreen(
                                 .height(160.dp),
                             maxSelectable = 1,
                             showErrorSnackBar = showErrorSnackBar,
-                            onPickPhoto = { /*viewModel.updatePickedVerificationUri(it)*/ },
+                            onPickPhoto = { onPickPhoto(it) },
                         )
                     } else {
                         HandWritingImageItemCard(
                             uri = uri,
-                            onClickCancelButton = { /*viewModel.removeVerificationUri(it) */ },
+                            onClickCancelButton = { onClickCancelButton(it) },
                             modifier = Modifier
                                 .fillMaxWidth()
                                 .padding(horizontal = 25.dp)
@@ -119,7 +121,7 @@ fun HandWritingUploadScreen(
             ),
         ) {
             Text(
-                text = stringResource(R.string.next_comment),
+                text = stringResource(R.string.analyze_comment),
                 style = GgzzTheme.typography.pretendardSemiBold14.copy(color = White),
             )
         }
@@ -153,6 +155,8 @@ private fun GuideComment() {
 fun HandWritingUploadScreenPreview() {
     HandWritingUploadScreen(
         PaddingValues(0.dp),
+        {},
+        {},
         {},
         {}
     )
