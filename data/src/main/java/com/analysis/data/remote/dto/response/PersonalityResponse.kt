@@ -57,6 +57,7 @@ data class PersonalityResponse(
 fun PersonalityResponse.toPersonality() = Personality(
     id = this.id,
     traits = this.traits.toDomainTraits(),
-    type = this.type,
+    type = this.type.split(" - ")[0],
+    typeDescription = this.type.split(" - ")[1],
     description = this.description
 )

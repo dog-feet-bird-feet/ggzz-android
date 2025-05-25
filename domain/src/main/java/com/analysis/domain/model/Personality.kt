@@ -4,5 +4,6 @@ data class Personality(
     val id: Int,
     val traits: Traits,
     val type: String,
-    val description: String
+    val typeDescription: String,
+    val description: String,
 )
