@@ -1,5 +1,6 @@
 package com.analysis.presentation.feature.history
 
+import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.analysis.domain.model.History
@@ -42,6 +43,7 @@ class HistoryViewModel
             viewModelScope.launch {
                 fetchHistoriesUseCase().catch {
                     // 에러 핸들링 필요
+                    Log.e("seogi",it.message.toString())
                 }.collect {
                     _histories.emit(it)
                 }

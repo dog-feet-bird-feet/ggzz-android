@@ -64,7 +64,7 @@ fun ResultLoadingScreen(innerPadding: PaddingValues) {
                 Spacer(modifier = Modifier.height(12.dp))
 
                 Text(
-                    text = "업로드한 필제를 분석하고 있어요.\n 조금만 기다려주세요!",
+                    text = "업로드한 필체를 분석하고 있어요.\n 조금만 기다려주세요!",
                     style = GgzzTheme.typography.pretendardRegular14,
                     textAlign = TextAlign.Center,
                 )
