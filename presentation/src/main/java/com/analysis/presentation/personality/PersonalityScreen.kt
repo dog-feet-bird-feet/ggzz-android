@@ -17,6 +17,8 @@ import com.analysis.presentation.R
 import com.analysis.presentation.component.GgzzTopAppBar
 import com.analysis.presentation.feature.verify.model.ImageMultipartUtil
 import com.analysis.presentation.personality.component.HandWritingUploadScreen
+import com.analysis.presentation.personality.component.ResultLoadingScreen
+import com.analysis.presentation.personality.component.ResultScreen
 import com.analysis.presentation.personality.model.PersonalityUiState
 import com.analysis.presentation.theme.GgzzTheme
 import com.analysis.presentation.theme.Gray100
@@ -42,11 +44,13 @@ fun PersonalityScreen(
                 title = stringResource(R.string.personality_top_app_bar_title),
                 textStyle = GgzzTheme.typography.pretendardRegular18.copy(color = Gray900),
                 navigationIcon = {
-                    IconButton(onClick = onClickNavigation) {
-                        Image(
-                            painter = painterResource(R.drawable.ic_arrow_back),
-                            contentDescription = null,
-                        )
+                    if (personalityUiState is PersonalityUiState.ImageUploadState) {
+                        IconButton(onClick = onClickNavigation) {
+                            Image(
+                                painter = painterResource(R.drawable.ic_arrow_back),
+                                contentDescription = null,
+                            )
+                        }
                     }
                 },
             )
@@ -56,25 +60,32 @@ fun PersonalityScreen(
 
         when (personalityUiState) {
             PersonalityUiState.ImageUploadState -> {
-                val imageUri = selectedImageUri ?: throw IllegalStateException("검증물이 선택되지 않았습니다.")
-                val imageMultipart = ImageMultipartUtil.uriToMultipart(
-                    partName = "personality-file",
-                    uri = imageUri,
-                    resolver = contentResolver,
-                )
-
                 HandWritingUploadScreen(
                     innerPadding = innerPadding,
                     showErrorSnackBar = showErrorSnackBar,
                     onPickPhoto = { viewModel.updatePickedVerificationUri(it) },
                     onClickCancelButton = { viewModel.removeVerificationUri() },
-                    onClickAnalyzingButton = { viewModel.executeAnalysis(imageMultipart) },
+                    onClickAnalyzingButton = {
+                        val imageUri =
+                            selectedImageUri ?: throw IllegalStateException("이미지가 선택되지 않았습니다.")
+                        val imageMultipart = ImageMultipartUtil.uriToMultipart(
+                            partName = "personality-file",
+                            uri = imageUri,
+                            resolver = contentResolver,
+                        )
+
+                        viewModel.executeAnalysis(imageMultipart)
+                    },
                     selectedHandWritingUri = selectedImageUri
                 )
             }
 
-            PersonalityUiState.Loading -> TODO()
-            is PersonalityUiState.ResultUiState -> TODO()
+            PersonalityUiState.Loading -> ResultLoadingScreen(innerPadding)
+            is PersonalityUiState.ResultUiState -> ResultScreen(
+                innerPadding,
+                personalityUiState as PersonalityUiState.ResultUiState,
+                onClickHomeButton = navigateToHome
+            )
         }
     }
 }

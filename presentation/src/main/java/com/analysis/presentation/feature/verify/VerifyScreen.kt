@@ -46,11 +46,13 @@ internal fun VerifyScreen(
                 title = stringResource(R.string.verify_top_app_bar_title),
                 textStyle = GgzzTheme.typography.pretendardRegular18.copy(color = Gray900),
                 navigationIcon = {
-                    IconButton(onClick = onClickNavigation) {
-                        Image(
-                            painter = painterResource(R.drawable.ic_arrow_back),
-                            contentDescription = null,
-                        )
+                    if (uploadState !is UploadState.ResultState) {
+                        IconButton(onClick = onClickNavigation) {
+                            Image(
+                                painter = painterResource(R.drawable.ic_arrow_back),
+                                contentDescription = null,
+                            )
+                        }
                     }
                 },
             )

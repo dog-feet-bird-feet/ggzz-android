@@ -45,6 +45,11 @@
     <string name="personality_top_app_bar_title">성격 분석하기</string>
     <string name="personality_guide_title">분석할 필체 이미지 업로드</string>
     <string name="personality_guide_comment_photo_upload">당신의 성격을 알아볼 시간이에요!\n글씨가 담긴 이미지를 업로드해주세요.</string>
+    <string name="personlity_handwriting_size">글씨 크기: %s</string>
+    <string name="personlity_handwriting_pressure">필압: %s</string>
+    <string name="personlity_handwriting_inclination">기울기: %s</string>
+    <string name="personlity_handwriting_shape">자형: %s</string>
+    <string name="personality_summary">성격 요약</string>
 
     <!-- Common -->
     <string name="unknown_error_snackbar">알 수 없는 오류가 발생했습니다.</string>

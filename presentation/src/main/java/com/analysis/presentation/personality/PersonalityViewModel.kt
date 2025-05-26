@@ -1,13 +1,13 @@
 package com.analysis.presentation.personality
 
 import android.net.Uri
+import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.analysis.domain.usecase.PersonalityAnalyzeUseCase
-import com.analysis.presentation.feature.verify.model.UploadState
-import com.analysis.presentation.feature.verify.model.toVerificationResultUiState
 import com.analysis.presentation.personality.model.PersonalityUiState
 import com.analysis.presentation.personality.model.toPersonalityUiState
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
@@ -16,6 +16,7 @@ import kotlinx.coroutines.launch
 import okhttp3.MultipartBody
 import javax.inject.Inject
 
+@HiltViewModel
 class PersonalityViewModel @Inject constructor(
     private val personalityAnalyzeUseCase: PersonalityAnalyzeUseCase,
 ) : ViewModel() {
@@ -41,6 +42,7 @@ class PersonalityViewModel @Inject constructor(
 
         viewModelScope.launch {
             personalityAnalyzeUseCase(image).catch {
+                Log.e("seogi",it.message.toString())
             }.collect {
                 _personalityUiState.emit(it.toPersonalityUiState())
             }

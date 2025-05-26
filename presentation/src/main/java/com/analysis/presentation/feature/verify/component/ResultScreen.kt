@@ -49,7 +49,7 @@ import com.analysis.presentation.theme.White
 import com.analysis.presentation.util.modifier.dropShadow
 
 @Composable
-fun ResultScreen(
+internal fun ResultScreen(
     innerPadding: PaddingValues,
     resultUiState: VerificationResultUiState,
     onClickHomeButton: () -> Unit,
@@ -74,14 +74,13 @@ fun ResultScreenContent(
     val isSimilar = resultUiState.indicators[0].percentage >= 0.5
 
     Column(
-        modifier = Modifier.run {
-            padding(innerPadding)
-                .fillMaxSize()
-                .padding(top = 20.dp)
-                .padding(horizontal = 20.dp)
-        },
+        modifier = Modifier
+            .padding(innerPadding)
+            .fillMaxSize()
+            .padding(top = 20.dp)
+            .padding(horizontal = 20.dp),
     ) {
-        // 1) Surface 영역을 weight(1f)로 남은 공간 채우기
+
         Surface(
             modifier = Modifier
                 .fillMaxWidth()
