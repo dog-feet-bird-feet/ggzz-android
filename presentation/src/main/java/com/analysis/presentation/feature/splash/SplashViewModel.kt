@@ -1,4 +1,4 @@
-package com.analysis.presentation.feature.main
+package com.analysis.presentation.feature.splash
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
@@ -10,7 +10,7 @@ import kotlinx.coroutines.flow.stateIn
 import javax.inject.Inject
 
 @HiltViewModel
-class MainViewModel @Inject constructor(
+class SplashViewModel @Inject constructor(
     private val hasAccessTokenUseCase: HasAccessTokenUseCase,
 ) : ViewModel() {
     val hasAccessToken: StateFlow<Boolean> =

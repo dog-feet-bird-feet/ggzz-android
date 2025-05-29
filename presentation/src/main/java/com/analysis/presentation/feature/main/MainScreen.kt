@@ -28,12 +28,11 @@ import kotlinx.coroutines.launch
 
 @Composable
 internal fun MainScreen(
+    hasAccessToken: Boolean,
     navController: GgzzNavController,
-    viewModel: MainViewModel = hiltViewModel(),
 ) {
     val context = LocalContext.current
     val coroutineScope = rememberCoroutineScope()
-    val showLogin by viewModel.hasAccessToken.collectAsStateWithLifecycle()
 
     val snackBarHostState = remember { SnackbarHostState() }
     val showErrorSnackbar: (Throwable) -> Unit = { throwable ->
@@ -43,7 +42,7 @@ internal fun MainScreen(
         }
     }
 
-    MainContent(navController, !showLogin, snackBarHostState, showErrorSnackbar)
+    MainContent(navController, !hasAccessToken, snackBarHostState, showErrorSnackbar)
 }
 
 @Composable
