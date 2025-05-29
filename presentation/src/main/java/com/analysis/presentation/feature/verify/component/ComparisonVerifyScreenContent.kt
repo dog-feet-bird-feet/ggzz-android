@@ -127,7 +127,7 @@ private fun GuideComment() {
             style = GgzzTheme.typography.pretendardRegular14,
         )
         Text(
-            text = stringResource(R.string.verify_guide_comment_photo_format),
+            text = stringResource(R.string.guide_comment_photo_format),
             style = GgzzTheme.typography.pretendardRegular14.copy(color = Purple500),
         )
     }

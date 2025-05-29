@@ -1,5 +1,6 @@
 package com.analysis.presentation.feature.historydetail
 
+import android.util.Log
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
@@ -33,6 +34,7 @@ class HistoryDetailViewModel
         private fun fetchHistoryDetail() {
             viewModelScope.launch {
                 fetchHistoryDetailUseCase(id).catch {
+                    Log.e("seogi", it.message.toString())
                 }.collect {
                     _history.emit(it.toHistoryDetailUiState())
                 }

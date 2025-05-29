@@ -2,9 +2,11 @@ package com.analysis.data.di
 
 import com.analysis.data.repository.AnalysisRepositoryImpl
 import com.analysis.data.repository.HistoryRepositoryImpl
+import com.analysis.data.repository.PersonalityRepositoryImpl
 import com.analysis.data.repository.UploadRepositoryImpl
 import com.analysis.domain.repository.AnalysisRepository
 import com.analysis.domain.repository.HistoryRepository
+import com.analysis.domain.repository.PersonalityRepository
 import com.analysis.domain.repository.UploadRepository
 import dagger.Binds
 import dagger.Module
@@ -22,4 +24,7 @@ internal interface RepositoryModule {
 
     @Binds
     fun bindAnalysisRepository(analysisRepositoryImpl: AnalysisRepositoryImpl): AnalysisRepository
+
+    @Binds
+    fun bindPersonalityAnalyzeRepository(personalityAnalyzeRepositoryImpl: PersonalityRepositoryImpl): PersonalityRepository
 }

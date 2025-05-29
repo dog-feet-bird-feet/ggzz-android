@@ -60,7 +60,7 @@ fun ResultDetailItemCard(resultIndicator: ResultIndicator) {
                 )
 
                 Text(
-                    text = stringResource(R.string.percent, (resultIndicator.percentage * 100).toInt()),
+                    text = stringResource(R.string.percent, resultIndicator.percentage.toInt()),
                     style = GgzzTheme.typography.pretendardSemiBold30.copy(color = Blue300),
                 )
             }
@@ -76,7 +76,7 @@ fun ResultDetailItemCard(resultIndicator: ResultIndicator) {
 
             GgzzLinearProgressIndicator(
                 modifier = Modifier.fillMaxWidth(),
-                progress = resultIndicator.percentage,
+                progress = resultIndicator.percentage / 100,
                 progressColor = resultIndicator.progressColor,
                 backgroundColor = Gray200,
             )

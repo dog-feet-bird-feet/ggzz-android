@@ -17,4 +17,7 @@ internal sealed interface NavRoute {
 
     @Serializable
     data class HistoryDetail(val historyId: String) : NavRoute
+
+    @Serializable
+    data object Personality : NavRoute
 }

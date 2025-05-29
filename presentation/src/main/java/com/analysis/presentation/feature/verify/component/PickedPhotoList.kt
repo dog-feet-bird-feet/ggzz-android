@@ -13,6 +13,7 @@ import androidx.compose.foundation.lazy.grid.rememberLazyGridState
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
+import com.analysis.presentation.component.PhotoPickerCard
 import com.analysis.presentation.feature.verify.model.ComparisonPhotoItem
 
 @Composable
