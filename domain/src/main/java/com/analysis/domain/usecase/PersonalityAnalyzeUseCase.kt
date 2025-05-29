@@ -17,6 +17,7 @@ class PersonalityAnalyzeUseCase @Inject constructor(
     ): Flow<Personality> {
         return personalityRepository.uploadImage(image)
             .flatMapLatest { imageUrl ->
+                println(imageUrl)
                 personalityRepository.executeAnalyze(imageUrl)
             }
     }

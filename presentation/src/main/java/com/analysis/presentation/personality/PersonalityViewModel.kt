@@ -42,7 +42,7 @@ class PersonalityViewModel @Inject constructor(
 
         viewModelScope.launch {
             personalityAnalyzeUseCase(image).catch {
-                Log.e("seogi",it.message.toString())
+                // 에러 핸들링 필요
             }.collect {
                 _personalityUiState.emit(it.toPersonalityUiState())
             }

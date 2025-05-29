@@ -7,7 +7,7 @@ import kotlinx.serialization.Serializable
 @Serializable
 data class HistoryResponse(
     @SerialName("id") val id: String,
-    @SerialName("name") val title: String?,
+    @SerialName("name") val title: String,
     @SerialName("createdAt") val createdAt: String,
     @SerialName("verificationImgUrl") val verificationImgUrl: String,
 )
@@ -15,7 +15,7 @@ data class HistoryResponse(
 fun HistoryResponse.toHistory() =
     History(
         id = this.id,
-        title = this.title?:"제목없음",
+        title = this.title,
         createdAt = this.createdAt,
         verificationImgUrl = this.verificationImgUrl,
     )
