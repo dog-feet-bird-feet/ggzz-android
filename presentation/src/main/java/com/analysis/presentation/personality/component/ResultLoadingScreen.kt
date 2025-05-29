@@ -75,11 +75,10 @@ fun ResultLoadingScreen(innerPadding: PaddingValues) {
     }
 }
 
-
 @Composable
 @Preview(showBackground = true)
 fun ResultScreenLoadingPreview() {
     ResultLoadingScreen(
-        innerPadding = PaddingValues(10.dp)
+        innerPadding = PaddingValues(10.dp),
     )
 }

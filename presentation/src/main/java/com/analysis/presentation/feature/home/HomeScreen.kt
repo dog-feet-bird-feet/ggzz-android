@@ -23,7 +23,7 @@ import com.analysis.presentation.theme.Gray100
 internal fun HomeScreen(
     navigateToAnalysis: () -> Unit,
     navigateToHistory: () -> Unit,
-    navigateToPersonality:()->Unit,
+    navigateToPersonality: () -> Unit,
 ) {
     val context = LocalContext.current
 
@@ -81,6 +81,6 @@ private fun HomeScreenContentPreview() {
     HomeScreen(
         {},
         {},
-        {}
+        {},
     )
 }

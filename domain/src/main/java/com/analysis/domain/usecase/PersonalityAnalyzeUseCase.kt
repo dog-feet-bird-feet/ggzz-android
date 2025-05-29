@@ -8,18 +8,17 @@ import kotlinx.coroutines.flow.flatMapLatest
 import okhttp3.MultipartBody
 import javax.inject.Inject
 
-class PersonalityAnalyzeUseCase @Inject constructor(
-    private val personalityRepository: PersonalityRepository,
-) {
-    @OptIn(ExperimentalCoroutinesApi::class)
-    operator fun invoke(
-        image: MultipartBody.Part,
-    ): Flow<Personality> {
-        return personalityRepository.uploadImage(image)
-            .flatMapLatest { imageUrl ->
-                println(imageUrl)
-                personalityRepository.executeAnalyze(imageUrl)
-            }
+class PersonalityAnalyzeUseCase
+    @Inject
+    constructor(
+        private val personalityRepository: PersonalityRepository,
+    ) {
+        @OptIn(ExperimentalCoroutinesApi::class)
+        operator fun invoke(image: MultipartBody.Part): Flow<Personality> {
+            return personalityRepository.uploadImage(image)
+                .flatMapLatest { imageUrl ->
+                    println(imageUrl)
+                    personalityRepository.executeAnalyze(imageUrl)
+                }
+        }
     }
-}
-

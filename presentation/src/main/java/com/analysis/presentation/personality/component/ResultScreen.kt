@@ -1,8 +1,6 @@
 package com.analysis.presentation.personality.component
 
 import androidx.compose.foundation.Image
-import androidx.compose.foundation.gestures.Orientation
-import androidx.compose.foundation.gestures.scrollable
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
@@ -13,7 +11,6 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
-import androidx.compose.foundation.layout.wrapContentHeight
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.verticalScroll
@@ -26,7 +23,6 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.analysis.domain.model.Personality
@@ -53,7 +49,7 @@ internal fun ResultScreen(
             .padding(innerPadding)
             .fillMaxSize()
             .padding(top = 20.dp)
-            .padding(horizontal = 20.dp)
+            .padding(horizontal = 20.dp),
     ) {
         Surface(
             modifier = Modifier
@@ -98,7 +94,7 @@ internal fun ResultScreen(
                 Spacer(modifier = Modifier.height(30.dp))
 
                 Row(
-                    verticalAlignment = Alignment.CenterVertically
+                    verticalAlignment = Alignment.CenterVertically,
                 ) {
                     Image(
                         painter = painterResource(R.drawable.ic_text_size),
@@ -110,7 +106,7 @@ internal fun ResultScreen(
                     Text(
                         text = stringResource(
                             R.string.personlity_handwriting_size,
-                            personalityUiState.size.score
+                            personalityUiState.size.score,
                         ),
                         style = GgzzTheme.typography.pretendardSemiBold18,
                     )
@@ -126,7 +122,7 @@ internal fun ResultScreen(
                 Spacer(modifier = Modifier.height(15.dp))
 
                 Row(
-                    verticalAlignment = Alignment.CenterVertically
+                    verticalAlignment = Alignment.CenterVertically,
                 ) {
                     Image(
                         painter = painterResource(R.drawable.ic_pressure),
@@ -138,7 +134,7 @@ internal fun ResultScreen(
                     Text(
                         text = stringResource(
                             R.string.personlity_handwriting_pressure,
-                            personalityUiState.pressure.score
+                            personalityUiState.pressure.score,
                         ),
                         style = GgzzTheme.typography.pretendardSemiBold18,
                     )
@@ -154,7 +150,7 @@ internal fun ResultScreen(
                 Spacer(modifier = Modifier.height(15.dp))
 
                 Row(
-                    verticalAlignment = Alignment.CenterVertically
+                    verticalAlignment = Alignment.CenterVertically,
                 ) {
                     Image(
                         painter = painterResource(R.drawable.ic_inclination),
@@ -166,7 +162,7 @@ internal fun ResultScreen(
                     Text(
                         text = stringResource(
                             R.string.personlity_handwriting_inclination,
-                            personalityUiState.inclination.score
+                            personalityUiState.inclination.score,
                         ),
                         style = GgzzTheme.typography.pretendardSemiBold18,
                     )
@@ -182,7 +178,7 @@ internal fun ResultScreen(
                 Spacer(modifier = Modifier.height(15.dp))
 
                 Row(
-                    verticalAlignment = Alignment.CenterVertically
+                    verticalAlignment = Alignment.CenterVertically,
                 ) {
                     Image(
                         painter = painterResource(R.drawable.ic_shape),
@@ -194,7 +190,7 @@ internal fun ResultScreen(
                     Text(
                         text = stringResource(
                             R.string.personlity_handwriting_shape,
-                            personalityUiState.shape.score
+                            personalityUiState.shape.score,
                         ),
                         style = GgzzTheme.typography.pretendardSemiBold18,
                     )
@@ -221,9 +217,7 @@ internal fun ResultScreen(
                     style = GgzzTheme.typography.pretendardRegular14,
                 )
             }
-
         }
-
 
         Spacer(modifier = Modifier.height(15.dp))
 
@@ -245,7 +239,6 @@ internal fun ResultScreen(
     }
 }
 
-
 @Composable
 @Preview(showBackground = true)
 fun ResultScreenPreview() {
@@ -256,18 +249,18 @@ fun ResultScreenPreview() {
             pressure = TraitDetail(score = "약함", detail = "유순함, 수줍음, 에너지가 약함, 민감함"),
             inclination = TraitDetail(
                 score = "좌측",
-                detail = "비관적, 감정표현을 잘 안함, 차가움, 비판적"
+                detail = "비관적, 감정표현을 잘 안함, 차가움, 비판적",
             ),
             shape = TraitDetail(
                 score = "둥글",
-                detail = "사고가 유연함, 상상력이 풍부, 원만함, 합리적임"
-            )
+                detail = "사고가 유연함, 상상력이 풍부, 원만함, 합리적임",
+            ),
         ),
         type = "섬세한 관찰자",
         typeDescription = "내향적이고 유순하며 비판적이지만 유연한 사고",
         description = "내향적이고 치밀하며 조심스러운 성향을 지녔고 유순하고 민감하며 에너지는 다소 낮지만" +
-                " 주변에 조화롭게 어울립니다. 감정을 드러내는 데 소극적이고 신중하며 다소 비판적인 관점을 지닙니다." +
-                " 사고가 유연하고 상상력이 풍부하여 원만하고 합리적인 관계를 지향하는 경향이 있습니다."
+            " 주변에 조화롭게 어울립니다. 감정을 드러내는 데 소극적이고 신중하며 다소 비판적인 관점을 지닙니다." +
+            " 사고가 유연하고 상상력이 풍부하여 원만하고 합리적인 관계를 지향하는 경향이 있습니다.",
     ).toPersonalityUiState()
 
     ResultScreen(

@@ -7,7 +7,5 @@ import okhttp3.MultipartBody
 interface PersonalityRepository {
     fun uploadImage(image: MultipartBody.Part): Flow<String>
 
-    fun executeAnalyze(
-        imageUrl: String,
-    ): Flow<Personality>
+    fun executeAnalyze(imageUrl: String): Flow<Personality>
 }

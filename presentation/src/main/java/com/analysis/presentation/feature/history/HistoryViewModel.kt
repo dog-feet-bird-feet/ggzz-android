@@ -43,7 +43,7 @@ class HistoryViewModel
             viewModelScope.launch {
                 fetchHistoriesUseCase().catch {
                     // 에러 핸들링 필요
-                    Log.e("seogi",it.message.toString())
+                    Log.e("seogi", it.message.toString())
                 }.collect {
                     _histories.emit(it)
                 }

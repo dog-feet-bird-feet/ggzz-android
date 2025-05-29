@@ -76,7 +76,7 @@ fun PersonalityScreen(
 
                         viewModel.executeAnalysis(imageMultipart)
                     },
-                    selectedHandWritingUri = selectedImageUri
+                    selectedHandWritingUri = selectedImageUri,
                 )
             }
 
@@ -84,7 +84,7 @@ fun PersonalityScreen(
             is PersonalityUiState.ResultUiState -> ResultScreen(
                 innerPadding,
                 personalityUiState as PersonalityUiState.ResultUiState,
-                onClickHomeButton = navigateToHome
+                onClickHomeButton = navigateToHome,
             )
         }
     }
@@ -96,6 +96,6 @@ fun PersonalityScreenPreview() {
     PersonalityScreen(
         {},
         {},
-        {}
+        {},
     )
 }

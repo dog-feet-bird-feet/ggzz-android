@@ -80,7 +80,6 @@ fun ResultScreenContent(
             .padding(top = 20.dp)
             .padding(horizontal = 20.dp),
     ) {
-
         Surface(
             modifier = Modifier
                 .fillMaxWidth()

@@ -10,17 +10,19 @@ import kotlinx.coroutines.flow.map
 import okhttp3.MultipartBody
 import javax.inject.Inject
 
-class PersonalityRepositoryImpl @Inject constructor(
-    private val personalityDataSource: PersonalityDataSource,
-) : PersonalityRepository {
-    override fun uploadImage(image: MultipartBody.Part): Flow<String> {
-        return personalityDataSource.uploadImage(image).map { it.personalityUrl }
-    }
+class PersonalityRepositoryImpl
+    @Inject
+    constructor(
+        private val personalityDataSource: PersonalityDataSource,
+    ) : PersonalityRepository {
+        override fun uploadImage(image: MultipartBody.Part): Flow<String> {
+            return personalityDataSource.uploadImage(image).map { it.personalityUrl }
+        }
 
-    override fun executeAnalyze(imageUrl: String): Flow<Personality> {
-        return personalityDataSource.executeAnalyze(PersonalityAnalyzeRequest(imageUrl))
-            .map {
-                it.toPersonality()
-            }
+        override fun executeAnalyze(imageUrl: String): Flow<Personality> {
+            return personalityDataSource.executeAnalyze(PersonalityAnalyzeRequest(imageUrl))
+                .map {
+                    it.toPersonality()
+                }
+        }
     }
-}

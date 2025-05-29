@@ -10,24 +10,26 @@ import kotlinx.coroutines.flow.flow
 import okhttp3.MultipartBody
 import javax.inject.Inject
 
-class PersonalityDataSourceImpl @Inject constructor(
-    private val personalityApiService: PersonalityApiService,
-) : PersonalityDataSource {
-    override fun uploadImage(image: MultipartBody.Part): Flow<PersonalityImageResponse> {
-        return flow {
-            emit(
-                personalityApiService.postUploadImage(image).body()
-                    ?: throw IllegalArgumentException()
-            )
+class PersonalityDataSourceImpl
+    @Inject
+    constructor(
+        private val personalityApiService: PersonalityApiService,
+    ) : PersonalityDataSource {
+        override fun uploadImage(image: MultipartBody.Part): Flow<PersonalityImageResponse> {
+            return flow {
+                emit(
+                    personalityApiService.postUploadImage(image).body()
+                        ?: throw IllegalArgumentException(),
+                )
+            }
         }
-    }
 
-    override fun executeAnalyze(personalityAnalyzeRequest: PersonalityAnalyzeRequest): Flow<PersonalityResponse> {
-        return flow {
-            emit(
-                personalityApiService.postPersonalityAnalyze(personalityAnalyzeRequest).body()
-                    ?: throw IllegalArgumentException()
-            )
+        override fun executeAnalyze(personalityAnalyzeRequest: PersonalityAnalyzeRequest): Flow<PersonalityResponse> {
+            return flow {
+                emit(
+                    personalityApiService.postPersonalityAnalyze(personalityAnalyzeRequest).body()
+                        ?: throw IllegalArgumentException(),
+                )
+            }
         }
     }
-}

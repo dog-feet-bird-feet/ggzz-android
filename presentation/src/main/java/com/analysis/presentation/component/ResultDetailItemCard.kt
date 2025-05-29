@@ -76,7 +76,7 @@ fun ResultDetailItemCard(resultIndicator: ResultIndicator) {
 
             GgzzLinearProgressIndicator(
                 modifier = Modifier.fillMaxWidth(),
-                progress = resultIndicator.percentage/100,
+                progress = resultIndicator.percentage / 100,
                 progressColor = resultIndicator.progressColor,
                 backgroundColor = Gray200,
             )

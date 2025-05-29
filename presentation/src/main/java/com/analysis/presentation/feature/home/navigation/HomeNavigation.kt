@@ -10,10 +10,10 @@ import com.analysis.presentation.navigation.NavRoute
 internal fun NavGraphBuilder.homeNavGraph(
     navigateToAnalysis: () -> Unit,
     navigateToHistory: () -> Unit,
-    navigateToPersonality:()->Unit,
+    navigateToPersonality: () -> Unit,
 ) {
     composable<NavRoute.Home> {
-        HomeScreen(navigateToAnalysis, navigateToHistory,navigateToPersonality)
+        HomeScreen(navigateToAnalysis, navigateToHistory, navigateToPersonality)
     }
 }
 

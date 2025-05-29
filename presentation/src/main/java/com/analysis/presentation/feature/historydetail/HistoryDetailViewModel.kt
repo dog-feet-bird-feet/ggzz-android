@@ -34,7 +34,7 @@ class HistoryDetailViewModel
         private fun fetchHistoryDetail() {
             viewModelScope.launch {
                 fetchHistoryDetailUseCase(id).catch {
-                    Log.e("seogi",it.message.toString())
+                    Log.e("seogi", it.message.toString())
                 }.collect {
                     _history.emit(it.toHistoryDetailUiState())
                 }
