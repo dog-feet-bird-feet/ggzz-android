@@ -22,9 +22,14 @@ class GgzzDataStore
         val userAccessToken: Flow<String?> = context.dataStore.data
             .map { preferences -> preferences[USER_ACCESS_TOKEN] }
 
-        suspend fun setAccessToken(accessToken: String) {
-            context.dataStore.edit { preferences ->
-                preferences[USER_ACCESS_TOKEN] = accessToken
+        suspend fun setAccessToken(accessToken: String):Boolean {
+            return try {
+                context.dataStore.edit { prefs ->
+                    prefs[USER_ACCESS_TOKEN] = accessToken
+                }
+                true
+            } catch (e: Exception) {
+                false
             }
         }
 
