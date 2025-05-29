@@ -36,11 +36,8 @@ internal class GgzzNavController(
 
     fun navigate(tab: NavTab) {
         val tabNavOptions = navOptions {
-            popUpTo(navController.graph.id) {
-                saveState = true
-            }
+            popUpTo(navController.graph.id)
             launchSingleTop = true
-            restoreState = true
         }
 
         when (tab) {

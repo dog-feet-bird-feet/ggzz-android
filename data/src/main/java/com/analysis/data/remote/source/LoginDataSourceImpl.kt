@@ -12,6 +12,12 @@ class LoginDataSourceImpl @Inject constructor(
     private val loginApiService: LoginApiService,
     private val dataStore: GgzzDataStore,
 ) : LoginDataSource {
+    override fun hasAccessToken(): Flow<Boolean> {
+        return flow {
+            emit(dataStore.hasAccessToken())
+        }
+    }
+
     override fun login(loginRequest: LoginRequest): Flow<Boolean> {
         return flow {
             val authHeader = loginApiService.postLogin(loginRequest).headers()["Authorization"]

@@ -1,6 +1,7 @@
 package com.analysis.presentation.personality
 
 import android.net.Uri
+import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.analysis.domain.usecase.PersonalityAnalyzeUseCase
@@ -42,6 +43,7 @@ class PersonalityViewModel
             viewModelScope.launch {
                 personalityAnalyzeUseCase(image).catch {
                     // 에러 핸들링 필요
+                    Log.e("seogi",it.message.toString())
                 }.collect {
                     _personalityUiState.emit(it.toPersonalityUiState())
                 }

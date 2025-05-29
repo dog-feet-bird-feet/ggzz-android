@@ -1,7 +1,11 @@
 package com.analysis.data.remote.interceptor
 
+import android.util.Log
 import com.analysis.data.BuildConfig
 import com.analysis.data.local.GgzzDataStore
+import kotlinx.coroutines.flow.first
+import kotlinx.coroutines.flow.firstOrNull
+import kotlinx.coroutines.runBlocking
 import okhttp3.Interceptor
 import okhttp3.Response
 import javax.inject.Inject
@@ -18,7 +22,15 @@ class GgzzInterceptor
                 return chain.proceed(req)
             }
 
-            val accessToken = BuildConfig.TEST_TOKEN // or ggzzDataStore.userAccessToken
+
+            val accessToken = runBlocking {
+                ggzzDataStore.userAccessToken.firstOrNull()
+            }.orEmpty()
+
+            if (accessToken.isBlank()) {
+                return chain.proceed(req)
+            }
+
             val newReq = req.newBuilder()
                 .addHeader(AUTHORIZATION_HEADER, "$TOKEN_PREFIX $accessToken")
                 .build()

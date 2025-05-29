@@ -8,6 +8,7 @@ import androidx.navigation.compose.NavHost
 import com.analysis.presentation.feature.history.navigation.historyNavGraph
 import com.analysis.presentation.feature.historydetail.navigation.historyDetailNavGraph
 import com.analysis.presentation.feature.home.navigation.homeNavGraph
+import com.analysis.presentation.feature.login.navigation.loginNavGraph
 import com.analysis.presentation.feature.setting.navigation.settingNavGraph
 import com.analysis.presentation.feature.verify.navigation.comparisonVerifyNavGraph
 import com.analysis.presentation.personality.navigation.personalityNavGraph
@@ -28,6 +29,9 @@ internal fun GgzzNavHost(
         popEnterTransition = { EnterTransition.None },
         popExitTransition = { ExitTransition.None },
     ) {
+        loginNavGraph(
+            navigateToHome = {navController.navigateToHome()}
+        )
         homeNavGraph(
             navigateToAnalysis = { navController.navigateToComparisonVerify() },
             navigateToHistory = { navController.navigateToHistory() },
