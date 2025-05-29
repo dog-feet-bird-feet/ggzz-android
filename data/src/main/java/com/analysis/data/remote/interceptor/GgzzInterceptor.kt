@@ -12,8 +12,14 @@ class GgzzInterceptor
         private val ggzzDataStore: GgzzDataStore,
     ) : Interceptor {
         override fun intercept(chain: Interceptor.Chain): Response {
+            val req = chain.request()
+
+            if (req.url.encodedPath == "/api/v1/login") {
+                return chain.proceed(req)
+            }
+
             val accessToken = BuildConfig.TEST_TOKEN // or ggzzDataStore.userAccessToken
-            val newReq = chain.request().newBuilder()
+            val newReq = req.newBuilder()
                 .addHeader(AUTHORIZATION_HEADER, "$TOKEN_PREFIX $accessToken")
                 .build()
             return chain.proceed(newReq)
