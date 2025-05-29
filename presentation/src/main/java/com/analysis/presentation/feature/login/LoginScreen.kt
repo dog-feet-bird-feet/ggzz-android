@@ -73,7 +73,7 @@ fun LoginScreen(
         ) {
             Column(
                 modifier = Modifier.fillMaxSize(),
-                horizontalAlignment = Alignment.CenterHorizontally
+                horizontalAlignment = Alignment.CenterHorizontally,
             ) {
                 Spacer(modifier = Modifier.height(50.dp))
 
@@ -87,7 +87,7 @@ fun LoginScreen(
                 LoginInputForm(
                     email,
                     { email = it },
-                    placeHolder = "이메일"
+                    placeHolder = "이메일",
                 )
 
                 Spacer(modifier = Modifier.height(10.dp))
@@ -151,7 +151,7 @@ private fun LoginInputForm(
         colors = OutlinedTextFieldDefaults.colors(
             focusedBorderColor = Gray500,
             unfocusedBorderColor = Gray500,
-        )
+        ),
     )
 }
 

@@ -7,9 +7,7 @@ import androidx.navigation.compose.composable
 import com.analysis.presentation.feature.login.LoginScreen
 import com.analysis.presentation.navigation.NavRoute
 
-internal fun NavGraphBuilder.loginNavGraph(
-    navigateToHome: () -> Unit,
-) {
+internal fun NavGraphBuilder.loginNavGraph(navigateToHome: () -> Unit) {
     composable<NavRoute.Login> {
         LoginScreen(navigateToHome)
     }

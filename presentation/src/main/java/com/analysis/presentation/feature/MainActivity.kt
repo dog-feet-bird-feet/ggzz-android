@@ -39,7 +39,7 @@ class MainActivity : ComponentActivity() {
 
         fun startActivity(
             context: Context,
-            hasAccessToken:Boolean,
+            hasAccessToken: Boolean,
         ) {
             val intent = Intent(context, MainActivity::class.java).apply {
                 putExtra(HAS_ACCESS_TOKEN_KEY, hasAccessToken)

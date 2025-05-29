@@ -6,14 +6,19 @@ import com.analysis.domain.repository.LoginRepository
 import kotlinx.coroutines.flow.Flow
 import javax.inject.Inject
 
-class LoginRepositoryImpl @Inject constructor(
-    private val loginDataSource: LoginDataSource,
-) : LoginRepository {
-    override fun hasAccessToken(): Flow<Boolean> {
-        return loginDataSource.hasAccessToken()
-    }
+class LoginRepositoryImpl
+    @Inject
+    constructor(
+        private val loginDataSource: LoginDataSource,
+    ) : LoginRepository {
+        override fun hasAccessToken(): Flow<Boolean> {
+            return loginDataSource.hasAccessToken()
+        }
 
-    override fun login(email: String, password: String): Flow<Boolean> {
-        return loginDataSource.login(LoginRequest(email, password))
+        override fun login(
+            email: String,
+            password: String,
+        ): Flow<Boolean> {
+            return loginDataSource.login(LoginRequest(email, password))
+        }
     }
-}

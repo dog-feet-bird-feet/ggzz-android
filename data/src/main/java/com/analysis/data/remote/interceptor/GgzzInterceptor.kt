@@ -1,9 +1,6 @@
 package com.analysis.data.remote.interceptor
 
-import android.util.Log
-import com.analysis.data.BuildConfig
 import com.analysis.data.local.GgzzDataStore
-import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.flow.firstOrNull
 import kotlinx.coroutines.runBlocking
 import okhttp3.Interceptor
@@ -21,7 +18,6 @@ class GgzzInterceptor
             if (req.url.encodedPath == "/api/v1/login") {
                 return chain.proceed(req)
             }
-
 
             val accessToken = runBlocking {
                 ggzzDataStore.userAccessToken.firstOrNull()

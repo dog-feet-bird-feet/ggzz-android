@@ -10,14 +10,16 @@ import kotlinx.coroutines.flow.stateIn
 import javax.inject.Inject
 
 @HiltViewModel
-class SplashViewModel @Inject constructor(
-    private val hasAccessTokenUseCase: HasAccessTokenUseCase,
-) : ViewModel() {
-    val hasAccessToken: StateFlow<Boolean> =
-        hasAccessTokenUseCase()
-            .stateIn(
-                scope = viewModelScope,
-                started = SharingStarted.WhileSubscribed(5_000L),
-                initialValue = false,
-            )
-}
+class SplashViewModel
+    @Inject
+    constructor(
+        private val hasAccessTokenUseCase: HasAccessTokenUseCase,
+    ) : ViewModel() {
+        val hasAccessToken: StateFlow<Boolean> =
+            hasAccessTokenUseCase()
+                .stateIn(
+                    scope = viewModelScope,
+                    started = SharingStarted.WhileSubscribed(5_000L),
+                    initialValue = false,
+                )
+    }

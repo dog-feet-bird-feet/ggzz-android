@@ -30,7 +30,7 @@ internal fun GgzzNavHost(
         popExitTransition = { ExitTransition.None },
     ) {
         loginNavGraph(
-            navigateToHome = {navController.navigateToHome()}
+            navigateToHome = { navController.navigateToHome() },
         )
         homeNavGraph(
             navigateToAnalysis = { navController.navigateToComparisonVerify() },

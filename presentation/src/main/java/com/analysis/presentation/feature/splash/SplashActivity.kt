@@ -1,6 +1,5 @@
 package com.analysis.presentation.feature.splash
 
-import android.content.Intent
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
@@ -21,12 +20,10 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.alpha
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
-import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.analysis.presentation.R
-import com.analysis.presentation.component.GgzzTopAppBar
 import com.analysis.presentation.feature.MainActivity
 import com.analysis.presentation.theme.GgzzTheme
 import com.analysis.presentation.theme.White
@@ -41,12 +38,11 @@ class SplashActivity : ComponentActivity() {
         setContent {
             GgzzTheme {
                 SplashScreen(
-                    {finish()}
+                    { finish() },
                 )
             }
         }
     }
-
 }
 
 @Composable
@@ -63,14 +59,13 @@ fun SplashScreen(
     LaunchedEffect(key1 = Unit) {
         alpha.animateTo(
             targetValue = 1f,
-            animationSpec = tween(1500)
+            animationSpec = tween(1500),
         )
 
         MainActivity.startActivity(context, hasAccessToken)
         delay(200L)
         finish()
     }
-
 
     Scaffold(
         containerColor = White,
@@ -80,7 +75,7 @@ fun SplashScreen(
             modifier = Modifier
                 .fillMaxSize()
                 .padding(innerPadding),
-            contentAlignment = Alignment.Center
+            contentAlignment = Alignment.Center,
         ) {
             Image(
                 modifier = Modifier.alpha(alpha.value),

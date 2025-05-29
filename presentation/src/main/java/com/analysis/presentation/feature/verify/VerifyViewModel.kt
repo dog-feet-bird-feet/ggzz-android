@@ -76,7 +76,7 @@ class VerifyViewModel
 
             viewModelScope.launch {
                 analysisUseCase(comparisons, verification).catch {
-                    Log.e("seogi",it.message.toString())
+                    Log.e("seogi", it.message.toString())
                 }.collect {
                     _verificationResultUiState.emit(it.toVerificationResultUiState())
                 }

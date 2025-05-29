@@ -71,7 +71,7 @@ fun ResultScreenContent(
     resultUiState: VerificationResultUiState.VerificationResult,
     onClickHomeButton: () -> Unit,
 ) {
-    val isSimilar = resultUiState.indicators[0].percentage >= 70.0
+    val isSimilar = resultUiState.indicators[0].percentage >= 50.0
 
     Column(
         modifier = Modifier
