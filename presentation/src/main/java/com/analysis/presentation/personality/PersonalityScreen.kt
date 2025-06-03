@@ -18,6 +18,7 @@ import com.analysis.presentation.component.GgzzTopAppBar
 import com.analysis.presentation.personality.component.HandWritingUploadScreen
 import com.analysis.presentation.personality.component.ResultLoadingScreen
 import com.analysis.presentation.personality.component.ResultScreen
+import com.analysis.presentation.personality.component.ResultScreenContent
 import com.analysis.presentation.personality.model.PersonalityUiState
 import com.analysis.presentation.theme.GgzzTheme
 import com.analysis.presentation.theme.Gray100
@@ -25,7 +26,7 @@ import com.analysis.presentation.theme.Gray900
 import com.analysis.presentation.util.ImageUtil
 
 @Composable
-fun PersonalityScreen(
+internal fun PersonalityScreen(
     showErrorSnackBar: (Throwable) -> Unit,
     onClickNavigation: () -> Unit,
     navigateToHome: () -> Unit,
@@ -80,10 +81,9 @@ fun PersonalityScreen(
                 )
             }
 
-            PersonalityUiState.Loading -> ResultLoadingScreen(innerPadding)
-            is PersonalityUiState.ResultUiState -> ResultScreen(
+            is PersonalityUiState.Analyzing -> ResultScreen(
                 innerPadding,
-                personalityUiState as PersonalityUiState.ResultUiState,
+                personalityUiState as PersonalityUiState.Analyzing,
                 onClickHomeButton = navigateToHome,
             )
         }

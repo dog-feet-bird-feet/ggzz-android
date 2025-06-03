@@ -6,32 +6,21 @@ import com.analysis.domain.model.Personality
 import com.analysis.domain.model.TraitDetail
 
 @Stable
-sealed interface PersonalityUiState {
+internal sealed interface PersonalityUiState {
     @Immutable
     data object ImageUploadState : PersonalityUiState
 
-    @Immutable
-    data object Loading : PersonalityUiState
+    @Stable
+    sealed interface Analyzing : PersonalityUiState {
+        @Immutable
+        data object Loading : Analyzing
 
-    @Immutable
-    data class ResultUiState(
-        val size: TraitDetail,
-        val pressure: TraitDetail,
-        val inclination: TraitDetail,
-        val shape: TraitDetail,
-        val type: String,
-        val typeDescription: String,
-        val description: String,
-    ) : PersonalityUiState
+        @Immutable
+        data class Success(
+            val personality: Personality,
+        ) : Analyzing
+    }
 }
 
-fun Personality.toPersonalityUiState() =
-    PersonalityUiState.ResultUiState(
-        size = this.traits.size,
-        pressure = this.traits.pressure,
-        inclination = this.traits.inclination,
-        shape = this.traits.shape,
-        type = this.type,
-        typeDescription = this.typeDescription,
-        description = this.description,
-    )
+internal fun Personality.toPersonalityUiState() =
+    PersonalityUiState.Analyzing.Success(this)
