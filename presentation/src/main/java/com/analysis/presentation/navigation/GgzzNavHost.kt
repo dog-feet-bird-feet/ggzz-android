@@ -2,6 +2,7 @@ package com.analysis.presentation.navigation
 
 import androidx.compose.animation.EnterTransition
 import androidx.compose.animation.ExitTransition
+import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.runtime.Composable
 import androidx.navigation.compose.NavHost
 import com.analysis.presentation.feature.history.navigation.historyNavGraph
@@ -15,6 +16,7 @@ import com.analysis.presentation.personality.navigation.personalityNavGraph
 
 @Composable
 internal fun GgzzNavHost(
+    defaultPadding: PaddingValues,
     navController: GgzzNavController,
     startDestination: NavRoute,
     isPreWorkEnd: Boolean?,
@@ -39,14 +41,16 @@ internal fun GgzzNavHost(
             navigateToHome = { navController.navigateToHome() },
         )
         homeNavGraph(
+            defaultPadding = defaultPadding,
             navigateToAnalysis = { navController.navigateToComparisonVerify() },
             navigateToHistory = { navController.navigateToHistory() },
             navigateToPersonality = { navController.navigateToPersonality() },
         )
         historyNavGraph(
+            defaultPadding = defaultPadding,
             navigateToResult = { navController.navigateToResult(it) },
         )
-        settingNavGraph()
+        settingNavGraph(defaultPadding = defaultPadding,)
         comparisonVerifyNavGraph(
             showErrorSnackbar = showErrorSnackbar,
             onClickNavigation = { navController.popBackStack() },

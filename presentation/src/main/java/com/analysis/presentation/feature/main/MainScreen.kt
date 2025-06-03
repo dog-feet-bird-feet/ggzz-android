@@ -69,6 +69,7 @@ private fun MainContent(
         },
     ) { innerPadding ->
         GgzzNavHost(
+            defaultPadding = innerPadding,
             navController = navController,
             startDestination = navController.startDestination,
             isPreWorkEnd = hasAccessToken,

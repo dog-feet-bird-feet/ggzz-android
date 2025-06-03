@@ -4,6 +4,7 @@ import android.content.Intent
 import android.net.Uri
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -32,7 +33,7 @@ import com.analysis.presentation.theme.White
 import com.analysis.presentation.util.modifier.dropShadow
 
 @Composable
-internal fun SettingScreen() {
+internal fun SettingScreen(defaultPadding: PaddingValues) {
     Scaffold(
         topBar = {
             GgzzTopAppBar(
@@ -41,7 +42,11 @@ internal fun SettingScreen() {
         },
         containerColor = Gray100,
     ) { innerPadding ->
-        SettingScreenContent(modifier = Modifier.padding(innerPadding))
+        SettingScreenContent(
+            modifier = Modifier
+                .padding(defaultPadding)
+                .padding(innerPadding)
+        )
     }
 }
 

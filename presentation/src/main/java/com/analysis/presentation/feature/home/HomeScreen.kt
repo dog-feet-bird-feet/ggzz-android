@@ -3,6 +3,7 @@ package com.analysis.presentation.feature.home
 import android.content.Intent
 import android.net.Uri
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.height
@@ -21,6 +22,7 @@ import com.analysis.presentation.theme.Gray100
 
 @Composable
 internal fun HomeScreen(
+    defaultPadding:PaddingValues,
     navigateToAnalysis: () -> Unit,
     navigateToHistory: () -> Unit,
     navigateToPersonality: () -> Unit,
@@ -37,8 +39,9 @@ internal fun HomeScreen(
     ) { innerPadding ->
         Column(
             modifier = Modifier
-                .fillMaxSize()
-                .padding(innerPadding),
+                .padding(defaultPadding)
+                .padding(innerPadding)
+                .fillMaxSize(),
         ) {
             Spacer(modifier = Modifier.height(48.dp))
             HomeMenuCard(
@@ -79,6 +82,7 @@ internal fun HomeScreen(
 @Preview(showSystemUi = true)
 private fun HomeScreenContentPreview() {
     HomeScreen(
+        PaddingValues(20.dp),
         {},
         {},
         {},

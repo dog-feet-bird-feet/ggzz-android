@@ -1,5 +1,6 @@
 package com.analysis.presentation.feature.setting.navigation
 
+import androidx.compose.foundation.layout.PaddingValues
 import androidx.navigation.NavController
 import androidx.navigation.NavGraphBuilder
 import androidx.navigation.NavOptions
@@ -7,9 +8,11 @@ import androidx.navigation.compose.composable
 import com.analysis.presentation.feature.setting.SettingScreen
 import com.analysis.presentation.navigation.NavRoute
 
-internal fun NavGraphBuilder.settingNavGraph() {
+internal fun NavGraphBuilder.settingNavGraph(
+    defaultPadding:PaddingValues,
+) {
     composable<NavRoute.Setting> {
-        SettingScreen()
+        SettingScreen(defaultPadding)
     }
 }
 

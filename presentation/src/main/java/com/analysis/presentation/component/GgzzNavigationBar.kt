@@ -4,6 +4,7 @@ import android.annotation.SuppressLint
 import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.animation.ExitTransition
 import androidx.compose.animation.fadeIn
+import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.RowScope
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -132,6 +133,7 @@ private fun GgzzNavigationBarPreview() {
             },
         ) { innerPadding ->
             GgzzNavHost(
+                defaultPadding = PaddingValues(20.dp),
                 navController = ggzzNavController,
                 startDestination = NavRoute.Home,
                 showErrorSnackbar = {},
