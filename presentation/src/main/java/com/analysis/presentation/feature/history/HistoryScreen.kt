@@ -3,11 +3,8 @@ package com.analysis.presentation.feature.history
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Spacer
-import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.height
-import androidx.compose.foundation.layout.navigationBarsPadding
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.statusBarsPadding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.material3.Scaffold
@@ -23,7 +20,6 @@ import com.analysis.presentation.R
 import com.analysis.presentation.component.GgzzTopAppBar
 import com.analysis.presentation.feature.history.component.HistoryItemCard
 import com.analysis.presentation.theme.Gray100
-import com.analysis.presentation.util.modifier.defaultScreenPadding
 import kotlinx.coroutines.flow.collectLatest
 
 @Composable

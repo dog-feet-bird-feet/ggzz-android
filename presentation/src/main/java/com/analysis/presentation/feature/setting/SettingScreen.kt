@@ -45,7 +45,7 @@ internal fun SettingScreen(defaultPadding: PaddingValues) {
         SettingScreenContent(
             modifier = Modifier
                 .padding(defaultPadding)
-                .padding(innerPadding)
+                .padding(innerPadding),
         )
     }
 }

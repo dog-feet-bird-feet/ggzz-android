@@ -9,13 +9,13 @@ import com.analysis.presentation.feature.home.HomeScreen
 import com.analysis.presentation.navigation.NavRoute
 
 internal fun NavGraphBuilder.homeNavGraph(
-    defaultPadding:PaddingValues,
+    defaultPadding: PaddingValues,
     navigateToAnalysis: () -> Unit,
     navigateToHistory: () -> Unit,
     navigateToPersonality: () -> Unit,
 ) {
     composable<NavRoute.Home> {
-        HomeScreen(defaultPadding,navigateToAnalysis, navigateToHistory, navigateToPersonality)
+        HomeScreen(defaultPadding, navigateToAnalysis, navigateToHistory, navigateToPersonality)
     }
 }
 

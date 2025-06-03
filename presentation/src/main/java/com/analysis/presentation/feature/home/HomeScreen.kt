@@ -22,7 +22,7 @@ import com.analysis.presentation.theme.Gray100
 
 @Composable
 internal fun HomeScreen(
-    defaultPadding:PaddingValues,
+    defaultPadding: PaddingValues,
     navigateToAnalysis: () -> Unit,
     navigateToHistory: () -> Unit,
     navigateToPersonality: () -> Unit,

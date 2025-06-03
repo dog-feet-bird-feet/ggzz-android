@@ -50,7 +50,7 @@ internal fun GgzzNavHost(
             defaultPadding = defaultPadding,
             navigateToResult = { navController.navigateToResult(it) },
         )
-        settingNavGraph(defaultPadding = defaultPadding,)
+        settingNavGraph(defaultPadding = defaultPadding)
         comparisonVerifyNavGraph(
             showErrorSnackbar = showErrorSnackbar,
             onClickNavigation = { navController.popBackStack() },
