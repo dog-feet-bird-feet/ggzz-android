@@ -78,26 +78,24 @@ internal fun VerifyScreen(
                     selectedVerificationUri = selectedVerificationUri,
                     onClickPreviousButton = { viewModel.moveToComparisonUpload() },
                     onClickAnalysisButton = {
-                        val comparisonParts = selectedComparisonUris.map { uri ->
-                            ImageUtil.uriToMultipart(
-                                partName = "comparison-file",
-                                uri = uri,
-                                resolver = contentResolver,
+                        selectedVerificationUri?.let {
+                            val comparisonParts = ImageUtil.buildMultiParts(
+                                selectedComparisonUris,
+                                contentResolver,
+                                "comparison-file"
+                            )
+
+                            val verificationPart = ImageUtil.buildMultiPart(
+                                it,
+                                contentResolver,
+                                "verification-file"
+                            )
+                            viewModel.executeAnalysis(
+                                comparisons = comparisonParts,
+                                verification = verificationPart,
                             )
                         }
 
-                        val verUri = selectedVerificationUri
-                            ?: throw IllegalStateException("검증물이 선택되지 않았습니다.")
-                        val verificationPart = ImageUtil.uriToMultipart(
-                            partName = "verification-file",
-                            uri = verUri,
-                            resolver = contentResolver,
-                        )
-
-                        viewModel.executeAnalysis(
-                            comparisons = comparisonParts,
-                            verification = verificationPart,
-                        )
                     },
                 )
             }

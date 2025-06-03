@@ -23,6 +23,24 @@ object ImageUtil {
         return mime in ALLOWED_MIME_TYPES
     }
 
+    fun buildMultiPart(
+        uri: Uri,
+        resolver: ContentResolver,
+        partName: String = "",
+    ): MultipartBody.Part {
+        return uriToMultipart(partName, uri, resolver)
+    }
+
+    fun buildMultiParts(
+        uris: List<Uri>,
+        resolver: ContentResolver,
+        partName: String = "",
+    ): List<MultipartBody.Part> {
+        return uris.map { uri ->
+            uriToMultipart(partName, uri, resolver)
+        }
+    }
+
     fun uriToMultipart(
         partName: String,
         uri: Uri,
