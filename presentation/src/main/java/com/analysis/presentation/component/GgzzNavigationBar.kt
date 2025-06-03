@@ -1,5 +1,6 @@
 package com.analysis.presentation.component
 
+import android.annotation.SuppressLint
 import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.animation.ExitTransition
 import androidx.compose.animation.fadeIn
@@ -25,6 +26,7 @@ import androidx.compose.ui.unit.dp
 import androidx.navigation.compose.rememberNavController
 import com.analysis.presentation.navigation.GgzzNavController
 import com.analysis.presentation.navigation.GgzzNavHost
+import com.analysis.presentation.navigation.NavRoute
 import com.analysis.presentation.navigation.NavTab
 import com.analysis.presentation.theme.GgzzTheme
 import com.analysis.presentation.theme.GgzzTypography
@@ -106,6 +108,7 @@ private fun navigationBarItemColor(selected: Boolean): Color {
     return Gray600
 }
 
+@SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
 @Preview(showSystemUi = true)
 @Composable
 private fun GgzzNavigationBarPreview() {
@@ -129,10 +132,12 @@ private fun GgzzNavigationBarPreview() {
             },
         ) { innerPadding ->
             GgzzNavHost(
-                modifier = Modifier.padding(innerPadding),
                 navController = ggzzNavController,
-                startDestination = ggzzNavController.startDestination,
+                startDestination = NavRoute.Home,
                 showErrorSnackbar = {},
+                isPreWorkEnd = true,
+                onStartEvent = {},
+                onSplashEndEvent = {},
             )
         }
     }
