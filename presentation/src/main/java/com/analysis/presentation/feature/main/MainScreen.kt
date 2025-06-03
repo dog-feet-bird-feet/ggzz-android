@@ -1,5 +1,6 @@
 package com.analysis.presentation.feature.main
 
+import android.annotation.SuppressLint
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.navigationBarsPadding
 import androidx.compose.foundation.layout.padding
@@ -44,6 +45,7 @@ internal fun MainScreen(
     MainContent(navController, snackBarHostState, showErrorSnackbar)
 }
 
+@SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
 @Composable
 private fun MainContent(
     navController: GgzzNavController,
@@ -71,7 +73,6 @@ private fun MainContent(
         },
     ) { innerPadding ->
         GgzzNavHost(
-            modifier = Modifier.padding(innerPadding),
             navController = navController,
             startDestination = navController.startDestination,
             isPreWorkEnd = hasAccessToken,
@@ -95,11 +96,10 @@ private fun MainContentPreview() {
     val snackBarHostState = remember { SnackbarHostState() }
 
     GgzzTheme {
-//        MainContent(
-//            navController = jipmoNavController,
-//            true,
-//            snackBarHostState = snackBarHostState,
-//            showErrorSnackbar = {},
-//        )
+        MainContent(
+            navController = jipmoNavController,
+            snackBarHostState = snackBarHostState,
+            showErrorSnackbar = {},
+        )
     }
 }

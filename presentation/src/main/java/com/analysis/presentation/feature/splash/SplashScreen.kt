@@ -18,7 +18,6 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.alpha
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.lifecycle.Lifecycle
@@ -88,5 +87,9 @@ fun SplashScreen(
 @Composable
 @Preview(showBackground = true)
 fun SplashScreenPreview(modifier: Modifier = Modifier) {
-//    SplashScreen({})
+    SplashScreen(isPreWorkEnd = null,
+        onStartEvent = {},
+        onSplashEndEvent = {},
+        animationDelayMillis = 0
+    )
 }

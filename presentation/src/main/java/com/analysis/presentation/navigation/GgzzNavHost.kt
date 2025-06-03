@@ -16,7 +16,6 @@ import com.analysis.presentation.personality.navigation.personalityNavGraph
 
 @Composable
 internal fun GgzzNavHost(
-    modifier: Modifier = Modifier,
     navController: GgzzNavController,
     startDestination: NavRoute,
     isPreWorkEnd: Boolean?,
@@ -27,7 +26,6 @@ internal fun GgzzNavHost(
     NavHost(
         navController = navController.navController,
         startDestination = startDestination,
-        modifier = modifier,
         enterTransition = { EnterTransition.None },
         exitTransition = { ExitTransition.None },
         popEnterTransition = { EnterTransition.None },
