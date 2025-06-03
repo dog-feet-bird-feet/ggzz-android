@@ -56,7 +56,6 @@ internal fun ResultScreen(
     }
 }
 
-
 @Composable
 internal fun ResultScreenContent(
     innerPadding: PaddingValues,
@@ -334,8 +333,8 @@ fun ResultScreenPreview() {
         type = "섬세한 관찰자",
         typeDescription = "내향적이고 유순하며 비판적이지만 유연한 사고",
         description = "내향적이고 치밀하며 조심스러운 성향을 지녔고 유순하고 민감하며 에너지는 다소 낮지만" +
-                " 주변에 조화롭게 어울립니다. 감정을 드러내는 데 소극적이고 신중하며 다소 비판적인 관점을 지닙니다." +
-                " 사고가 유연하고 상상력이 풍부하여 원만하고 합리적인 관계를 지향하는 경향이 있습니다.",
+            " 주변에 조화롭게 어울립니다. 감정을 드러내는 데 소극적이고 신중하며 다소 비판적인 관점을 지닙니다." +
+            " 사고가 유연하고 상상력이 풍부하여 원만하고 합리적인 관계를 지향하는 경향이 있습니다.",
     ).toPersonalityUiState()
 
     ResultScreen(

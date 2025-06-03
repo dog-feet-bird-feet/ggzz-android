@@ -16,9 +16,7 @@ import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.analysis.presentation.R
 import com.analysis.presentation.component.GgzzTopAppBar
 import com.analysis.presentation.personality.component.HandWritingUploadScreen
-import com.analysis.presentation.personality.component.ResultLoadingScreen
 import com.analysis.presentation.personality.component.ResultScreen
-import com.analysis.presentation.personality.component.ResultScreenContent
 import com.analysis.presentation.personality.model.PersonalityUiState
 import com.analysis.presentation.theme.GgzzTheme
 import com.analysis.presentation.theme.Gray100

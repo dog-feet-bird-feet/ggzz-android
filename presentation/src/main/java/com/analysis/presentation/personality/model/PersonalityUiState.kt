@@ -3,7 +3,6 @@ package com.analysis.presentation.personality.model
 import androidx.compose.runtime.Immutable
 import androidx.compose.runtime.Stable
 import com.analysis.domain.model.Personality
-import com.analysis.domain.model.TraitDetail
 
 @Stable
 internal sealed interface PersonalityUiState {
@@ -22,5 +21,4 @@ internal sealed interface PersonalityUiState {
     }
 }
 
-internal fun Personality.toPersonalityUiState() =
-    PersonalityUiState.Analyzing.Success(this)
+internal fun Personality.toPersonalityUiState() = PersonalityUiState.Analyzing.Success(this)
