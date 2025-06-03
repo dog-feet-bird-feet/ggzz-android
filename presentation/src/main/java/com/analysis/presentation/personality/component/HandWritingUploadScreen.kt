@@ -23,8 +23,8 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.analysis.presentation.R
-import com.analysis.presentation.component.PhotoPickerCard
 import com.analysis.presentation.component.HandWritingImageItemCard
+import com.analysis.presentation.component.PhotoPickerCard
 import com.analysis.presentation.theme.GgzzTheme
 import com.analysis.presentation.theme.Gray500
 import com.analysis.presentation.theme.Purple500

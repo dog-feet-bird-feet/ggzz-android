@@ -18,11 +18,11 @@ import com.analysis.presentation.component.GgzzTopAppBar
 import com.analysis.presentation.feature.verify.component.ComparisonVerifyScreenContent
 import com.analysis.presentation.feature.verify.component.ResultScreen
 import com.analysis.presentation.feature.verify.component.VerificationVerifyScreenContent
-import com.analysis.presentation.util.ImageUtil
 import com.analysis.presentation.feature.verify.model.VerificationUiState
 import com.analysis.presentation.theme.GgzzTheme
 import com.analysis.presentation.theme.Gray100
 import com.analysis.presentation.theme.Gray900
+import com.analysis.presentation.util.ImageUtil
 
 @Composable
 internal fun VerifyScreen(
@@ -82,20 +82,19 @@ internal fun VerifyScreen(
                             val comparisonParts = ImageUtil.buildMultiParts(
                                 selectedComparisonUris,
                                 contentResolver,
-                                "comparison-file"
+                                "comparison-file",
                             )
 
                             val verificationPart = ImageUtil.buildMultiPart(
                                 it,
                                 contentResolver,
-                                "verification-file"
+                                "verification-file",
                             )
                             viewModel.executeAnalysis(
                                 comparisons = comparisonParts,
                                 verification = verificationPart,
                             )
                         }
-
                     },
                 )
             }

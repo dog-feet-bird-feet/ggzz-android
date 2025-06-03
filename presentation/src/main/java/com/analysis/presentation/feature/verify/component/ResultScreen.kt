@@ -184,9 +184,13 @@ private fun SimilarityResultText(isSimilar: Boolean) {
     Text(
         text = buildAnnotatedString {
             val highlightText =
-                if (isSimilar) stringResource(R.string.verify_similar_handwriting_prefix) else stringResource(
-                    R.string.verify_dissimilar_handwriting_prefix
-                )
+                if (isSimilar) {
+                    stringResource(R.string.verify_similar_handwriting_prefix)
+                } else {
+                    stringResource(
+                        R.string.verify_dissimilar_handwriting_prefix,
+                    )
+                }
             val highlightColor = if (isSimilar) Blue300 else Red500
             val semiBold30 = GgzzTheme.typography.pretendardSemiBold23
 

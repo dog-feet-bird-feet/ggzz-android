@@ -17,54 +17,56 @@ import okhttp3.MultipartBody
 import javax.inject.Inject
 
 @HiltViewModel
-internal class VerifyViewModel @Inject constructor(
-    private val analysisUseCase: AnalysisUseCase,
-) : ViewModel() {
-    private val _selectedComparisonUris = MutableStateFlow<List<Uri>>(emptyList())
-    val selectedComparisonUris: StateFlow<List<Uri>> = _selectedComparisonUris.asStateFlow()
+internal class VerifyViewModel
+    @Inject
+    constructor(
+        private val analysisUseCase: AnalysisUseCase,
+    ) : ViewModel() {
+        private val _selectedComparisonUris = MutableStateFlow<List<Uri>>(emptyList())
+        val selectedComparisonUris: StateFlow<List<Uri>> = _selectedComparisonUris.asStateFlow()
 
-    private val _selectedVerificationUri = MutableStateFlow<Uri?>(null)
-    val selectedVerificationUri: StateFlow<Uri?> = _selectedVerificationUri.asStateFlow()
+        private val _selectedVerificationUri = MutableStateFlow<Uri?>(null)
+        val selectedVerificationUri: StateFlow<Uri?> = _selectedVerificationUri.asStateFlow()
 
-    private val _uiState = MutableStateFlow<VerificationUiState>(VerificationUiState.ComparisonUploadState)
-    val uiState: StateFlow<VerificationUiState> = _uiState.asStateFlow()
+        private val _uiState = MutableStateFlow<VerificationUiState>(VerificationUiState.ComparisonUploadState)
+        val uiState: StateFlow<VerificationUiState> = _uiState.asStateFlow()
 
-    fun moveToVerificationUpload() {
-        _uiState.value = VerificationUiState.VerificationUploadState
-    }
+        fun moveToVerificationUpload() {
+            _uiState.value = VerificationUiState.VerificationUploadState
+        }
 
-    fun moveToComparisonUpload() {
-        _uiState.value = VerificationUiState.ComparisonUploadState
-    }
+        fun moveToComparisonUpload() {
+            _uiState.value = VerificationUiState.ComparisonUploadState
+        }
 
-    fun updatePickedComparisonUris(uris: List<Uri>) {
-        _selectedComparisonUris.value = uris
-    }
+        fun updatePickedComparisonUris(uris: List<Uri>) {
+            _selectedComparisonUris.value = uris
+        }
 
-    fun removeComparisonUri(uri: Uri) {
-        _selectedComparisonUris.value -= uri
-    }
+        fun removeComparisonUri(uri: Uri) {
+            _selectedComparisonUris.value -= uri
+        }
 
-    fun updatePickedVerificationUri(uri: Uri) {
-        _selectedVerificationUri.value = uri
-    }
+        fun updatePickedVerificationUri(uri: Uri) {
+            _selectedVerificationUri.value = uri
+        }
 
-    fun removeVerificationUri(uri: Uri) {
-        _selectedVerificationUri.value = null
-    }
+        fun removeVerificationUri(uri: Uri) {
+            _selectedVerificationUri.value = null
+        }
 
-    fun executeAnalysis(
-        comparisons: List<MultipartBody.Part>,
-        verification: MultipartBody.Part,
-    ) {
-        _uiState.value = VerificationUiState.Verification.Loading
+        fun executeAnalysis(
+            comparisons: List<MultipartBody.Part>,
+            verification: MultipartBody.Part,
+        ) {
+            _uiState.value = VerificationUiState.Verification.Loading
 
-        viewModelScope.launch {
-            analysisUseCase(comparisons, verification).catch {
-                Log.e("seogi", it.message.toString())
-            }.collect {
-                _uiState.emit(it.toVerificationResultUiState())
+            viewModelScope.launch {
+                analysisUseCase(comparisons, verification).catch {
+                    Log.e("seogi", it.message.toString())
+                }.collect {
+                    _uiState.emit(it.toVerificationResultUiState())
+                }
             }
         }
     }
-}
