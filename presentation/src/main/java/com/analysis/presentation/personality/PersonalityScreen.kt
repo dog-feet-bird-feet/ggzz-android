@@ -67,15 +67,11 @@ internal fun PersonalityScreen(
                     onPickPhoto = { viewModel.updatePickedVerificationUri(it) },
                     onClickCancelButton = { viewModel.removeVerificationUri() },
                     onClickAnalyzingButton = {
-                        val imageUri =
-                            selectedImageUri ?: throw IllegalStateException("이미지가 선택되지 않았습니다.")
-                        val imageMultipart = ImageUtil.uriToMultipart(
-                            partName = "personality-file",
-                            uri = imageUri,
-                            resolver = contentResolver,
-                        )
-
-                        viewModel.executeAnalysis(imageMultipart)
+                        selectedImageUri?.let {
+                            val imageMultipart =
+                                ImageUtil.buildMultiPart(it, contentResolver, "personality-file")
+                            viewModel.executeAnalysis(imageMultipart)
+                        }
                     },
                     selectedHandWritingUri = selectedImageUri,
                 )
