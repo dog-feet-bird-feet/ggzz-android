@@ -35,7 +35,7 @@ import com.analysis.presentation.theme.Purple700
 import com.analysis.presentation.theme.White
 
 @Composable
-fun VerificationVerifyScreenContent(
+internal fun VerificationVerifyScreenContent(
     innerPadding: PaddingValues,
     viewModel: VerifyViewModel,
     showErrorSnackBar: (Throwable) -> Unit,

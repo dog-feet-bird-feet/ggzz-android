@@ -17,7 +17,7 @@ import okhttp3.MultipartBody
 import javax.inject.Inject
 
 @HiltViewModel
-class VerifyViewModel @Inject constructor(
+internal class VerifyViewModel @Inject constructor(
     private val analysisUseCase: AnalysisUseCase,
 ) : ViewModel() {
     private val _selectedComparisonUris = MutableStateFlow<List<Uri>>(emptyList())

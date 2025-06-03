@@ -65,7 +65,7 @@ internal fun ResultScreen(
 }
 
 @Composable
-fun ResultScreenContent(
+private fun ResultScreenContent(
     innerPadding: PaddingValues,
     result: VerificationUiState.Verification.Result,
     onClickHomeButton: () -> Unit,
@@ -203,7 +203,7 @@ private fun SimilarityResultText(isSimilar: Boolean) {
 }
 
 @Composable
-fun ResultScreenLoading(innerPadding: PaddingValues) {
+private fun ResultScreenLoading(innerPadding: PaddingValues) {
     Surface(
         modifier = Modifier
             .padding(innerPadding)
