@@ -28,17 +28,18 @@ import com.analysis.presentation.theme.White
 @Composable
 fun SplashScreen(
     isPreWorkEnd: Boolean?,
-    onStartEvent: () -> Unit,
+    preWork: () -> Unit,
     onSplashEndEvent: () -> Unit,
     animationDelayMillis: Int = 1500,
 ) {
-    val lifecycleOwner = LocalLifecycleOwner.current
     var isAnimationEnd by rememberSaveable { mutableStateOf(false) }
     val alpha = remember {
         Animatable(0f)
     }
 
     LaunchedEffect(key1 = Unit) {
+        preWork()
+
         alpha.animateTo(
             targetValue = 1f,
             animationSpec = tween(animationDelayMillis),
@@ -49,19 +50,6 @@ fun SplashScreen(
     LaunchedEffect(isPreWorkEnd, isAnimationEnd) {
         if (isPreWorkEnd != null && isAnimationEnd) {
             onSplashEndEvent()
-        }
-    }
-
-    DisposableEffect(lifecycleOwner) {
-        val observer = LifecycleEventObserver { _, event ->
-            if (event == Lifecycle.Event.ON_START) {
-                onStartEvent()
-            }
-        }
-        lifecycleOwner.lifecycle.addObserver(observer)
-
-        onDispose {
-            lifecycleOwner.lifecycle.removeObserver(observer)
         }
     }
 
@@ -87,7 +75,7 @@ fun SplashScreen(
 fun SplashScreenPreview(modifier: Modifier = Modifier) {
     SplashScreen(
         isPreWorkEnd = null,
-        onStartEvent = {},
+        preWork = {},
         onSplashEndEvent = {},
         animationDelayMillis = 0,
     )

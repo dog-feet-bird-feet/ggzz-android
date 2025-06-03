@@ -1,9 +1,11 @@
 package com.analysis.presentation.component
 
+import android.annotation.SuppressLint
 import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.animation.ExitTransition
 import androidx.compose.animation.fadeIn
 import androidx.compose.foundation.layout.RowScope
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
@@ -11,6 +13,7 @@ import androidx.compose.material3.Icon
 import androidx.compose.material3.NavigationBar
 import androidx.compose.material3.NavigationBarItem
 import androidx.compose.material3.NavigationBarItemDefaults
+import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
@@ -22,6 +25,8 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.navigation.compose.rememberNavController
 import com.analysis.presentation.navigation.GgzzNavController
+import com.analysis.presentation.navigation.GgzzNavHost
+import com.analysis.presentation.navigation.NavRoute
 import com.analysis.presentation.navigation.NavTab
 import com.analysis.presentation.theme.GgzzTheme
 import com.analysis.presentation.theme.GgzzTypography
@@ -103,34 +108,37 @@ private fun navigationBarItemColor(selected: Boolean): Color {
     return Gray600
 }
 
+@SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
 @Preview(showSystemUi = true)
 @Composable
 private fun GgzzNavigationBarPreview() {
     val navController = rememberNavController()
     val ggzzNavController = GgzzNavController(navController)
 
-//    GgzzTheme {
-//        Scaffold(
-//            modifier = Modifier
-//                .fillMaxSize(),
-//            containerColor = White,
-//            bottomBar = {
-//                GgzzNavigationBar(
-//                    isVisible = true,
-//                    currentTab = ggzzNavController.currentTab,
-//                    tabs = NavTab.entries,
-//                    onTabClick = {
-//                        ggzzNavController.navigate(it)
-//                    },
-//                )
-//            },
-//        ) { innerPadding ->
-//            GgzzNavHost(
-//                modifier = Modifier.padding(innerPadding),
-//                navController = ggzzNavController,
-//                startDestination = ggzzNavController.startDestination,
-//                showErrorSnackbar = {},
-//            )
-//        }
-//    }
+    GgzzTheme {
+        Scaffold(
+            modifier = Modifier
+                .fillMaxSize(),
+            containerColor = White,
+            bottomBar = {
+                GgzzNavigationBar(
+                    isVisible = true,
+                    currentTab = ggzzNavController.currentTab,
+                    tabs = NavTab.entries,
+                    onTabClick = {
+                        ggzzNavController.navigate(it)
+                    },
+                )
+            },
+        ) {  innerPadding ->
+            GgzzNavHost(
+                navController = ggzzNavController,
+                startDestination = NavRoute.Home,
+                showErrorSnackbar = {},
+                isPreWorkEnd = true,
+                onStartEvent = {},
+                onSplashEndEvent = {},
+            )
+        }
+    }
 }

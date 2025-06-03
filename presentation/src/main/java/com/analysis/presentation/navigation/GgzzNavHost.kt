@@ -32,7 +32,7 @@ internal fun GgzzNavHost(
     ) {
         splashNavGraph(
             isPreWorkEnd = isPreWorkEnd,
-            onStartEvent = onStartEvent,
+            preWork = onStartEvent,
             onSplashEndEvent = onSplashEndEvent,
         )
         loginNavGraph(

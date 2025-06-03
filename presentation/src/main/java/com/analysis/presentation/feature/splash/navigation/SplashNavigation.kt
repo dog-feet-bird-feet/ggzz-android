@@ -7,13 +7,13 @@ import com.analysis.presentation.navigation.NavRoute
 
 internal fun NavGraphBuilder.splashNavGraph(
     isPreWorkEnd: Boolean?,
-    onStartEvent: () -> Unit,
+    preWork: () -> Unit,
     onSplashEndEvent: () -> Unit,
 ) {
     composable<NavRoute.Splash> {
         SplashScreen(
             isPreWorkEnd = isPreWorkEnd,
-            onStartEvent = onStartEvent,
+            preWork = preWork,
             onSplashEndEvent = onSplashEndEvent,
         )
     }
