@@ -15,7 +15,7 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.analysis.presentation.R
 import com.analysis.presentation.component.GgzzTopAppBar
-import com.analysis.presentation.feature.verify.model.ImageMultipartUtil
+import com.analysis.presentation.util.ImageUtil
 import com.analysis.presentation.personality.component.HandWritingUploadScreen
 import com.analysis.presentation.personality.component.ResultLoadingScreen
 import com.analysis.presentation.personality.component.ResultScreen
@@ -68,7 +68,7 @@ fun PersonalityScreen(
                     onClickAnalyzingButton = {
                         val imageUri =
                             selectedImageUri ?: throw IllegalStateException("이미지가 선택되지 않았습니다.")
-                        val imageMultipart = ImageMultipartUtil.uriToMultipart(
+                        val imageMultipart = ImageUtil.uriToMultipart(
                             partName = "personality-file",
                             uri = imageUri,
                             resolver = contentResolver,

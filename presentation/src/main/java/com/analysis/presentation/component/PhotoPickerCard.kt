@@ -27,7 +27,7 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.analysis.presentation.R
-import com.analysis.presentation.feature.verify.model.ImageMultipartUtil
+import com.analysis.presentation.util.ImageUtil
 import com.analysis.presentation.theme.GgzzTheme
 import com.analysis.presentation.theme.Purple200
 import com.analysis.presentation.theme.Purple500
@@ -112,14 +112,14 @@ private fun handlePickResult(
 ) {
     if (pickSinglePhotoAvailable(maxSelectable, result)) {
         val uri = result as Uri
-        if (ImageMultipartUtil.isValid(uri, contentResolver)) {
+        if (ImageUtil.isValidFormat(uri, contentResolver)) {
             onPickPhoto(uri)
         } else {
             showError(IllegalArgumentException(context.getString(R.string.verify_invalid_photo)))
         }
     } else if (pickMultiPhotosAvailable(maxSelectable, result)) {
         val uris = (result as List<*>).filterIsInstance<Uri>()
-        val validUris = uris.filter { ImageMultipartUtil.isValid(it, contentResolver) }
+        val validUris = uris.filter { ImageUtil.isValidFormat(it, contentResolver) }
 
         if (validUris.size != uris.size) {
             showError(IllegalArgumentException(context.getString(R.string.verify_invalid_photo)))

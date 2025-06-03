@@ -18,7 +18,7 @@ import com.analysis.presentation.component.GgzzTopAppBar
 import com.analysis.presentation.feature.verify.component.ComparisonVerifyScreenContent
 import com.analysis.presentation.feature.verify.component.ResultScreen
 import com.analysis.presentation.feature.verify.component.VerificationVerifyScreenContent
-import com.analysis.presentation.feature.verify.model.ImageMultipartUtil
+import com.analysis.presentation.util.ImageUtil
 import com.analysis.presentation.feature.verify.model.UploadState
 import com.analysis.presentation.theme.GgzzTheme
 import com.analysis.presentation.theme.Gray100
@@ -80,7 +80,7 @@ internal fun VerifyScreen(
                     onClickPreviousButton = { viewModel.changeUploadState() },
                     onClickAnalysisButton = {
                         val comparisonParts = selectedComparisonUris.map { uri ->
-                            ImageMultipartUtil.uriToMultipart(
+                            ImageUtil.uriToMultipart(
                                 partName = "comparison-file",
                                 uri = uri,
                                 resolver = contentResolver,
@@ -89,7 +89,7 @@ internal fun VerifyScreen(
 
                         val verUri = selectedVerificationUri
                             ?: throw IllegalStateException("검증물이 선택되지 않았습니다.")
-                        val verificationPart = ImageMultipartUtil.uriToMultipart(
+                        val verificationPart = ImageUtil.uriToMultipart(
                             partName = "verification-file",
                             uri = verUri,
                             resolver = contentResolver,
