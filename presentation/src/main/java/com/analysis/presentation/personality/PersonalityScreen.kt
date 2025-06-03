@@ -16,7 +16,6 @@ import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.analysis.presentation.R
 import com.analysis.presentation.component.GgzzTopAppBar
 import com.analysis.presentation.personality.component.HandWritingUploadScreen
-import com.analysis.presentation.personality.component.ResultLoadingScreen
 import com.analysis.presentation.personality.component.ResultScreen
 import com.analysis.presentation.personality.model.PersonalityUiState
 import com.analysis.presentation.theme.GgzzTheme
@@ -25,7 +24,7 @@ import com.analysis.presentation.theme.Gray900
 import com.analysis.presentation.util.ImageUtil
 
 @Composable
-fun PersonalityScreen(
+internal fun PersonalityScreen(
     showErrorSnackBar: (Throwable) -> Unit,
     onClickNavigation: () -> Unit,
     navigateToHome: () -> Unit,
@@ -66,24 +65,19 @@ fun PersonalityScreen(
                     onPickPhoto = { viewModel.updatePickedVerificationUri(it) },
                     onClickCancelButton = { viewModel.removeVerificationUri() },
                     onClickAnalyzingButton = {
-                        val imageUri =
-                            selectedImageUri ?: throw IllegalStateException("이미지가 선택되지 않았습니다.")
-                        val imageMultipart = ImageUtil.uriToMultipart(
-                            partName = "personality-file",
-                            uri = imageUri,
-                            resolver = contentResolver,
-                        )
-
-                        viewModel.executeAnalysis(imageMultipart)
+                        selectedImageUri?.let {
+                            val imageMultipart =
+                                ImageUtil.buildMultiPart(it, contentResolver, "personality-file")
+                            viewModel.executeAnalysis(imageMultipart)
+                        }
                     },
                     selectedHandWritingUri = selectedImageUri,
                 )
             }
 
-            PersonalityUiState.Loading -> ResultLoadingScreen(innerPadding)
-            is PersonalityUiState.ResultUiState -> ResultScreen(
+            is PersonalityUiState.Analyzing -> ResultScreen(
                 innerPadding,
-                personalityUiState as PersonalityUiState.ResultUiState,
+                personalityUiState as PersonalityUiState.Analyzing,
                 onClickHomeButton = navigateToHome,
             )
         }

@@ -17,7 +17,7 @@ import okhttp3.MultipartBody
 import javax.inject.Inject
 
 @HiltViewModel
-class PersonalityViewModel
+internal class PersonalityViewModel
     @Inject
     constructor(
         private val personalityAnalyzeUseCase: PersonalityAnalyzeUseCase,
@@ -38,7 +38,7 @@ class PersonalityViewModel
         }
 
         fun executeAnalysis(image: MultipartBody.Part) {
-            _personalityUiState.value = PersonalityUiState.Loading
+            _personalityUiState.value = PersonalityUiState.Analyzing.Loading
 
             viewModelScope.launch {
                 personalityAnalyzeUseCase(image).catch {

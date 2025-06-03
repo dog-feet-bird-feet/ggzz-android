@@ -1,6 +1,7 @@
 package com.analysis.presentation.personality.component
 
 import androidx.compose.foundation.Image
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
@@ -11,11 +12,13 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.layout.wrapContentHeight
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
+import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -23,6 +26,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.analysis.domain.model.Personality
@@ -39,7 +43,23 @@ import com.analysis.presentation.theme.White
 @Composable
 internal fun ResultScreen(
     innerPadding: PaddingValues,
-    personalityUiState: PersonalityUiState.ResultUiState,
+    uiState: PersonalityUiState.Analyzing,
+    onClickHomeButton: () -> Unit,
+) {
+    when (uiState) {
+        PersonalityUiState.Analyzing.Loading -> ResultLoadingScreen(innerPadding)
+        is PersonalityUiState.Analyzing.Success -> ResultScreenContent(
+            innerPadding,
+            uiState.personality,
+            onClickHomeButton,
+        )
+    }
+}
+
+@Composable
+internal fun ResultScreenContent(
+    innerPadding: PaddingValues,
+    personality: Personality,
     onClickHomeButton: () -> Unit,
 ) {
     val scrollState = rememberScrollState()
@@ -79,14 +99,14 @@ internal fun ResultScreen(
                     Spacer(modifier = Modifier.height(13.dp))
 
                     Text(
-                        text = personalityUiState.type,
+                        text = personality.type,
                         style = GgzzTheme.typography.pretendardSemiBold26.copy(color = Blue300),
                     )
 
                     Spacer(modifier = Modifier.height(10.dp))
 
                     Text(
-                        text = personalityUiState.typeDescription,
+                        text = personality.typeDescription,
                         style = GgzzTheme.typography.pretendardRegular16.copy(color = Blue300),
                     )
                 }
@@ -106,7 +126,7 @@ internal fun ResultScreen(
                     Text(
                         text = stringResource(
                             R.string.personlity_handwriting_size,
-                            personalityUiState.size.score,
+                            personality.traits.size.score,
                         ),
                         style = GgzzTheme.typography.pretendardSemiBold18,
                     )
@@ -115,7 +135,7 @@ internal fun ResultScreen(
                 Spacer(modifier = Modifier.height(10.dp))
 
                 Text(
-                    text = personalityUiState.size.detail,
+                    text = personality.traits.size.detail,
                     style = GgzzTheme.typography.pretendardRegular14,
                 )
 
@@ -134,7 +154,7 @@ internal fun ResultScreen(
                     Text(
                         text = stringResource(
                             R.string.personlity_handwriting_pressure,
-                            personalityUiState.pressure.score,
+                            personality.traits.pressure.score,
                         ),
                         style = GgzzTheme.typography.pretendardSemiBold18,
                     )
@@ -143,7 +163,7 @@ internal fun ResultScreen(
                 Spacer(modifier = Modifier.height(10.dp))
 
                 Text(
-                    text = personalityUiState.pressure.detail,
+                    text = personality.traits.pressure.detail,
                     style = GgzzTheme.typography.pretendardRegular14,
                 )
 
@@ -162,7 +182,7 @@ internal fun ResultScreen(
                     Text(
                         text = stringResource(
                             R.string.personlity_handwriting_inclination,
-                            personalityUiState.inclination.score,
+                            personality.traits.inclination.score,
                         ),
                         style = GgzzTheme.typography.pretendardSemiBold18,
                     )
@@ -171,7 +191,7 @@ internal fun ResultScreen(
                 Spacer(modifier = Modifier.height(10.dp))
 
                 Text(
-                    text = personalityUiState.inclination.detail,
+                    text = personality.traits.inclination.detail,
                     style = GgzzTheme.typography.pretendardRegular14,
                 )
 
@@ -190,7 +210,7 @@ internal fun ResultScreen(
                     Text(
                         text = stringResource(
                             R.string.personlity_handwriting_shape,
-                            personalityUiState.shape.score,
+                            personality.traits.shape.score,
                         ),
                         style = GgzzTheme.typography.pretendardSemiBold18,
                     )
@@ -199,7 +219,7 @@ internal fun ResultScreen(
                 Spacer(modifier = Modifier.height(10.dp))
 
                 Text(
-                    text = personalityUiState.shape.detail,
+                    text = personality.traits.shape.detail,
                     style = GgzzTheme.typography.pretendardRegular14,
                 )
 
@@ -213,7 +233,7 @@ internal fun ResultScreen(
                 Spacer(modifier = Modifier.height(2.dp))
 
                 Text(
-                    text = personalityUiState.description,
+                    text = personality.description,
                     style = GgzzTheme.typography.pretendardRegular14,
                 )
             }
@@ -236,6 +256,60 @@ internal fun ResultScreen(
         }
 
         Spacer(modifier = Modifier.height(20.dp))
+    }
+}
+
+@Composable
+fun ResultLoadingScreen(innerPadding: PaddingValues) {
+    Surface(
+        modifier = Modifier
+            .padding(innerPadding)
+            .fillMaxWidth()
+            .wrapContentHeight()
+            .padding(top = 20.dp)
+            .padding(horizontal = 20.dp),
+        shape = RoundedCornerShape(8.dp),
+        color = White,
+    ) {
+        Column(
+            modifier = Modifier
+                .wrapContentHeight()
+                .padding(top = 20.dp)
+                .padding(horizontal = 20.dp),
+        ) {
+            Box(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .height(112.dp),
+                contentAlignment = Alignment.Center,
+            ) {
+                CircularProgressIndicator(
+                    color = GgzzTheme.colorScheme.primary,
+                )
+            }
+
+            Spacer(modifier = Modifier.height(30.dp))
+
+            Column(
+                modifier = Modifier.fillMaxWidth(),
+                horizontalAlignment = Alignment.CenterHorizontally,
+            ) {
+                Text(
+                    text = stringResource(R.string.personality_analyzing_ongoing_comment),
+                    style = GgzzTheme.typography.pretendardBold16,
+                )
+
+                Spacer(modifier = Modifier.height(12.dp))
+
+                Text(
+                    text = stringResource(R.string.personality_analyzing_guide_comment),
+                    style = GgzzTheme.typography.pretendardRegular14,
+                    textAlign = TextAlign.Center,
+                )
+            }
+
+            Spacer(modifier = Modifier.height(100.dp))
+        }
     }
 }
 

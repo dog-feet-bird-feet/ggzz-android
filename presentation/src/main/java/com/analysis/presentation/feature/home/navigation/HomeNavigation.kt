@@ -1,5 +1,6 @@
 package com.analysis.presentation.feature.home.navigation
 
+import androidx.compose.foundation.layout.PaddingValues
 import androidx.navigation.NavController
 import androidx.navigation.NavGraphBuilder
 import androidx.navigation.NavOptions
@@ -8,12 +9,13 @@ import com.analysis.presentation.feature.home.HomeScreen
 import com.analysis.presentation.navigation.NavRoute
 
 internal fun NavGraphBuilder.homeNavGraph(
+    defaultPadding: PaddingValues,
     navigateToAnalysis: () -> Unit,
     navigateToHistory: () -> Unit,
     navigateToPersonality: () -> Unit,
 ) {
     composable<NavRoute.Home> {
-        HomeScreen(navigateToAnalysis, navigateToHistory, navigateToPersonality)
+        HomeScreen(defaultPadding, navigateToAnalysis, navigateToHistory, navigateToPersonality)
     }
 }
 

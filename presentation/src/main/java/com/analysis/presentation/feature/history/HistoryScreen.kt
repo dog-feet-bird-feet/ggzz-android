@@ -1,6 +1,7 @@
 package com.analysis.presentation.feature.history
 
 import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
@@ -23,6 +24,7 @@ import kotlinx.coroutines.flow.collectLatest
 
 @Composable
 internal fun HistoryScreen(
+    defaultPadding: PaddingValues,
     navigateToResult: (String) -> Unit,
     viewModel: HistoryViewModel = hiltViewModel(),
 ) {
@@ -50,6 +52,7 @@ internal fun HistoryScreen(
     ) { innerPadding ->
         LazyColumn(
             modifier = Modifier
+                .padding(defaultPadding)
                 .padding(innerPadding)
                 .padding(horizontal = 20.dp)
                 .padding(top = 20.dp),

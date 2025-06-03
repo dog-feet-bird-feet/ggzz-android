@@ -69,5 +69,7 @@
     <string name="verify_invalid_photo">10MB 이하의 PNG, JPEG, JPG만 첨부할 수 있어요.</string>
     <string name="datetime">yyyy년 M월 d일 HH:mm</string>
     <string name="percent">%d%%</string>
+    <string name="personality_analyzing_ongoing_comment">필체 분석 중</string>
+    <string name="personality_analyzing_guide_comment">업로드한 필체를 분석하고 있어요.\n 조금만 기다려주세요!</string>
 
 </resources>
