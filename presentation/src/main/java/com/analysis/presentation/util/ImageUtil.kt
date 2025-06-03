@@ -1,4 +1,4 @@
-package com.analysis.presentation.feature.verify.model
+package com.analysis.presentation.util
 
 import android.content.ContentResolver
 import android.net.Uri
@@ -7,11 +7,11 @@ import okhttp3.MediaType.Companion.toMediaTypeOrNull
 import okhttp3.MultipartBody
 import okhttp3.RequestBody.Companion.toRequestBody
 
-object ImageMultipartUtil {
+object ImageUtil {
     private const val MAX_SIZE_BYTES = 10L * 1024 * 1024
     private val ALLOWED_MIME_TYPES = setOf("image/png", "image/jpeg", "image/jpg")
 
-    fun isValid(
+    fun isValidFormat(
         uri: Uri,
         resolver: ContentResolver,
     ): Boolean {
@@ -23,25 +23,47 @@ object ImageMultipartUtil {
         return mime in ALLOWED_MIME_TYPES
     }
 
+    fun buildMultiPart(
+        uri: Uri,
+        resolver: ContentResolver,
+        partName: String = "",
+    ): MultipartBody.Part {
+        return uriToMultipart(partName, uri, resolver)
+    }
+
+    fun buildMultiParts(
+        uris: List<Uri>,
+        resolver: ContentResolver,
+        partName: String = "",
+    ): List<MultipartBody.Part> {
+        return uris.map { uri ->
+            uriToMultipart(partName, uri, resolver)
+        }
+    }
+
     fun uriToMultipart(
         partName: String,
         uri: Uri,
         resolver: ContentResolver,
     ): MultipartBody.Part {
-        // 1) 실제 파일명 추출
-        val fileName = resolver.query(uri, arrayOf(OpenableColumns.DISPLAY_NAME), null, null, null)
-            ?.use { cursor ->
-                val idx = cursor.getColumnIndex(OpenableColumns.DISPLAY_NAME)
-                cursor.moveToFirst()
-                cursor.getString(idx)
-            } ?: "file.jpg"
+        // 실제 파일명 추출
+        val fileName = uri.getFileName(resolver)
 
-        // 2) 바디 생성
+        // 바디 생성
         val bytes = resolver.openInputStream(uri)!!.readBytes()
         val mediaType = resolver.getType(uri)?.toMediaTypeOrNull() ?: "image/*".toMediaTypeOrNull()
         val body = bytes.toRequestBody(mediaType)
 
-        // 3) MultipartBody.Part 생성
+        // MultipartBody.Part 생성
         return MultipartBody.Part.createFormData(partName, fileName, body)
+    }
+
+    private fun Uri.getFileName(resolver: ContentResolver): String {
+        return resolver.query(this, arrayOf(OpenableColumns.DISPLAY_NAME), null, null, null)
+            ?.use { cursor ->
+                val idx = cursor.getColumnIndex(OpenableColumns.DISPLAY_NAME)
+                cursor.moveToFirst()
+                cursor.getString(idx)
+            } ?: throw IllegalArgumentException("Invalid image URI: $this")
     }
 }

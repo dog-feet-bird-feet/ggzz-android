@@ -2,7 +2,7 @@ package com.analysis.presentation.feature.verify
 
 import android.net.Uri
 import com.analysis.domain.usecase.AnalysisUseCase
-import com.analysis.presentation.feature.verify.model.UploadState
+import com.analysis.presentation.feature.verify.model.VerificationUiState
 import com.analysis.presentation.rule.MainDispatcherRule
 import io.mockk.mockk
 import org.assertj.core.api.Assertions.assertThat
@@ -20,30 +20,30 @@ class VerifyViewModelTest {
     @Test
     @DisplayName("초기 업로드 상태는 대조물 업로드이다.")
     fun isUploadStateDefaultComparisonUploadState() {
-        assertThat(viewModel.uploadState.value).isEqualTo(UploadState.ComparisonUploadState)
+        assertThat(viewModel.uiState.value).isEqualTo(VerificationUiState.ComparisonUploadState)
     }
 
     @Test
     @DisplayName("업로드 상태가 대조물 업로드에서 검증물 업로드로 바뀐다")
-    fun changeUploadStateToVerificationUploadState() {
+    fun changeUploadStateToVerificationState() {
         // when
-        viewModel.changeUploadState()
+        viewModel.moveToVerificationUpload()
 
         // then
-        assertThat(viewModel.uploadState.value).isEqualTo(UploadState.VerificationUploadState)
+        assertThat(viewModel.uiState.value).isEqualTo(VerificationUiState.VerificationUploadState)
     }
 
     @Test
     @DisplayName("업로드 상태가 검증물 업로드에서 대조물 업로드로 바뀐다")
-    fun changeUploadStateToComparisonUploadState() {
+    fun changeUploadStateToComparisonState() {
         // given
-        viewModel.changeUploadState()
+        viewModel.moveToVerificationUpload()
 
         // when
-        viewModel.changeUploadState()
+        viewModel.moveToComparisonUpload()
 
         // then
-        assertThat(viewModel.uploadState.value).isEqualTo(UploadState.ComparisonUploadState)
+        assertThat(viewModel.uiState.value).isEqualTo(VerificationUiState.ComparisonUploadState)
     }
 
     @Test

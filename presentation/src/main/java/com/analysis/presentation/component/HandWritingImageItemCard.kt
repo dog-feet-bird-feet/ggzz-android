@@ -1,4 +1,4 @@
-package com.analysis.presentation.feature.verify.component
+package com.analysis.presentation.component
 
 import android.net.Uri
 import androidx.compose.foundation.Image

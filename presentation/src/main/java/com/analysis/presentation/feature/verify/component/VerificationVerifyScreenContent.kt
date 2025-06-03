@@ -26,6 +26,7 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.analysis.presentation.R
+import com.analysis.presentation.component.HandWritingImageItemCard
 import com.analysis.presentation.component.PhotoPickerCard
 import com.analysis.presentation.feature.verify.VerifyViewModel
 import com.analysis.presentation.theme.GgzzTheme
@@ -35,7 +36,7 @@ import com.analysis.presentation.theme.Purple700
 import com.analysis.presentation.theme.White
 
 @Composable
-fun VerificationVerifyScreenContent(
+internal fun VerificationVerifyScreenContent(
     innerPadding: PaddingValues,
     viewModel: VerifyViewModel,
     showErrorSnackBar: (Throwable) -> Unit,

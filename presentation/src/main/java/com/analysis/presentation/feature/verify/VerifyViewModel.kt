@@ -5,8 +5,7 @@ import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.analysis.domain.usecase.AnalysisUseCase
-import com.analysis.presentation.feature.verify.model.UploadState
-import com.analysis.presentation.feature.verify.model.VerificationResultUiState
+import com.analysis.presentation.feature.verify.model.VerificationUiState
 import com.analysis.presentation.feature.verify.model.toVerificationResultUiState
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -18,38 +17,26 @@ import okhttp3.MultipartBody
 import javax.inject.Inject
 
 @HiltViewModel
-class VerifyViewModel
+internal class VerifyViewModel
     @Inject
     constructor(
         private val analysisUseCase: AnalysisUseCase,
     ) : ViewModel() {
-        private val _uploadState = MutableStateFlow<UploadState>(UploadState.ComparisonUploadState)
-        val uploadState: StateFlow<UploadState> = _uploadState.asStateFlow()
-
         private val _selectedComparisonUris = MutableStateFlow<List<Uri>>(emptyList())
         val selectedComparisonUris: StateFlow<List<Uri>> = _selectedComparisonUris.asStateFlow()
 
         private val _selectedVerificationUri = MutableStateFlow<Uri?>(null)
         val selectedVerificationUri: StateFlow<Uri?> = _selectedVerificationUri.asStateFlow()
 
-        private val _verificationResultUiState =
-            MutableStateFlow<VerificationResultUiState>(VerificationResultUiState.Loading)
-        val verificationResultUiState: StateFlow<VerificationResultUiState> =
-            _verificationResultUiState.asStateFlow()
+        private val _uiState = MutableStateFlow<VerificationUiState>(VerificationUiState.ComparisonUploadState)
+        val uiState: StateFlow<VerificationUiState> = _uiState.asStateFlow()
 
-        fun changeUploadState() {
-            when (_uploadState.value) {
-                UploadState.ComparisonUploadState ->
-                    _uploadState.value =
-                        UploadState.VerificationUploadState
+        fun moveToVerificationUpload() {
+            _uiState.value = VerificationUiState.VerificationUploadState
+        }
 
-                UploadState.VerificationUploadState ->
-                    _uploadState.value =
-                        UploadState.ComparisonUploadState
-
-                UploadState.ResultState ->
-                    _uploadState.value = UploadState.ResultState
-            }
+        fun moveToComparisonUpload() {
+            _uiState.value = VerificationUiState.ComparisonUploadState
         }
 
         fun updatePickedComparisonUris(uris: List<Uri>) {
@@ -72,13 +59,13 @@ class VerifyViewModel
             comparisons: List<MultipartBody.Part>,
             verification: MultipartBody.Part,
         ) {
-            _uploadState.value = UploadState.ResultState
+            _uiState.value = VerificationUiState.Verification.Loading
 
             viewModelScope.launch {
                 analysisUseCase(comparisons, verification).catch {
                     Log.e("seogi", it.message.toString())
                 }.collect {
-                    _verificationResultUiState.emit(it.toVerificationResultUiState())
+                    _uiState.emit(it.toVerificationResultUiState())
                 }
             }
         }

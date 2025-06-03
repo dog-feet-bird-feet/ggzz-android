@@ -18,11 +18,11 @@ import com.analysis.presentation.component.GgzzTopAppBar
 import com.analysis.presentation.feature.verify.component.ComparisonVerifyScreenContent
 import com.analysis.presentation.feature.verify.component.ResultScreen
 import com.analysis.presentation.feature.verify.component.VerificationVerifyScreenContent
-import com.analysis.presentation.feature.verify.model.ImageMultipartUtil
-import com.analysis.presentation.feature.verify.model.UploadState
+import com.analysis.presentation.feature.verify.model.VerificationUiState
 import com.analysis.presentation.theme.GgzzTheme
 import com.analysis.presentation.theme.Gray100
 import com.analysis.presentation.theme.Gray900
+import com.analysis.presentation.util.ImageUtil
 
 @Composable
 internal fun VerifyScreen(
@@ -33,8 +33,7 @@ internal fun VerifyScreen(
 ) {
     val selectedComparisonUris by viewModel.selectedComparisonUris.collectAsStateWithLifecycle()
     val selectedVerificationUri by viewModel.selectedVerificationUri.collectAsStateWithLifecycle()
-    val resultUiState by viewModel.verificationResultUiState.collectAsStateWithLifecycle()
-    val uploadState by viewModel.uploadState.collectAsStateWithLifecycle()
+    val uiState by viewModel.uiState.collectAsStateWithLifecycle()
     val context = LocalContext.current
     val contentResolver = context.contentResolver
 
@@ -46,7 +45,7 @@ internal fun VerifyScreen(
                 title = stringResource(R.string.verify_top_app_bar_title),
                 textStyle = GgzzTheme.typography.pretendardRegular18.copy(color = Gray900),
                 navigationIcon = {
-                    if (uploadState !is UploadState.ResultState) {
+                    if (uiState !is VerificationUiState.Verification.Loading) {
                         IconButton(onClick = onClickNavigation) {
                             Image(
                                 painter = painterResource(R.drawable.ic_arrow_back),
@@ -60,54 +59,53 @@ internal fun VerifyScreen(
         containerColor = Gray100,
     ) { innerPadding ->
 
-        when (uploadState) {
-            UploadState.ComparisonUploadState -> {
+        when (uiState) {
+            VerificationUiState.ComparisonUploadState -> {
                 ComparisonVerifyScreenContent(
                     innerPadding = innerPadding,
                     selectedComparisonUris = selectedComparisonUris,
                     viewModel = viewModel,
                     showErrorSnackBar = showErrorSnackBar,
-                    onClickNextButton = { viewModel.changeUploadState() },
+                    onClickNextButton = { viewModel.moveToVerificationUpload() },
                 )
             }
 
-            UploadState.VerificationUploadState -> {
+            VerificationUiState.VerificationUploadState -> {
                 VerificationVerifyScreenContent(
                     innerPadding = innerPadding,
                     viewModel = viewModel,
                     showErrorSnackBar = showErrorSnackBar,
                     selectedVerificationUri = selectedVerificationUri,
-                    onClickPreviousButton = { viewModel.changeUploadState() },
+                    onClickPreviousButton = { viewModel.moveToComparisonUpload() },
                     onClickAnalysisButton = {
-                        val comparisonParts = selectedComparisonUris.map { uri ->
-                            ImageMultipartUtil.uriToMultipart(
-                                partName = "comparison-file",
-                                uri = uri,
-                                resolver = contentResolver,
+                        selectedVerificationUri?.let {
+                            val comparisonParts = ImageUtil.buildMultiParts(
+                                selectedComparisonUris,
+                                contentResolver,
+                                "comparison-file",
+                            )
+
+                            val verificationPart = ImageUtil.buildMultiPart(
+                                it,
+                                contentResolver,
+                                "verification-file",
+                            )
+                            viewModel.executeAnalysis(
+                                comparisons = comparisonParts,
+                                verification = verificationPart,
                             )
                         }
-
-                        val verUri = selectedVerificationUri
-                            ?: throw IllegalStateException("검증물이 선택되지 않았습니다.")
-                        val verificationPart = ImageMultipartUtil.uriToMultipart(
-                            partName = "verification-file",
-                            uri = verUri,
-                            resolver = contentResolver,
-                        )
-
-                        viewModel.executeAnalysis(
-                            comparisons = comparisonParts,
-                            verification = verificationPart,
-                        )
                     },
                 )
             }
 
-            UploadState.ResultState -> ResultScreen(
-                innerPadding = innerPadding,
-                resultUiState = resultUiState,
-                onClickHomeButton = { onClickHomeButton() },
-            )
+            is VerificationUiState.Verification -> {
+                ResultScreen(
+                    innerPadding = innerPadding,
+                    uiState = uiState as VerificationUiState.Verification,
+                    onClickHomeButton = { onClickHomeButton() },
+                )
+            }
         }
     }
 }
