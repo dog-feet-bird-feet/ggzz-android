@@ -39,7 +39,7 @@ import androidx.compose.ui.unit.sp
 import com.analysis.domain.model.AnalysisResult
 import com.analysis.presentation.R
 import com.analysis.presentation.component.ResultDetailItemCard
-import com.analysis.presentation.feature.verify.model.VerificationResultUiState
+import com.analysis.presentation.feature.verify.model.VerificationUiState
 import com.analysis.presentation.feature.verify.model.toVerificationResultUiState
 import com.analysis.presentation.theme.Blue300
 import com.analysis.presentation.theme.GgzzTheme
@@ -51,27 +51,26 @@ import com.analysis.presentation.util.modifier.dropShadow
 @Composable
 internal fun ResultScreen(
     innerPadding: PaddingValues,
-    resultUiState: VerificationResultUiState,
+    uiState: VerificationUiState.Verification,
     onClickHomeButton: () -> Unit,
 ) {
-    when (resultUiState) {
-        VerificationResultUiState.Loading -> ResultScreenLoading(innerPadding)
-        is VerificationResultUiState.VerificationResult ->
-            ResultScreenContent(
-                innerPadding,
-                resultUiState,
-                onClickHomeButton,
-            )
+    when (uiState) {
+        VerificationUiState.Verification.Loading -> ResultScreenLoading(innerPadding)
+        is VerificationUiState.Verification.Result -> ResultScreenContent(
+            innerPadding,
+            uiState,
+            onClickHomeButton,
+        )
     }
 }
 
 @Composable
 fun ResultScreenContent(
     innerPadding: PaddingValues,
-    resultUiState: VerificationResultUiState.VerificationResult,
+    result: VerificationUiState.Verification.Result,
     onClickHomeButton: () -> Unit,
 ) {
-    val isSimilar = resultUiState.indicators[0].percentage >= 50.0
+    val isSimilar = result.indicators[0].percentage >= 50.0
 
     Column(
         modifier = Modifier
@@ -153,7 +152,7 @@ fun ResultScreenContent(
                     verticalArrangement = Arrangement.spacedBy(30.dp),
                     contentPadding = PaddingValues(bottom = 40.dp),
                 ) {
-                    items(resultUiState.indicators) {
+                    items(result.indicators) {
                         ResultDetailItemCard(resultIndicator = it)
                     }
                 }
@@ -295,7 +294,7 @@ fun ResultScreenContentPreview() {
 
     ResultScreenContent(
         innerPadding = PaddingValues(10.dp),
-        uiModel as VerificationResultUiState.VerificationResult,
+        uiModel as VerificationUiState.Verification.Result,
         {},
     )
 }
