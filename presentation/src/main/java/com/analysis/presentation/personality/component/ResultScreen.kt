@@ -296,14 +296,14 @@ fun ResultLoadingScreen(innerPadding: PaddingValues) {
                 horizontalAlignment = Alignment.CenterHorizontally,
             ) {
                 Text(
-                    text = "필체 분석 중",
+                    text = stringResource(R.string.personality_analyzing_ongoing_comment),
                     style = GgzzTheme.typography.pretendardBold16,
                 )
 
                 Spacer(modifier = Modifier.height(12.dp))
 
                 Text(
-                    text = "업로드한 필체를 분석하고 있어요.\n 조금만 기다려주세요!",
+                    text = stringResource(R.string.personality_analyzing_guide_comment),
                     style = GgzzTheme.typography.pretendardRegular14,
                     textAlign = TextAlign.Center,
                 )
