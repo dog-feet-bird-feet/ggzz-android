@@ -26,6 +26,13 @@
     <string name="verify_verification_guide_comment_photo_upload">감정할 필적 사진이 필요해요!\n기존에 작성된 필적 사진을 업로드 해주세요.</string>
     <string name="verify_pick_photo_message">사진을 첨부해주세요</string>
     <string name="verify_move_home_comment">홈으로 이동</string>
+    <string name="verify_similar_handwriting_prefix">유사한 필적</string>
+    <string name="verify_dissimilar_handwriting_prefix">유사하지 않은 필적</string>
+    <string name="verify_handwriting_result_postfix">입니다</string>
+    <string name="verify_verification_ongoing_comment">필적 감정 중</string>
+    <string name="verify_verification_guide_comment">업로드한 필적을 비교하고 있어요.\n 조금만 기다려주세요!</string>
+    <string name="verify_result_badge_message">STEP 3</string>
+    <string name="verify_result_guide_title">감정 결과 확인</string>
 
     <!-- History -->
     <string name="history_top_app_bar_title">히스토리</string>
@@ -62,4 +69,5 @@
     <string name="verify_invalid_photo">10MB 이하의 PNG, JPEG, JPG만 첨부할 수 있어요.</string>
     <string name="datetime">yyyy년 M월 d일 HH:mm</string>
     <string name="percent">%d%%</string>
+
 </resources>

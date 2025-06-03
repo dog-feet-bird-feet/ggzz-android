@@ -183,7 +183,10 @@ private fun ResultScreenContent(
 private fun SimilarityResultText(isSimilar: Boolean) {
     Text(
         text = buildAnnotatedString {
-            val highlightText = if (isSimilar) "유사한 필적" else "유사하지 않은 필적"
+            val highlightText =
+                if (isSimilar) stringResource(R.string.verify_similar_handwriting_prefix) else stringResource(
+                    R.string.verify_dissimilar_handwriting_prefix
+                )
             val highlightColor = if (isSimilar) Blue300 else Red500
             val semiBold30 = GgzzTheme.typography.pretendardSemiBold23
 
@@ -196,7 +199,7 @@ private fun SimilarityResultText(isSimilar: Boolean) {
             ) {
                 append(highlightText)
             }
-            append("입니다")
+            append(stringResource(R.string.verify_handwriting_result_postfix))
         },
         style = GgzzTheme.typography.pretendardRegular24.copy(color = Blue300),
     )
@@ -242,14 +245,14 @@ private fun ResultScreenLoading(innerPadding: PaddingValues) {
                 horizontalAlignment = Alignment.CenterHorizontally,
             ) {
                 Text(
-                    text = "필적 감정 중",
+                    text = stringResource(R.string.verify_verification_ongoing_comment),
                     style = GgzzTheme.typography.pretendardBold16,
                 )
 
                 Spacer(modifier = Modifier.height(12.dp))
 
                 Text(
-                    text = "업로드한 필적을 비교하고 있어요.\n 조금만 기다려주세요!",
+                    text = stringResource(R.string.verify_verification_guide_comment),
                     style = GgzzTheme.typography.pretendardRegular14,
                     textAlign = TextAlign.Center,
                 )
@@ -270,14 +273,14 @@ private fun GuideComment() {
             modifier = Modifier
                 .width(70.dp)
                 .height(30.dp),
-            text = "step3",
+            text = stringResource(R.string.verify_result_badge_message),
             style = GgzzTheme.typography.pretendardSemiBold14.copy(
                 letterSpacing = 0.5.sp,
             ),
         )
         Spacer(modifier = Modifier.width(10.dp))
         Text(
-            text = "감정 결과 확인",
+            text = stringResource(R.string.verify_result_guide_title),
             style = GgzzTheme.typography.pretendardBold18,
         )
     }
