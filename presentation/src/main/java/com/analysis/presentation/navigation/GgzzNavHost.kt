@@ -3,7 +3,6 @@ package com.analysis.presentation.navigation
 import androidx.compose.animation.EnterTransition
 import androidx.compose.animation.ExitTransition
 import androidx.compose.runtime.Composable
-import androidx.compose.ui.Modifier
 import androidx.navigation.compose.NavHost
 import com.analysis.presentation.feature.history.navigation.historyNavGraph
 import com.analysis.presentation.feature.historydetail.navigation.historyDetailNavGraph

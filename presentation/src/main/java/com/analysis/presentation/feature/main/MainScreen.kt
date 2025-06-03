@@ -3,7 +3,6 @@ package com.analysis.presentation.feature.main
 import android.annotation.SuppressLint
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.navigationBarsPadding
-import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.statusBarsPadding
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.SnackbarHost
@@ -22,15 +21,12 @@ import com.analysis.presentation.R
 import com.analysis.presentation.component.GgzzNavigationBar
 import com.analysis.presentation.navigation.GgzzNavController
 import com.analysis.presentation.navigation.GgzzNavHost
-import com.analysis.presentation.navigation.NavRoute
 import com.analysis.presentation.navigation.NavTab
 import com.analysis.presentation.theme.GgzzTheme
 import kotlinx.coroutines.launch
 
 @Composable
-internal fun MainScreen(
-    navController: GgzzNavController,
-) {
+internal fun MainScreen(navController: GgzzNavController) {
     val context = LocalContext.current
     val coroutineScope = rememberCoroutineScope()
 
@@ -79,8 +75,11 @@ private fun MainContent(
             onStartEvent = { viewModel.getAccessTokenStatus() },
             onSplashEndEvent = {
                 hasAccessToken?.let {
-                    if(it) navController.navigateToHome()
-                    else navController.navigateToLogin()
+                    if (it) {
+                        navController.navigateToHome()
+                    } else {
+                        navController.navigateToLogin()
+                    }
                 }
             },
             showErrorSnackbar = showErrorSnackbar,

@@ -5,7 +5,6 @@ import androidx.compose.animation.core.tween
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Surface
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.DisposableEffect
@@ -67,9 +66,8 @@ fun SplashScreen(
     }
 
     Surface(
-        color = White
+        color = White,
     ) {
-
         Box(
             modifier = Modifier
                 .fillMaxSize(),
@@ -87,9 +85,10 @@ fun SplashScreen(
 @Composable
 @Preview(showBackground = true)
 fun SplashScreenPreview(modifier: Modifier = Modifier) {
-    SplashScreen(isPreWorkEnd = null,
+    SplashScreen(
+        isPreWorkEnd = null,
         onStartEvent = {},
         onSplashEndEvent = {},
-        animationDelayMillis = 0
+        animationDelayMillis = 0,
     )
 }
