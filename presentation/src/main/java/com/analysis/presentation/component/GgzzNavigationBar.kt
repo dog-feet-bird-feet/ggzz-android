@@ -130,7 +130,7 @@ private fun GgzzNavigationBarPreview() {
                     },
                 )
             },
-        ) {  innerPadding ->
+        ) { innerPadding ->
             GgzzNavHost(
                 navController = ggzzNavController,
                 startDestination = NavRoute.Home,
