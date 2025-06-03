@@ -19,14 +19,14 @@ internal sealed interface VerificationUiState {
         data object Loading : Verification
 
         @Immutable
-        data class Result(
+        data class Success(
             val indicators: List<ResultIndicator>,
         ) : Verification
     }
 }
 
 internal fun AnalysisResult.toVerificationResultUiState(): VerificationUiState =
-    VerificationUiState.Verification.Result(
+    VerificationUiState.Verification.Success(
         indicators = listOf(
             ResultIndicator.Similarity(similarity),
             ResultIndicator.Pressure(pressure),

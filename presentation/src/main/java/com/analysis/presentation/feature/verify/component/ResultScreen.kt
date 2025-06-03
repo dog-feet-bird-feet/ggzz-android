@@ -56,7 +56,7 @@ internal fun ResultScreen(
 ) {
     when (uiState) {
         VerificationUiState.Verification.Loading -> ResultScreenLoading(innerPadding)
-        is VerificationUiState.Verification.Result -> ResultScreenContent(
+        is VerificationUiState.Verification.Success -> ResultScreenContent(
             innerPadding,
             uiState,
             onClickHomeButton,
@@ -67,7 +67,7 @@ internal fun ResultScreen(
 @Composable
 private fun ResultScreenContent(
     innerPadding: PaddingValues,
-    result: VerificationUiState.Verification.Result,
+    result: VerificationUiState.Verification.Success,
     onClickHomeButton: () -> Unit,
 ) {
     val isSimilar = result.indicators[0].percentage >= 50.0
@@ -301,7 +301,7 @@ fun ResultScreenContentPreview() {
 
     ResultScreenContent(
         innerPadding = PaddingValues(10.dp),
-        uiModel as VerificationUiState.Verification.Result,
+        uiModel as VerificationUiState.Verification.Success,
         {},
     )
 }
