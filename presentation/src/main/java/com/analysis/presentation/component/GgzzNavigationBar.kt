@@ -112,28 +112,28 @@ private fun GgzzNavigationBarPreview() {
     val navController = rememberNavController()
     val ggzzNavController = GgzzNavController(navController)
 
-    GgzzTheme {
-        Scaffold(
-            modifier = Modifier
-                .fillMaxSize(),
-            containerColor = White,
-            bottomBar = {
-                GgzzNavigationBar(
-                    isVisible = true,
-                    currentTab = ggzzNavController.currentTab,
-                    tabs = NavTab.entries,
-                    onTabClick = {
-                        ggzzNavController.navigate(it)
-                    },
-                )
-            },
-        ) { innerPadding ->
-            GgzzNavHost(
-                modifier = Modifier.padding(innerPadding),
-                navController = ggzzNavController,
-                startDestination = ggzzNavController.startDestination,
-                showErrorSnackbar = {},
-            )
-        }
-    }
+//    GgzzTheme {
+//        Scaffold(
+//            modifier = Modifier
+//                .fillMaxSize(),
+//            containerColor = White,
+//            bottomBar = {
+//                GgzzNavigationBar(
+//                    isVisible = true,
+//                    currentTab = ggzzNavController.currentTab,
+//                    tabs = NavTab.entries,
+//                    onTabClick = {
+//                        ggzzNavController.navigate(it)
+//                    },
+//                )
+//            },
+//        ) { innerPadding ->
+//            GgzzNavHost(
+//                modifier = Modifier.padding(innerPadding),
+//                navController = ggzzNavController,
+//                startDestination = ggzzNavController.startDestination,
+//                showErrorSnackbar = {},
+//            )
+//        }
+//    }
 }

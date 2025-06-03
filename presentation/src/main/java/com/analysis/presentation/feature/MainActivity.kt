@@ -14,13 +14,6 @@ import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
 class MainActivity : ComponentActivity() {
-    private val hasAccessToken by lazy {
-        intent.getBooleanExtra(
-            HAS_ACCESS_TOKEN_KEY,
-            false,
-        )
-    }
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
@@ -29,22 +22,8 @@ class MainActivity : ComponentActivity() {
             val ggzzNavController = GgzzNavController(navController)
 
             GgzzTheme {
-                MainScreen(hasAccessToken, ggzzNavController)
+                MainScreen(ggzzNavController)
             }
-        }
-    }
-
-    companion object {
-        const val HAS_ACCESS_TOKEN_KEY = "has_access_token_key"
-
-        fun startActivity(
-            context: Context,
-            hasAccessToken: Boolean,
-        ) {
-            val intent = Intent(context, MainActivity::class.java).apply {
-                putExtra(HAS_ACCESS_TOKEN_KEY, hasAccessToken)
-            }
-            context.startActivity(intent)
         }
     }
 }

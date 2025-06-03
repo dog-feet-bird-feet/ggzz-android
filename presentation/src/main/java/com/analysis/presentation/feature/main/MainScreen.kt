@@ -14,6 +14,8 @@ import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.hilt.navigation.compose.hiltViewModel
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.navigation.compose.rememberNavController
 import com.analysis.presentation.R
 import com.analysis.presentation.component.GgzzNavigationBar
@@ -26,7 +28,6 @@ import kotlinx.coroutines.launch
 
 @Composable
 internal fun MainScreen(
-    hasAccessToken: Boolean,
     navController: GgzzNavController,
 ) {
     val context = LocalContext.current
@@ -40,17 +41,17 @@ internal fun MainScreen(
         }
     }
 
-    MainContent(navController, !hasAccessToken, snackBarHostState, showErrorSnackbar)
+    MainContent(navController, snackBarHostState, showErrorSnackbar)
 }
 
 @Composable
 private fun MainContent(
     navController: GgzzNavController,
-    showLogin: Boolean,
     snackBarHostState: SnackbarHostState,
     showErrorSnackbar: (Throwable) -> Unit,
+    viewModel: MainViewModel = hiltViewModel(),
 ) {
-    val startDestination = if (showLogin) NavRoute.Login else navController.startDestination
+    val hasAccessToken by viewModel.hasAccessToken.collectAsStateWithLifecycle()
 
     Scaffold(
         modifier = Modifier
@@ -72,7 +73,15 @@ private fun MainContent(
         GgzzNavHost(
             modifier = Modifier.padding(innerPadding),
             navController = navController,
-            startDestination = startDestination,
+            startDestination = navController.startDestination,
+            isPreWorkEnd = hasAccessToken,
+            onStartEvent = { viewModel.getAccessTokenStatus() },
+            onSplashEndEvent = {
+                hasAccessToken?.let {
+                    if(it) navController.navigateToHome()
+                    else navController.navigateToLogin()
+                }
+            },
             showErrorSnackbar = showErrorSnackbar,
         )
     }
@@ -86,11 +95,11 @@ private fun MainContentPreview() {
     val snackBarHostState = remember { SnackbarHostState() }
 
     GgzzTheme {
-        MainContent(
-            navController = jipmoNavController,
-            true,
-            snackBarHostState = snackBarHostState,
-            showErrorSnackbar = {},
-        )
+//        MainContent(
+//            navController = jipmoNavController,
+//            true,
+//            snackBarHostState = snackBarHostState,
+//            showErrorSnackbar = {},
+//        )
     }
 }

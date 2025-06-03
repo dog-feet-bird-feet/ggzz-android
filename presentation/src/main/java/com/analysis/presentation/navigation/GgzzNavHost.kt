@@ -10,6 +10,7 @@ import com.analysis.presentation.feature.historydetail.navigation.historyDetailN
 import com.analysis.presentation.feature.home.navigation.homeNavGraph
 import com.analysis.presentation.feature.login.navigation.loginNavGraph
 import com.analysis.presentation.feature.setting.navigation.settingNavGraph
+import com.analysis.presentation.feature.splash.navigation.splashNavGraph
 import com.analysis.presentation.feature.verify.navigation.comparisonVerifyNavGraph
 import com.analysis.presentation.personality.navigation.personalityNavGraph
 
@@ -18,6 +19,9 @@ internal fun GgzzNavHost(
     modifier: Modifier = Modifier,
     navController: GgzzNavController,
     startDestination: NavRoute,
+    isPreWorkEnd: Boolean?,
+    onStartEvent: () -> Unit,
+    onSplashEndEvent: () -> Unit,
     showErrorSnackbar: (Throwable) -> Unit,
 ) {
     NavHost(
@@ -29,6 +33,11 @@ internal fun GgzzNavHost(
         popEnterTransition = { EnterTransition.None },
         popExitTransition = { ExitTransition.None },
     ) {
+        splashNavGraph(
+            isPreWorkEnd = isPreWorkEnd,
+            onStartEvent = onStartEvent,
+            onSplashEndEvent = onSplashEndEvent,
+        )
         loginNavGraph(
             navigateToHome = { navController.navigateToHome() },
         )

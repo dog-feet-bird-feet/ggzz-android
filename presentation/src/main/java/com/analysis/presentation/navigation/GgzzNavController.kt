@@ -9,6 +9,7 @@ import androidx.navigation.navOptions
 import com.analysis.presentation.feature.history.navigation.navigateToHistory
 import com.analysis.presentation.feature.historydetail.navigation.navigateToResult
 import com.analysis.presentation.feature.home.navigation.navigateToHome
+import com.analysis.presentation.feature.login.navigation.navigateToLogin
 import com.analysis.presentation.feature.setting.navigation.navigateToSetting
 import com.analysis.presentation.feature.verify.navigation.navigateToComparisonVerify
 import com.analysis.presentation.personality.navigation.navigateToPersonality
@@ -16,7 +17,7 @@ import com.analysis.presentation.personality.navigation.navigateToPersonality
 internal class GgzzNavController(
     val navController: NavHostController,
 ) {
-    val startDestination = NavRoute.Home
+    val startDestination = NavRoute.Splash
 
     val isNavigationBarVisible: Boolean
         @Composable
@@ -47,6 +48,15 @@ internal class GgzzNavController(
                 tabNavOptions,
             )
         }
+    }
+
+    fun navigateToLogin() {
+        val navOptions = navOptions {
+            popUpTo(navController.graph.id)
+            launchSingleTop = true
+        }
+
+        navController.navigateToLogin(navOptions)
     }
 
     fun navigateToHome() {
