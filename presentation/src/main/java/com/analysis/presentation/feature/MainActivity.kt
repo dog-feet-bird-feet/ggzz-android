@@ -1,5 +1,7 @@
 package com.analysis.presentation.feature
 
+import android.content.Context
+import android.content.Intent
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
@@ -12,6 +14,13 @@ import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
 class MainActivity : ComponentActivity() {
+    private val hasAccessToken by lazy {
+        intent.getBooleanExtra(
+            HAS_ACCESS_TOKEN_KEY,
+            false,
+        )
+    }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
@@ -20,8 +29,22 @@ class MainActivity : ComponentActivity() {
             val ggzzNavController = GgzzNavController(navController)
 
             GgzzTheme {
-                MainScreen(ggzzNavController)
+                MainScreen(hasAccessToken, ggzzNavController)
             }
+        }
+    }
+
+    companion object {
+        const val HAS_ACCESS_TOKEN_KEY = "has_access_token_key"
+
+        fun startActivity(
+            context: Context,
+            hasAccessToken: Boolean,
+        ) {
+            val intent = Intent(context, MainActivity::class.java).apply {
+                putExtra(HAS_ACCESS_TOKEN_KEY, hasAccessToken)
+            }
+            context.startActivity(intent)
         }
     }
 }

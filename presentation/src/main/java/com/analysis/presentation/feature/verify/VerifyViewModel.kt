@@ -1,6 +1,7 @@
 package com.analysis.presentation.feature.verify
 
 import android.net.Uri
+import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.analysis.domain.usecase.AnalysisUseCase
@@ -75,6 +76,7 @@ class VerifyViewModel
 
             viewModelScope.launch {
                 analysisUseCase(comparisons, verification).catch {
+                    Log.e("seogi", it.message.toString())
                 }.collect {
                     _verificationResultUiState.emit(it.toVerificationResultUiState())
                 }

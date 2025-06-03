@@ -3,6 +3,7 @@ package com.analysis.data.di
 import com.analysis.data.BuildConfig
 import com.analysis.data.remote.api.AnalysisApiService
 import com.analysis.data.remote.api.HistoryApiService
+import com.analysis.data.remote.api.LoginApiService
 import com.analysis.data.remote.api.PersonalityApiService
 import com.analysis.data.remote.api.UploadApiService
 import com.analysis.data.remote.interceptor.GgzzInterceptor
@@ -72,4 +73,8 @@ object NetworkModule {
     @Provides
     @Singleton
     fun providePersonalityAnalyzeApiService(retrofit: Retrofit): PersonalityApiService = retrofit.create(PersonalityApiService::class.java)
+
+    @Provides
+    @Singleton
+    fun provideLoginApiService(retrofit: Retrofit): LoginApiService = retrofit.create(LoginApiService::class.java)
 }

@@ -8,6 +8,7 @@ import androidx.compose.material3.Scaffold
 import androidx.compose.material3.SnackbarHost
 import androidx.compose.material3.SnackbarHostState
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Modifier
@@ -18,12 +19,16 @@ import com.analysis.presentation.R
 import com.analysis.presentation.component.GgzzNavigationBar
 import com.analysis.presentation.navigation.GgzzNavController
 import com.analysis.presentation.navigation.GgzzNavHost
+import com.analysis.presentation.navigation.NavRoute
 import com.analysis.presentation.navigation.NavTab
 import com.analysis.presentation.theme.GgzzTheme
 import kotlinx.coroutines.launch
 
 @Composable
-internal fun MainScreen(navController: GgzzNavController) {
+internal fun MainScreen(
+    hasAccessToken: Boolean,
+    navController: GgzzNavController,
+) {
     val context = LocalContext.current
     val coroutineScope = rememberCoroutineScope()
 
@@ -35,15 +40,18 @@ internal fun MainScreen(navController: GgzzNavController) {
         }
     }
 
-    MainContent(navController, snackBarHostState, showErrorSnackbar)
+    MainContent(navController, !hasAccessToken, snackBarHostState, showErrorSnackbar)
 }
 
 @Composable
 private fun MainContent(
     navController: GgzzNavController,
+    showLogin: Boolean,
     snackBarHostState: SnackbarHostState,
     showErrorSnackbar: (Throwable) -> Unit,
 ) {
+    val startDestination = if (showLogin) NavRoute.Login else navController.startDestination
+
     Scaffold(
         modifier = Modifier
             .fillMaxSize()
@@ -64,7 +72,7 @@ private fun MainContent(
         GgzzNavHost(
             modifier = Modifier.padding(innerPadding),
             navController = navController,
-            startDestination = navController.startDestination,
+            startDestination = startDestination,
             showErrorSnackbar = showErrorSnackbar,
         )
     }
@@ -80,6 +88,7 @@ private fun MainContentPreview() {
     GgzzTheme {
         MainContent(
             navController = jipmoNavController,
+            true,
             snackBarHostState = snackBarHostState,
             showErrorSnackbar = {},
         )

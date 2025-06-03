@@ -8,6 +8,7 @@ import androidx.datastore.preferences.core.stringPreferencesKey
 import androidx.datastore.preferences.preferencesDataStore
 import dagger.hilt.android.qualifiers.ApplicationContext
 import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.flow.map
 import javax.inject.Inject
 
@@ -22,9 +23,19 @@ class GgzzDataStore
         val userAccessToken: Flow<String?> = context.dataStore.data
             .map { preferences -> preferences[USER_ACCESS_TOKEN] }
 
-        suspend fun setAccessToken(accessToken: String) {
-            context.dataStore.edit { preferences ->
-                preferences[USER_ACCESS_TOKEN] = accessToken
+        suspend fun hasAccessToken(): Boolean {
+            val prefs = context.dataStore.data.first()
+            return !prefs[USER_ACCESS_TOKEN].isNullOrBlank()
+        }
+
+        suspend fun setAccessToken(accessToken: String): Boolean {
+            return try {
+                context.dataStore.edit { prefs ->
+                    prefs[USER_ACCESS_TOKEN] = accessToken
+                }
+                true
+            } catch (e: Exception) {
+                false
             }
         }
 
