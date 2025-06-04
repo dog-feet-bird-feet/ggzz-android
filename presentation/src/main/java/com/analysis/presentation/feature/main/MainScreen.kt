@@ -31,14 +31,14 @@ internal fun MainScreen(navController: GgzzNavController) {
     val coroutineScope = rememberCoroutineScope()
 
     val snackBarHostState = remember { SnackbarHostState() }
-    val showErrorSnackbar: (Throwable) -> Unit = { throwable ->
+    val showErrorSnackBar: (Throwable) -> Unit = { throwable ->
         coroutineScope.launch {
             val message = throwable.message ?: context.getString(R.string.unknown_error_snackbar)
             snackBarHostState.showSnackbar(message)
         }
     }
 
-    MainContent(navController, snackBarHostState, showErrorSnackbar)
+    MainContent(navController, snackBarHostState, showErrorSnackBar)
 }
 
 @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
@@ -46,7 +46,7 @@ internal fun MainScreen(navController: GgzzNavController) {
 private fun MainContent(
     navController: GgzzNavController,
     snackBarHostState: SnackbarHostState,
-    showErrorSnackbar: (Throwable) -> Unit,
+    showErrorSnackBar: (Throwable) -> Unit,
     viewModel: MainViewModel = hiltViewModel(),
 ) {
     val hasAccessToken by viewModel.hasAccessToken.collectAsStateWithLifecycle()
@@ -83,7 +83,7 @@ private fun MainContent(
                     }
                 }
             },
-            showErrorSnackbar = showErrorSnackbar,
+            showErrorSnackBar = showErrorSnackBar,
         )
     }
 }
@@ -92,14 +92,14 @@ private fun MainContent(
 @Composable
 private fun MainContentPreview() {
     val navController = rememberNavController()
-    val jipmoNavController = GgzzNavController(navController)
+    val ggzzNavController = GgzzNavController(navController)
     val snackBarHostState = remember { SnackbarHostState() }
 
     GgzzTheme {
         MainContent(
-            navController = jipmoNavController,
+            navController = ggzzNavController,
             snackBarHostState = snackBarHostState,
-            showErrorSnackbar = {},
+            showErrorSnackBar = {},
         )
     }
 }

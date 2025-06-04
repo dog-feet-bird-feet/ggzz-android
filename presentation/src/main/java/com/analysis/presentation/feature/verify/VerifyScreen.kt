@@ -5,6 +5,7 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
@@ -23,6 +24,7 @@ import com.analysis.presentation.theme.GgzzTheme
 import com.analysis.presentation.theme.Gray100
 import com.analysis.presentation.theme.Gray900
 import com.analysis.presentation.util.ImageUtil
+import kotlinx.coroutines.flow.collectLatest
 
 @Composable
 internal fun VerifyScreen(
@@ -36,6 +38,10 @@ internal fun VerifyScreen(
     val uiState by viewModel.uiState.collectAsStateWithLifecycle()
     val context = LocalContext.current
     val contentResolver = context.contentResolver
+
+    LaunchedEffect(Unit) {
+        viewModel.error.collectLatest { showErrorSnackBar(it) }
+    }
 
     Scaffold(
         modifier = Modifier

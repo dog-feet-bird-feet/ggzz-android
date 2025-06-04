@@ -22,7 +22,7 @@ internal fun GgzzNavHost(
     isPreWorkEnd: Boolean?,
     onStartEvent: () -> Unit,
     onSplashEndEvent: () -> Unit,
-    showErrorSnackbar: (Throwable) -> Unit,
+    showErrorSnackBar: (Throwable) -> Unit,
 ) {
     NavHost(
         navController = navController.navController,
@@ -38,7 +38,7 @@ internal fun GgzzNavHost(
             onSplashEndEvent = onSplashEndEvent,
         )
         loginNavGraph(
-            showErrorSnackbar = showErrorSnackbar,
+            showErrorSnackbar = showErrorSnackBar,
             navigateToHome = { navController.navigateToHome() },
         )
         homeNavGraph(
@@ -48,23 +48,23 @@ internal fun GgzzNavHost(
             navigateToPersonality = { navController.navigateToPersonality() },
         )
         historyNavGraph(
-            showErrorSnackbar = showErrorSnackbar,
+            showErrorSnackbar = showErrorSnackBar,
             defaultPadding = defaultPadding,
             navigateToResult = { navController.navigateToResult(it) },
         )
         settingNavGraph(defaultPadding = defaultPadding)
         verifyNavGraph(
-            showErrorSnackbar = showErrorSnackbar,
+            showErrorSnackbar = showErrorSnackBar,
             onClickNavigation = { navController.popBackStack() },
             onClickHomeButton = { navController.navigateToHome() },
         )
         historyDetailNavGraph(
-            showErrorSnackbar = showErrorSnackbar,
+            showErrorSnackbar = showErrorSnackBar,
             onClickNavigation = { navController.popBackStack() },
         )
 
         personalityNavGraph(
-            showErrorSnackbar = showErrorSnackbar,
+            showErrorSnackbar = showErrorSnackBar,
             onClickNavigation = { navController.popBackStack() },
             navigateToHome = { navController.navigateToHome() },
         )
