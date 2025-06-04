@@ -23,6 +23,7 @@ import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.DpOffset
@@ -42,7 +43,10 @@ fun GgzzDropMenuButton(
     var expanded by rememberSaveable { mutableStateOf(false) }
 
     Box {
-        IconButton(onClick = { expanded = expanded.not() }) {
+        IconButton(
+            modifier = Modifier.testTag("DropMenuButton"),
+            onClick = { expanded = expanded.not() }
+        ) {
             Icon(
                 painter = painterResource(id = R.drawable.ic_kebab_menu),
                 contentDescription = null,
