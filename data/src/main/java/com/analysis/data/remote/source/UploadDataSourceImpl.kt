@@ -16,16 +16,18 @@ class UploadDataSourceImpl
     ) : UploadDataSource {
         override fun saveComparisons(images: List<MultipartBody.Part>): Flow<ComparisonsResponse> {
             return flow {
+                val response = uploadApiService.postComparisons(images)
                 emit(
-                    uploadApiService.postComparisons(images).body() ?: throw IllegalArgumentException(),
+                    response.body() ?: throw Throwable(response.message()),
                 )
             }
         }
 
         override fun saveVerification(image: MultipartBody.Part): Flow<VerificationResponse> {
             return flow {
+                val response = uploadApiService.postVerification(image)
                 emit(
-                    uploadApiService.postVerification(image).body() ?: throw IllegalArgumentException(),
+                    response.body() ?: throw Throwable(response.message()),
                 )
             }
         }

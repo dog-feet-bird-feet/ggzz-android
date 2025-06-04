@@ -22,8 +22,9 @@ class LoginDataSourceImpl
 
         override fun login(loginRequest: LoginRequest): Flow<Boolean> {
             return flow {
-                val authHeader = loginApiService.postLogin(loginRequest).headers()["Authorization"]
-                    ?: throw IllegalArgumentException()
+                val response = loginApiService.postLogin(loginRequest)
+                val authHeader = response.headers()["Authorization"]
+                    ?: throw Throwable(response.message())
                 val accessToken = authHeader.substringAfter("Bearer ").trim()
                 emit(dataStore.setAccessToken(accessToken))
             }

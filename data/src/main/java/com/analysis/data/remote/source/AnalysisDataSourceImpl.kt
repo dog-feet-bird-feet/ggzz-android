@@ -15,9 +15,9 @@ class AnalysisDataSourceImpl
     ) : AnalysisDataSource {
         override fun executeAnalysis(appraisalRequest: AppraisalRequest): Flow<AnalysisResponse> {
             return flow {
+                val response = analysisApiService.postAnalysis(appraisalRequest)
                 emit(
-                    analysisApiService.postAnalysis(appraisalRequest).body()
-                        ?: throw IllegalArgumentException(),
+                   response .body() ?: throw Throwable(response.message()),
                 )
             }
         }
