@@ -69,6 +69,7 @@ internal class VerifyViewModel
 
             viewModelScope.launch {
                 analysisUseCase(comparisons, verification).catch {
+                    _uiState.value = VerificationUiState.VerificationUploadState
                     _error.emit(it)
                 }.collect {
                     _uiState.emit(it.toVerificationResultUiState())
