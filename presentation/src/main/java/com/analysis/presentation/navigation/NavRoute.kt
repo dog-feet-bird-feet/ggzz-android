@@ -19,7 +19,7 @@ internal sealed interface NavRoute {
     data object Setting : NavRoute
 
     @Serializable
-    data object ComparisonVerify : NavRoute
+    data object Verify : NavRoute
 
     @Serializable
     data class HistoryDetail(val historyId: String) : NavRoute

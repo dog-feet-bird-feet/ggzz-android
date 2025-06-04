@@ -40,6 +40,7 @@ import com.analysis.presentation.theme.White
 
 @Composable
 fun LoginScreen(
+    showErrorSnackbar: (Throwable) -> Unit,
     navigateToHome: () -> Unit,
     viewModel: LoginViewModel = hiltViewModel(),
 ) {
@@ -158,5 +159,5 @@ private fun LoginInputForm(
 @Composable
 @Preview(showSystemUi = true)
 fun LoginScreenPreview() {
-    LoginScreen({})
+    LoginScreen({}, {})
 }

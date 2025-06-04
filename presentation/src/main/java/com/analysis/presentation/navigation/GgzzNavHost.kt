@@ -11,7 +11,7 @@ import com.analysis.presentation.feature.home.navigation.homeNavGraph
 import com.analysis.presentation.feature.login.navigation.loginNavGraph
 import com.analysis.presentation.feature.setting.navigation.settingNavGraph
 import com.analysis.presentation.feature.splash.navigation.splashNavGraph
-import com.analysis.presentation.feature.verify.navigation.comparisonVerifyNavGraph
+import com.analysis.presentation.feature.verify.navigation.verifyNavGraph
 import com.analysis.presentation.personality.navigation.personalityNavGraph
 
 @Composable
@@ -38,6 +38,7 @@ internal fun GgzzNavHost(
             onSplashEndEvent = onSplashEndEvent,
         )
         loginNavGraph(
+            showErrorSnackbar = showErrorSnackbar,
             navigateToHome = { navController.navigateToHome() },
         )
         homeNavGraph(
@@ -47,11 +48,12 @@ internal fun GgzzNavHost(
             navigateToPersonality = { navController.navigateToPersonality() },
         )
         historyNavGraph(
+            showErrorSnackbar = showErrorSnackbar,
             defaultPadding = defaultPadding,
             navigateToResult = { navController.navigateToResult(it) },
         )
         settingNavGraph(defaultPadding = defaultPadding)
-        comparisonVerifyNavGraph(
+        verifyNavGraph(
             showErrorSnackbar = showErrorSnackbar,
             onClickNavigation = { navController.popBackStack() },
             onClickHomeButton = { navController.navigateToHome() },

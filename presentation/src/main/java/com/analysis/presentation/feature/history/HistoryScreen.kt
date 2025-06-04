@@ -24,6 +24,7 @@ import kotlinx.coroutines.flow.collectLatest
 
 @Composable
 internal fun HistoryScreen(
+    showErrorSnackbar: (Throwable) -> Unit,
     defaultPadding: PaddingValues,
     navigateToResult: (String) -> Unit,
     viewModel: HistoryViewModel = hiltViewModel(),
