@@ -17,7 +17,7 @@ class AnalysisDataSourceImpl
             return flow {
                 val response = analysisApiService.postAnalysis(appraisalRequest)
                 emit(
-                   response .body() ?: throw Throwable(response.message()),
+                    response.body() ?: throw Throwable(response.message()),
                 )
             }
         }

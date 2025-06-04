@@ -23,7 +23,7 @@ class HistoryDataSourceImpl
 
         override fun fetchHistoryDetail(id: String): Flow<HistoryDetailResponse> {
             return flow {
-                val response =historyApiService.getHistoryDetail(id)
+                val response = historyApiService.getHistoryDetail(id)
                 emit(response.body() ?: throw Throwable(response.message()))
             }
         }
@@ -33,7 +33,7 @@ class HistoryDataSourceImpl
             historyRequest: HistoryRequest,
         ): Flow<Unit> {
             return flow {
-                val response =historyApiService.patchHistory(id, historyRequest)
+                val response = historyApiService.patchHistory(id, historyRequest)
                 emit(
                     response.body() ?: throw Throwable(response.message()),
                 )

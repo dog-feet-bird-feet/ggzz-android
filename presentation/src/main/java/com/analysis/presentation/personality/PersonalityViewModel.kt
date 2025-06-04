@@ -1,7 +1,6 @@
 package com.analysis.presentation.personality
 
 import android.net.Uri
-import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.analysis.domain.usecase.PersonalityAnalyzeUseCase

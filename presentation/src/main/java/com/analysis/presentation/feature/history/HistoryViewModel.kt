@@ -1,6 +1,5 @@
 package com.analysis.presentation.feature.history
 
-import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.analysis.domain.model.History
@@ -26,7 +25,6 @@ class HistoryViewModel
         private val modifyHistoryTitleUseCase: ModifyHistoryTitleUseCase,
         private val removeHistoryUseCase: RemoveHistoryUseCase,
     ) : ViewModel() {
-
         private val _error: MutableSharedFlow<Throwable> = MutableSharedFlow()
         val error: SharedFlow<Throwable> get() = _error.asSharedFlow()
 
