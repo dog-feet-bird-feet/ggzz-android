@@ -37,9 +37,11 @@ import com.analysis.presentation.theme.Gray100
 import com.analysis.presentation.theme.Gray500
 import com.analysis.presentation.theme.Purple700
 import com.analysis.presentation.theme.White
+import kotlinx.coroutines.flow.collectLatest
 
 @Composable
 fun LoginScreen(
+    showErrorSnackBar: (Throwable) -> Unit,
     navigateToHome: () -> Unit,
     viewModel: LoginViewModel = hiltViewModel(),
 ) {
@@ -47,6 +49,10 @@ fun LoginScreen(
     var password by rememberSaveable { mutableStateOf("") }
     val isFormValid = email.isNotBlank() && password.isNotBlank()
     val isLoginSuccess by viewModel.isLoginSuccess.collectAsStateWithLifecycle()
+
+    LaunchedEffect(Unit) {
+        viewModel.error.collectLatest { showErrorSnackBar(it) }
+    }
 
     LaunchedEffect(isLoginSuccess) {
         if (isLoginSuccess) {
@@ -158,5 +164,5 @@ private fun LoginInputForm(
 @Composable
 @Preview(showSystemUi = true)
 fun LoginScreenPreview() {
-    LoginScreen({})
+    LoginScreen({}, {})
 }

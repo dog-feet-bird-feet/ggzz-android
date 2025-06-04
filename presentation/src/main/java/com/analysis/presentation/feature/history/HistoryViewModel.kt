@@ -1,6 +1,5 @@
 package com.analysis.presentation.feature.history
 
-import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.analysis.domain.model.History
@@ -26,6 +25,9 @@ class HistoryViewModel
         private val modifyHistoryTitleUseCase: ModifyHistoryTitleUseCase,
         private val removeHistoryUseCase: RemoveHistoryUseCase,
     ) : ViewModel() {
+        private val _error: MutableSharedFlow<Throwable> = MutableSharedFlow()
+        val error: SharedFlow<Throwable> get() = _error.asSharedFlow()
+
         private val _histories = MutableStateFlow<List<History>>(emptyList())
         val histories: StateFlow<List<History>> = _histories.asStateFlow()
 
@@ -42,8 +44,7 @@ class HistoryViewModel
         fun fetchHistories() {
             viewModelScope.launch {
                 fetchHistoriesUseCase().catch {
-                    // 에러 핸들링 필요
-                    Log.e("seogi", it.message.toString())
+                    _error.emit(it)
                 }.collect {
                     _histories.emit(it)
                 }
@@ -56,6 +57,7 @@ class HistoryViewModel
         ) {
             viewModelScope.launch {
                 modifyHistoryTitleUseCase(id, title).catch {
+                    _error.emit(it)
                     _isModifySuccess.emit(false)
                 }.collect {
                     _isModifySuccess.emit(true)
@@ -66,6 +68,7 @@ class HistoryViewModel
         fun removeHistory(id: String) {
             viewModelScope.launch {
                 removeHistoryUseCase(id).catch {
+                    _error.emit(it)
                     _isRemoveSuccess.emit(false)
                 }.collect {
                     _isRemoveSuccess.emit(true)

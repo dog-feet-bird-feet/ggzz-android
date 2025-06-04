@@ -7,16 +7,16 @@ import androidx.navigation.compose.composable
 import com.analysis.presentation.feature.verify.VerifyScreen
 import com.analysis.presentation.navigation.NavRoute
 
-internal fun NavGraphBuilder.comparisonVerifyNavGraph(
+internal fun NavGraphBuilder.verifyNavGraph(
     showErrorSnackbar: (Throwable) -> Unit,
     onClickNavigation: () -> Unit,
     onClickHomeButton: () -> Unit,
 ) {
-    composable<NavRoute.ComparisonVerify> {
+    composable<NavRoute.Verify> {
         VerifyScreen(showErrorSnackbar, onClickNavigation, onClickHomeButton)
     }
 }
 
-internal fun NavController.navigateToComparisonVerify(navigateOptions: NavOptions) {
-    this.navigate(NavRoute.ComparisonVerify, navigateOptions)
+internal fun NavController.navigateToVerify(navigateOptions: NavOptions) {
+    this.navigate(NavRoute.Verify, navigateOptions)
 }

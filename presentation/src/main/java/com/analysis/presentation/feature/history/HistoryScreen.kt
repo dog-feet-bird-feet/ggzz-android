@@ -24,10 +24,15 @@ import kotlinx.coroutines.flow.collectLatest
 
 @Composable
 internal fun HistoryScreen(
+    showErrorSnackBar: (Throwable) -> Unit,
     defaultPadding: PaddingValues,
     navigateToResult: (String) -> Unit,
     viewModel: HistoryViewModel = hiltViewModel(),
 ) {
+    LaunchedEffect(Unit) {
+        viewModel.error.collectLatest { showErrorSnackBar(it) }
+    }
+
     LaunchedEffect(Unit) {
         viewModel.isModifySuccess.collectLatest {
             if (it) viewModel.fetchHistories()

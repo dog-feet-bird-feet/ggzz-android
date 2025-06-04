@@ -18,6 +18,7 @@ import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -43,6 +44,7 @@ import com.analysis.presentation.theme.GgzzTheme
 import com.analysis.presentation.theme.Gray100
 import com.analysis.presentation.theme.Gray900
 import com.analysis.presentation.theme.White
+import kotlinx.coroutines.flow.collectLatest
 
 @Composable
 fun HistoryDetailScreen(
@@ -50,6 +52,10 @@ fun HistoryDetailScreen(
     onClickNavigation: () -> Unit,
     viewModel: HistoryDetailViewModel = hiltViewModel(),
 ) {
+    LaunchedEffect(Unit) {
+        viewModel.error.collectLatest { showErrorSnackBar(it) }
+    }
+
     val historyDetailUiState by viewModel.history.collectAsStateWithLifecycle()
 
     when (historyDetailUiState) {

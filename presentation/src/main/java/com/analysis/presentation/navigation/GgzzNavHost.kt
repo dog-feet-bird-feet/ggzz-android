@@ -11,7 +11,7 @@ import com.analysis.presentation.feature.home.navigation.homeNavGraph
 import com.analysis.presentation.feature.login.navigation.loginNavGraph
 import com.analysis.presentation.feature.setting.navigation.settingNavGraph
 import com.analysis.presentation.feature.splash.navigation.splashNavGraph
-import com.analysis.presentation.feature.verify.navigation.comparisonVerifyNavGraph
+import com.analysis.presentation.feature.verify.navigation.verifyNavGraph
 import com.analysis.presentation.personality.navigation.personalityNavGraph
 
 @Composable
@@ -22,7 +22,7 @@ internal fun GgzzNavHost(
     isPreWorkEnd: Boolean?,
     onStartEvent: () -> Unit,
     onSplashEndEvent: () -> Unit,
-    showErrorSnackbar: (Throwable) -> Unit,
+    showErrorSnackBar: (Throwable) -> Unit,
 ) {
     NavHost(
         navController = navController.navController,
@@ -38,6 +38,7 @@ internal fun GgzzNavHost(
             onSplashEndEvent = onSplashEndEvent,
         )
         loginNavGraph(
+            showErrorSnackbar = showErrorSnackBar,
             navigateToHome = { navController.navigateToHome() },
         )
         homeNavGraph(
@@ -47,22 +48,23 @@ internal fun GgzzNavHost(
             navigateToPersonality = { navController.navigateToPersonality() },
         )
         historyNavGraph(
+            showErrorSnackbar = showErrorSnackBar,
             defaultPadding = defaultPadding,
             navigateToResult = { navController.navigateToResult(it) },
         )
         settingNavGraph(defaultPadding = defaultPadding)
-        comparisonVerifyNavGraph(
-            showErrorSnackbar = showErrorSnackbar,
+        verifyNavGraph(
+            showErrorSnackbar = showErrorSnackBar,
             onClickNavigation = { navController.popBackStack() },
             onClickHomeButton = { navController.navigateToHome() },
         )
         historyDetailNavGraph(
-            showErrorSnackbar = showErrorSnackbar,
+            showErrorSnackbar = showErrorSnackBar,
             onClickNavigation = { navController.popBackStack() },
         )
 
         personalityNavGraph(
-            showErrorSnackbar = showErrorSnackbar,
+            showErrorSnackbar = showErrorSnackBar,
             onClickNavigation = { navController.popBackStack() },
             navigateToHome = { navController.navigateToHome() },
         )

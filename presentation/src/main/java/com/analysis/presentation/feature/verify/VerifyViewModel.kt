@@ -1,15 +1,17 @@
 package com.analysis.presentation.feature.verify
 
 import android.net.Uri
-import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.analysis.domain.usecase.AnalysisUseCase
 import com.analysis.presentation.feature.verify.model.VerificationUiState
 import com.analysis.presentation.feature.verify.model.toVerificationResultUiState
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.SharedFlow
 import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.asSharedFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.launch
@@ -22,6 +24,9 @@ internal class VerifyViewModel
     constructor(
         private val analysisUseCase: AnalysisUseCase,
     ) : ViewModel() {
+        private val _error: MutableSharedFlow<Throwable> = MutableSharedFlow()
+        val error: SharedFlow<Throwable> get() = _error.asSharedFlow()
+
         private val _selectedComparisonUris = MutableStateFlow<List<Uri>>(emptyList())
         val selectedComparisonUris: StateFlow<List<Uri>> = _selectedComparisonUris.asStateFlow()
 
@@ -63,7 +68,8 @@ internal class VerifyViewModel
 
             viewModelScope.launch {
                 analysisUseCase(comparisons, verification).catch {
-                    Log.e("seogi", it.message.toString())
+                    _uiState.value = VerificationUiState.VerificationUploadState
+                    _error.emit(it)
                 }.collect {
                     _uiState.emit(it.toVerificationResultUiState())
                 }

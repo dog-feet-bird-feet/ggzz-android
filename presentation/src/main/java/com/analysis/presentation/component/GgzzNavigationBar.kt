@@ -136,7 +136,7 @@ private fun GgzzNavigationBarPreview() {
                 defaultPadding = PaddingValues(20.dp),
                 navController = ggzzNavController,
                 startDestination = NavRoute.Home,
-                showErrorSnackbar = {},
+                showErrorSnackBar = {},
                 isPreWorkEnd = true,
                 onStartEvent = {},
                 onSplashEndEvent = {},

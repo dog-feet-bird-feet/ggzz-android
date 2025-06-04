@@ -17,18 +17,18 @@ class PersonalityDataSourceImpl
     ) : PersonalityDataSource {
         override fun uploadImage(image: MultipartBody.Part): Flow<PersonalityImageResponse> {
             return flow {
+                val response = personalityApiService.postUploadImage(image)
                 emit(
-                    personalityApiService.postUploadImage(image).body()
-                        ?: throw IllegalArgumentException(),
+                    response.body() ?: throw Throwable(response.message()),
                 )
             }
         }
 
         override fun executeAnalyze(personalityAnalyzeRequest: PersonalityAnalyzeRequest): Flow<PersonalityResponse> {
             return flow {
+                val response = personalityApiService.postPersonalityAnalyze(personalityAnalyzeRequest)
                 emit(
-                    personalityApiService.postPersonalityAnalyze(personalityAnalyzeRequest).body()
-                        ?: throw IllegalArgumentException(),
+                    response.body() ?: throw Throwable(response.message()),
                 )
             }
         }

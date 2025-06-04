@@ -9,11 +9,12 @@ import com.analysis.presentation.feature.history.HistoryScreen
 import com.analysis.presentation.navigation.NavRoute
 
 internal fun NavGraphBuilder.historyNavGraph(
+    showErrorSnackbar: (Throwable) -> Unit,
     defaultPadding: PaddingValues,
     navigateToResult: (String) -> Unit,
 ) {
     composable<NavRoute.History> {
-        HistoryScreen(defaultPadding, navigateToResult)
+        HistoryScreen(showErrorSnackbar, defaultPadding, navigateToResult)
     }
 }
 

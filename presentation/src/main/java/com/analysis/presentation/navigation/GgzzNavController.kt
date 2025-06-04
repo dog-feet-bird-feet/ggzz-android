@@ -11,7 +11,7 @@ import com.analysis.presentation.feature.historydetail.navigation.navigateToResu
 import com.analysis.presentation.feature.home.navigation.navigateToHome
 import com.analysis.presentation.feature.login.navigation.navigateToLogin
 import com.analysis.presentation.feature.setting.navigation.navigateToSetting
-import com.analysis.presentation.feature.verify.navigation.navigateToComparisonVerify
+import com.analysis.presentation.feature.verify.navigation.navigateToVerify
 import com.analysis.presentation.personality.navigation.navigateToPersonality
 
 internal class GgzzNavController(
@@ -76,7 +76,7 @@ internal class GgzzNavController(
         val navOptions = navOptions {
             launchSingleTop = true
         }
-        navController.navigateToComparisonVerify(navOptions)
+        navController.navigateToVerify(navOptions)
     }
 
     fun navigateToPersonality() {

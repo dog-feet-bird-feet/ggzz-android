@@ -16,13 +16,15 @@ class HistoryDataSourceImpl
     ) : HistoryDataSource {
         override fun fetchHistories(): Flow<List<HistoryResponse>> {
             return flow {
-                emit(historyApiService.getHistories().body() ?: throw IllegalArgumentException())
+                val response = historyApiService.getHistories()
+                emit(response.body() ?: throw Throwable(response.message()))
             }
         }
 
         override fun fetchHistoryDetail(id: String): Flow<HistoryDetailResponse> {
             return flow {
-                emit(historyApiService.getHistoryDetail(id).body() ?: throw IllegalArgumentException())
+                val response = historyApiService.getHistoryDetail(id)
+                emit(response.body() ?: throw Throwable(response.message()))
             }
         }
 
@@ -31,16 +33,17 @@ class HistoryDataSourceImpl
             historyRequest: HistoryRequest,
         ): Flow<Unit> {
             return flow {
+                val response = historyApiService.patchHistory(id, historyRequest)
                 emit(
-                    historyApiService.patchHistory(id, historyRequest).body()
-                        ?: throw IllegalArgumentException(),
+                    response.body() ?: throw Throwable(response.message()),
                 )
             }
         }
 
         override fun removeHistory(id: String): Flow<Unit> {
             return flow {
-                emit(historyApiService.deleteHistory(id).body() ?: throw IllegalArgumentException())
+                val response = historyApiService.deleteHistory(id)
+                emit(response.body() ?: throw Throwable(response.message()))
             }
         }
     }
