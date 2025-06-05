@@ -21,7 +21,7 @@ class LoginViewModelTest {
 
     @Test
     @DisplayName("로그인을 시도한다")
-    fun fetchHistories() {
+    fun login() {
         runTest {
             // given
             coEvery { loginUseCase("", "") } returns flow { emit(true) }

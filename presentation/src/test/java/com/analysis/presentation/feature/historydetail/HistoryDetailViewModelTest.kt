@@ -1,22 +1,17 @@
-package com.analysis.presentation.feature
+package com.analysis.presentation.feature.historydetail
 
 import androidx.lifecycle.SavedStateHandle
 import com.analysis.domain.model.HistoryDetail
 import com.analysis.domain.usecase.FetchHistoryDetailUseCase
-import com.analysis.presentation.feature.historydetail.HistoryDetailViewModel
 import com.analysis.presentation.feature.historydetail.model.toHistoryDetailUiState
 import com.analysis.presentation.rule.MainDispatcherRule
 import io.mockk.coEvery
 import io.mockk.every
 import io.mockk.mockk
-import kotlinx.coroutines.ExperimentalCoroutinesApi
-import kotlinx.coroutines.flow.drop
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.flow.flow
-import kotlinx.coroutines.test.advanceUntilIdle
 import kotlinx.coroutines.test.runTest
 import org.assertj.core.api.Assertions.assertThat
-import org.hamcrest.core.Every
 import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
