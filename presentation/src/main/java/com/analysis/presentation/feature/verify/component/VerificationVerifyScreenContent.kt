@@ -82,7 +82,7 @@ internal fun VerificationVerifyScreenContent(
                     } else {
                         HandWritingImageItemCard(
                             uri = uri,
-                            onClickCancelButton = { viewModel.removeVerificationUri(it) },
+                            onClickCancelButton = { viewModel.removeVerificationUri() },
                             modifier = Modifier
                                 .fillMaxWidth()
                                 .padding(horizontal = 25.dp)

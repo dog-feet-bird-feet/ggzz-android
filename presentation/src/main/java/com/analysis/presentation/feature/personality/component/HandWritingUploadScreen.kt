@@ -36,7 +36,7 @@ fun HandWritingUploadScreen(
     innerPadding: PaddingValues,
     showErrorSnackBar: (Throwable) -> Unit,
     onPickPhoto: (Uri) -> Unit = {},
-    onClickCancelButton: (Uri) -> Unit,
+    onClickCancelButton: () -> Unit,
     onClickAnalyzingButton: () -> Unit,
     selectedHandWritingUri: Uri? = null,
 ) {
@@ -78,7 +78,7 @@ fun HandWritingUploadScreen(
                     } else {
                         HandWritingImageItemCard(
                             uri = uri,
-                            onClickCancelButton = { onClickCancelButton(it) },
+                            onClickCancelButton = { onClickCancelButton() },
                             modifier = Modifier
                                 .fillMaxWidth()
                                 .padding(horizontal = 25.dp)

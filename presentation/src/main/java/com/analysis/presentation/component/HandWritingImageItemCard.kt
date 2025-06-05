@@ -25,7 +25,7 @@ import com.analysis.presentation.R
 @Composable
 internal fun HandWritingImageItemCard(
     uri: Uri,
-    onClickCancelButton: (Uri) -> Unit,
+    onClickCancelButton: () -> Unit,
     modifier: Modifier = Modifier,
 ) {
     Box(
@@ -50,7 +50,7 @@ internal fun HandWritingImageItemCard(
                 .align(Alignment.TopEnd)
                 .offset(x = 9.dp, y = (-9).dp)
                 .testTag("cancelButton"),
-            onClick = { onClickCancelButton(uri) },
+            onClick = { onClickCancelButton() },
         ) {
             Image(
                 painter = painterResource(R.drawable.ic_cancel),
