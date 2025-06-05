@@ -1,4 +1,4 @@
-package com.analysis.presentation.personality
+package com.analysis.presentation.feature.personality
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.fillMaxSize
@@ -16,9 +16,9 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.analysis.presentation.R
 import com.analysis.presentation.component.GgzzTopAppBar
-import com.analysis.presentation.personality.component.HandWritingUploadScreen
-import com.analysis.presentation.personality.component.ResultScreen
-import com.analysis.presentation.personality.model.PersonalityUiState
+import com.analysis.presentation.feature.personality.component.HandWritingUploadScreen
+import com.analysis.presentation.feature.personality.component.ResultScreen
+import com.analysis.presentation.feature.personality.model.PersonalityUiState
 import com.analysis.presentation.theme.GgzzTheme
 import com.analysis.presentation.theme.Gray100
 import com.analysis.presentation.theme.Gray900

@@ -1,4 +1,4 @@
-package com.analysis.presentation.personality.component
+package com.analysis.presentation.feature.personality.component
 
 import android.net.Uri
 import androidx.compose.animation.AnimatedContent

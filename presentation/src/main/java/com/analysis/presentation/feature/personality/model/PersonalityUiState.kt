@@ -1,4 +1,4 @@
-package com.analysis.presentation.personality.model
+package com.analysis.presentation.feature.personality.model
 
 import androidx.compose.runtime.Immutable
 import androidx.compose.runtime.Stable
