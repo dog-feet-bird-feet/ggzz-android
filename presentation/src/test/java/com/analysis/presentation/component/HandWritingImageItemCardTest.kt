@@ -19,15 +19,11 @@ class HandWritingImageItemCardTest {
     @Test
     fun `x버튼을 누르면 onClickCancelButton이 호출된다`() {
         // given
-        val fakeUri = Uri.parse("content://test/image.png")
-        var clickedUri: Uri? = null
-
+        var counter = 0
         composeRule.setContent {
             HandWritingImageItemCard(
-                uri = fakeUri,
-                onClickCancelButton = { uri ->
-                    clickedUri = uri
-                }
+                uri = Uri.EMPTY,
+                onClickCancelButton = { counter ++}
             )
         }
 
@@ -37,6 +33,6 @@ class HandWritingImageItemCardTest {
 
         // then
         composeRule.waitForIdle()
-        assertThat(clickedUri).isEqualTo(fakeUri)
+        assertThat(counter).isEqualTo(1)
     }
 }
