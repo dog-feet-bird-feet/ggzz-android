@@ -1,19 +1,32 @@
 package com.analysis.presentation.util
 
 import android.content.ContentResolver
+import android.content.Context
 import android.net.Uri
 import android.provider.OpenableColumns
+import com.analysis.presentation.R
+import com.google.mlkit.common.MlKitException
+import com.google.mlkit.vision.common.InputImage
+import com.google.mlkit.vision.text.TextRecognition
+import com.google.mlkit.vision.text.korean.KoreanTextRecognizerOptions
+import dagger.hilt.android.qualifiers.ApplicationContext
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.tasks.await
 import okhttp3.MediaType.Companion.toMediaTypeOrNull
 import okhttp3.MultipartBody
 import okhttp3.RequestBody.Companion.toRequestBody
+import javax.inject.Inject
+import javax.inject.Singleton
 
-object ImageUtil {
-    private const val MAX_SIZE_BYTES = 10L * 1024 * 1024
-    private val ALLOWED_MIME_TYPES = setOf("image/png", "image/jpeg", "image/jpg")
+@Singleton
+class ImageUtil @Inject constructor(
+    @ApplicationContext private val appContext: Context,
+) {
+    private val resolver: ContentResolver
+        get() = appContext.contentResolver
 
     fun isValidFormat(
         uri: Uri,
-        resolver: ContentResolver,
     ): Boolean {
         val size = resolver.openAssetFileDescriptor(uri, "r")?.use { it.length }
             ?: return false
@@ -25,26 +38,23 @@ object ImageUtil {
 
     fun buildMultiPart(
         uri: Uri,
-        resolver: ContentResolver,
         partName: String = "",
     ): MultipartBody.Part {
-        return uriToMultipart(partName, uri, resolver)
+        return uriToMultipart(partName, uri)
     }
 
     fun buildMultiParts(
         uris: List<Uri>,
-        resolver: ContentResolver,
         partName: String = "",
     ): List<MultipartBody.Part> {
         return uris.map { uri ->
-            uriToMultipart(partName, uri, resolver)
+            uriToMultipart(partName, uri)
         }
     }
 
-    fun uriToMultipart(
+    private fun uriToMultipart(
         partName: String,
         uri: Uri,
-        resolver: ContentResolver,
     ): MultipartBody.Part {
         // 실제 파일명 추출
         val fileName = uri.getFileName(resolver)
@@ -65,5 +75,49 @@ object ImageUtil {
                 cursor.moveToFirst()
                 cursor.getString(idx)
             } ?: throw IllegalArgumentException("Invalid image URI: $this")
+    }
+
+    suspend fun analyzeImageHasTextWithKorean(
+        uri: Uri,
+        onSuccess: suspend (hasTextWithKorean: Boolean) -> Unit,
+        onFailure: suspend (throwable: Throwable) -> Unit,
+        maxRetries: Int = 5,
+        delayMs: Long = 1000L,
+    ) {
+        val recognizer = TextRecognition.getClient(KoreanTextRecognizerOptions.Builder().build())
+        val image = InputImage.fromFilePath(appContext, uri)
+
+        repeat(maxRetries) { attempt ->
+            try {
+                val visionText = recognizer.process(image).await()
+                val recognizedText = visionText.text
+                if (recognizedText.isBlank()) {
+                    onSuccess(false)
+                    return
+                }
+                val hasAnyKorean = Regex(CHECK_KOREAN_REGEX)
+                    .containsMatchIn(recognizedText)
+                onSuccess(hasAnyKorean)
+                return
+            } catch (e: MlKitException) {
+                if (e.errorCode == MlKitException.UNAVAILABLE) {
+                    if (attempt + 1 == maxRetries) {
+                        onFailure(IllegalArgumentException(appContext.getString(R.string.error_try_later)))
+                        return
+                    }
+                    delay(delayMs)
+                    return@repeat
+                } else {
+                    onFailure(IllegalArgumentException(appContext.getString(R.string.unknown_error_snackbar)))
+                    return
+                }
+            }
+        }
+    }
+
+    companion object {
+        private const val MAX_SIZE_BYTES = 10L * 1024 * 1024
+        private val ALLOWED_MIME_TYPES = listOf("image/png", "image/jpeg", "image/jpg")
+        private const val CHECK_KOREAN_REGEX = ".*[\\uAC00-\\uD7AF].*"
     }
 }
