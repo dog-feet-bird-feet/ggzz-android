@@ -9,9 +9,9 @@ import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.flow.flowOf
 import kotlinx.coroutines.test.runTest
 import okhttp3.MultipartBody
+import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.DisplayName
 import org.junit.jupiter.api.Test
-import org.assertj.core.api.Assertions.assertThat
 
 class AnalysisUseCaseTest {
     private val uploadRepository: UploadRepository = mockk()

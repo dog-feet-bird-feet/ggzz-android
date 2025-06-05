@@ -19,10 +19,10 @@ class LoginUseCaseTest {
     fun login() {
         runTest {
             // given
-            coEvery { loginRepository.login("","") } returns flowOf(false)
+            coEvery { loginRepository.login("", "") } returns flowOf(false)
 
             // when
-            val actual = loginUseCase("","")
+            val actual = loginUseCase("", "")
 
             // then
             assertThat(actual.first()).isEqualTo(false)

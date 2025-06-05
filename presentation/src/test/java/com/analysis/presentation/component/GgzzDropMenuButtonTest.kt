@@ -42,7 +42,7 @@ class GgzzDropMenuButtonTest {
     fun `드롭 메뉴를 클릭하면 onClick이 실행된다`() {
         // given
         var counter = 0
-        val items = listOf(DropMenuItem("수정하기", {counter++}))
+        val items = listOf(DropMenuItem("수정하기", { counter++ }))
 
         composeRule.setContent {
             GgzzDropMenuButton(items = items)

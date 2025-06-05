@@ -1,6 +1,5 @@
 package com.analysis.domain.usecase
 
-import com.analysis.domain.model.History
 import com.analysis.domain.model.HistoryDetail
 import com.analysis.domain.repository.HistoryRepository
 import io.mockk.coEvery
@@ -21,7 +20,7 @@ class FetchHistoryDetailUseCaseTest {
         pressure = 1f,
         inclination = 1f,
         verificationImgUrl = "test",
-        createdAt = "test"
+        createdAt = "test",
     )
     private val fetchHistoryDetailUseCase: FetchHistoryDetailUseCase = FetchHistoryDetailUseCase(historyRepository)
 

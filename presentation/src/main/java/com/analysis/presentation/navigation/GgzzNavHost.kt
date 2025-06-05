@@ -9,10 +9,10 @@ import com.analysis.presentation.feature.history.navigation.historyNavGraph
 import com.analysis.presentation.feature.historydetail.navigation.historyDetailNavGraph
 import com.analysis.presentation.feature.home.navigation.homeNavGraph
 import com.analysis.presentation.feature.login.navigation.loginNavGraph
+import com.analysis.presentation.feature.personality.navigation.personalityNavGraph
 import com.analysis.presentation.feature.setting.navigation.settingNavGraph
 import com.analysis.presentation.feature.splash.navigation.splashNavGraph
 import com.analysis.presentation.feature.verify.navigation.verifyNavGraph
-import com.analysis.presentation.feature.personality.navigation.personalityNavGraph
 
 @Composable
 internal fun GgzzNavHost(

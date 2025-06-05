@@ -27,7 +27,7 @@ class LoginViewModelTest {
             coEvery { loginUseCase("", "") } returns flow { emit(true) }
 
             // when
-            viewModel.login("","")
+            viewModel.login("", "")
             val actual = viewModel.isLoginSuccess
 
             // then

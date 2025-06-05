@@ -28,7 +28,7 @@ class HistoryDetailViewModelTest {
         pressure = 1f,
         inclination = 1f,
         verificationImgUrl = "test",
-        createdAt = "test"
+        createdAt = "test",
     )
 
     private val fetchHistoryDetailUseCase: FetchHistoryDetailUseCase = mockk()
@@ -40,7 +40,6 @@ class HistoryDetailViewModelTest {
         every { savedStateHandle.get<String>("historyId") } returns "1"
         coEvery { fetchHistoryDetailUseCase("1") } returns flow { emit(fakeHistoryDetail) }
         viewModel = HistoryDetailViewModel(savedStateHandle, fetchHistoryDetailUseCase)
-
     }
 
     @Test

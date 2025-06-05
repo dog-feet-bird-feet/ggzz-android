@@ -27,7 +27,7 @@ class HistoryViewModelTest {
     private lateinit var viewModel: HistoryViewModel
 
     @Before
-    fun setUp(){
+    fun setUp() {
         coEvery { fetchHistoriesUseCase() } returns flow { emit(emptyList()) }
     }
 
@@ -54,13 +54,13 @@ class HistoryViewModelTest {
     fun modifyHistoryTitleSuccess() {
         runTest {
             // given
-            coEvery { modifyHistoryTitleUseCase("","") } returns flow { emit(Unit) }
+            coEvery { modifyHistoryTitleUseCase("", "") } returns flow { emit(Unit) }
             viewModel =
                 HistoryViewModel(fetchHistoriesUseCase, modifyHistoryTitleUseCase, removeHistoryUseCase)
 
             // when
             launch {
-                viewModel.modifyHistoryTitle("","")
+                viewModel.modifyHistoryTitle("", "")
             }
             val actual = viewModel.isModifySuccess.first()
 
@@ -74,12 +74,12 @@ class HistoryViewModelTest {
     fun modifyHistoryTitleFail() {
         runTest {
             // given
-            coEvery { modifyHistoryTitleUseCase("","") } returns flow { throw Throwable() }
+            coEvery { modifyHistoryTitleUseCase("", "") } returns flow { throw Throwable() }
             viewModel = HistoryViewModel(fetchHistoriesUseCase, modifyHistoryTitleUseCase, removeHistoryUseCase)
 
             // when
             launch {
-                viewModel.modifyHistoryTitle("","")
+                viewModel.modifyHistoryTitle("", "")
             }
             val actual = viewModel.isModifySuccess.first()
 

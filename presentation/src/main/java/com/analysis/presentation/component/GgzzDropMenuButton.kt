@@ -45,7 +45,7 @@ fun GgzzDropMenuButton(
     Box {
         IconButton(
             modifier = Modifier.testTag("DropMenuButton"),
-            onClick = { expanded = expanded.not() }
+            onClick = { expanded = expanded.not() },
         ) {
             Icon(
                 painter = painterResource(id = R.drawable.ic_kebab_menu),

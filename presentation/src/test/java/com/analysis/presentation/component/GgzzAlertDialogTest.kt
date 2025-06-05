@@ -24,7 +24,7 @@ class GgzzAlertDialogTest {
                 text = "",
                 showModifyDialog = true,
                 onDismissRequest = {},
-                onClickConfirm = {}
+                onClickConfirm = {},
             )
         }
 
@@ -42,7 +42,7 @@ class GgzzAlertDialogTest {
                 text = "텍스트",
                 showModifyDialog = true,
                 onDismissRequest = {},
-                onClickConfirm = {}
+                onClickConfirm = {},
             )
         }
 
@@ -60,7 +60,7 @@ class GgzzAlertDialogTest {
                 text = "",
                 showModifyDialog = true,
                 onDismissRequest = {},
-                onClickConfirm = {}
+                onClickConfirm = {},
             )
         }
 
@@ -78,8 +78,8 @@ class GgzzAlertDialogTest {
                 dialogTitle = "",
                 text = "",
                 showModifyDialog = true,
-                onDismissRequest = {counter++},
-                onClickConfirm = {}
+                onDismissRequest = { counter++ },
+                onClickConfirm = {},
             )
         }
 
@@ -101,7 +101,7 @@ class GgzzAlertDialogTest {
                 text = "",
                 showModifyDialog = true,
                 onDismissRequest = {},
-                onClickConfirm = {}
+                onClickConfirm = {},
             )
         }
 
@@ -120,7 +120,7 @@ class GgzzAlertDialogTest {
                 text = "",
                 showModifyDialog = true,
                 onDismissRequest = {},
-                onClickConfirm = {counter++}
+                onClickConfirm = { counter++ },
             )
         }
 

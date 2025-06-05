@@ -14,7 +14,7 @@ import org.junit.jupiter.api.Test
 class FetchHistoriesUseCaseTest {
     private val historyRepository: HistoryRepository = mockk()
 
-    private val fakeHistory: History = History("1","test","test","test")
+    private val fakeHistory: History = History("1", "test", "test", "test")
     private val fetchHistoriesUseCase: FetchHistoriesUseCase = FetchHistoriesUseCase(historyRepository)
 
     @Test

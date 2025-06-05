@@ -12,7 +12,6 @@ import org.junit.runner.RunWith
 
 @RunWith(AndroidJUnit4::class)
 class HandWritingImageItemCardTest {
-
     @get:Rule
     val composeRule = createComposeRule()
 
@@ -23,7 +22,7 @@ class HandWritingImageItemCardTest {
         composeRule.setContent {
             HandWritingImageItemCard(
                 uri = Uri.EMPTY,
-                onClickCancelButton = { counter ++}
+                onClickCancelButton = { counter++ },
             )
         }
 

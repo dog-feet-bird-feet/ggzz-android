@@ -34,7 +34,7 @@ class PhotoPickerCardTest {
             PhotoPickerCard(
                 showErrorSnackBar = {},
                 maxSelectable = 2,
-                pickedPhotoCount = 1
+                pickedPhotoCount = 1,
             )
         }
 

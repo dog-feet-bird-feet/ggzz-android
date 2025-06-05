@@ -19,10 +19,10 @@ class ModifyHistoryTitleUseCaseTest {
     fun modifyHistoryTitle() {
         runTest {
             // given
-            coEvery { historyRepository.modifyHistoryTitle("1","test") } returns flowOf(Unit)
+            coEvery { historyRepository.modifyHistoryTitle("1", "test") } returns flowOf(Unit)
 
             // when
-            val actual = modifyHistoryTitleUseCase("1","test")
+            val actual = modifyHistoryTitleUseCase("1", "test")
 
             // then
             assertThat(actual.first()).isEqualTo(Unit)

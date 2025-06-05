@@ -52,5 +52,4 @@ class ResultDetailItemCardTest {
         composeRule.onNodeWithText(resultIndicator.description)
             .assertIsDisplayed()
     }
-
 }

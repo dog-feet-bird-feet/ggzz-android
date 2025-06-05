@@ -10,9 +10,9 @@ import com.analysis.presentation.feature.history.navigation.navigateToHistory
 import com.analysis.presentation.feature.historydetail.navigation.navigateToResult
 import com.analysis.presentation.feature.home.navigation.navigateToHome
 import com.analysis.presentation.feature.login.navigation.navigateToLogin
+import com.analysis.presentation.feature.personality.navigation.navigateToPersonality
 import com.analysis.presentation.feature.setting.navigation.navigateToSetting
 import com.analysis.presentation.feature.verify.navigation.navigateToVerify
-import com.analysis.presentation.feature.personality.navigation.navigateToPersonality
 
 internal class GgzzNavController(
     val navController: NavHostController,

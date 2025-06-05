@@ -23,18 +23,22 @@ class PersonalityViewModelTest {
     val dispatcherRule = MainDispatcherRule()
 
     private val fakePersonality: Personality = Personality(
-        id = 1, traits = Traits(
+        id = 1,
+        traits = Traits(
             size = TraitDetail(score = "", detail = ""),
             pressure = TraitDetail(
                 score = "",
-                detail = ""
+                detail = "",
             ),
             inclination = TraitDetail(
                 score = "",
-                detail = ""
+                detail = "",
             ),
-            shape = TraitDetail(score = "", detail = "")
-        ), type = "", typeDescription = "", description = ""
+            shape = TraitDetail(score = "", detail = ""),
+        ),
+        type = "",
+        typeDescription = "",
+        description = "",
     )
     private val personalityAnalyzeUseCase: PersonalityAnalyzeUseCase = mockk()
     private val viewModel = PersonalityViewModel(personalityAnalyzeUseCase)
