@@ -87,6 +87,7 @@ androidx-core-splash-screen = {group="androidx.core", name="core-splashscreen", 
 # unit test
 junit-jupiter-api = { module = "org.junit.jupiter:junit-jupiter-api", version.ref = "junit" }
 junit-jupiter-engine = { module = "org.junit.jupiter:junit-jupiter-engine", version.ref = "junit" }
+junit-jupiter-params = { module = "org.junit.jupiter:junit-jupiter-params", version.ref = "junit" }
 junit-vintage-engine = { group = "org.junit.vintage", name = "junit-vintage-engine", version.ref = "junitVintage" }
 assertj-core = { group = "org.assertj", name = "assertj-core", version = "3.25.3" }
 core-testing = { group = "androidx.arch.core", name = "core-testing", version.ref = "core-test" }

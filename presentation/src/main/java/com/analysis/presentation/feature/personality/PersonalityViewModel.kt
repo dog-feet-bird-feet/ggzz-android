@@ -1,11 +1,11 @@
-package com.analysis.presentation.personality
+package com.analysis.presentation.feature.personality
 
 import android.net.Uri
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.analysis.domain.usecase.PersonalityAnalyzeUseCase
-import com.analysis.presentation.personality.model.PersonalityUiState
-import com.analysis.presentation.personality.model.toPersonalityUiState
+import com.analysis.presentation.feature.personality.model.PersonalityUiState
+import com.analysis.presentation.feature.personality.model.toPersonalityUiState
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.MutableStateFlow

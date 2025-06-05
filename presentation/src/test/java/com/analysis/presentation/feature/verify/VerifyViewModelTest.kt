@@ -1,10 +1,16 @@
 package com.analysis.presentation.feature.verify
 
 import android.net.Uri
+import com.analysis.domain.model.AnalysisResult
 import com.analysis.domain.usecase.AnalysisUseCase
 import com.analysis.presentation.feature.verify.model.VerificationUiState
+import com.analysis.presentation.feature.verify.model.toVerificationResultUiState
 import com.analysis.presentation.rule.MainDispatcherRule
+import io.mockk.coEvery
 import io.mockk.mockk
+import kotlinx.coroutines.flow.flowOf
+import kotlinx.coroutines.test.runTest
+import okhttp3.MultipartBody
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.Rule
 import org.junit.Test
@@ -97,9 +103,26 @@ class VerifyViewModelTest {
         viewModel.updatePickedVerificationUri(uri)
 
         // when
-        viewModel.removeVerificationUri(uri)
+        viewModel.removeVerificationUri()
 
         // then
         assertThat(viewModel.selectedVerificationUri.value).isEqualTo(null)
+    }
+
+    @Test
+    @DisplayName("필적 감정을 진핸한다")
+    fun executeAnalysis() {
+        runTest {
+            // given
+            val image: MultipartBody.Part = mockk()
+            val fakeAnalysisResult = AnalysisResult(1f, 1f, 1f)
+            coEvery { fakeAnalysisUseCase(listOf(image), image) } returns flowOf(fakeAnalysisResult)
+
+            // when
+            viewModel.executeAnalysis(listOf(image), image)
+
+            // then
+            assertThat(viewModel.uiState.value).isEqualTo(fakeAnalysisResult.toVerificationResultUiState())
+        }
     }
 }

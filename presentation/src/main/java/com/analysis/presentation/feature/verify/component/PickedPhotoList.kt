@@ -51,11 +51,11 @@ internal fun PickedPhotoList(
             when (val item = items[index]) {
                 is ComparisonPhotoItem.Picker -> {
                     PhotoPickerCard(
+                        showErrorSnackBar = showErrorSnackBar,
                         modifier = Modifier
                             .fillMaxWidth()
                             .aspectRatio(1f),
                         maxSelectable = 5,
-                        showErrorSnackBar = showErrorSnackBar,
                         pickedPhotoCount = selectedComparisonUris.size,
                         onPickPhotos = updatePickedComparisonUris,
                     )

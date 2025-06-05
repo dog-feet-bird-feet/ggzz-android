@@ -13,7 +13,7 @@ sealed class ResultIndicator(
     val description: String,
     val progressColor: Color,
 ) {
-    class Similarity(score: Float) : ResultIndicator(
+    data class Similarity(val score: Float) : ResultIndicator(
         title = R.string.history_detail_similarity,
         percentage = score,
         description = when {
@@ -24,7 +24,7 @@ sealed class ResultIndicator(
         progressColor = Green400,
     )
 
-    class Pressure(score: Float) : ResultIndicator(
+    data class Pressure(val score: Float) : ResultIndicator(
         title = R.string.history_detail_pressure,
         percentage = score,
         description = when {
@@ -35,7 +35,7 @@ sealed class ResultIndicator(
         progressColor = Red400,
     )
 
-    class Inclination(score: Float) : ResultIndicator(
+    data class Inclination(val score: Float) : ResultIndicator(
         title = R.string.history_detail_inclination,
         percentage = score,
         description = when {

@@ -92,7 +92,7 @@ fun ResultDetailItemCardPreview(modifier: Modifier = Modifier) {
     Column(
         modifier = Modifier.fillMaxSize(),
     ) {
-        val uiModel = ResultIndicator.Similarity(0.43f)
+        val uiModel = ResultIndicator.Similarity(43f)
         ResultDetailItemCard(uiModel)
     }
 }

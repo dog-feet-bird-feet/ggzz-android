@@ -1,4 +1,4 @@
-package com.analysis.presentation.personality.component
+package com.analysis.presentation.feature.personality.component
 
 import android.net.Uri
 import androidx.compose.animation.AnimatedContent
@@ -36,7 +36,7 @@ fun HandWritingUploadScreen(
     innerPadding: PaddingValues,
     showErrorSnackBar: (Throwable) -> Unit,
     onPickPhoto: (Uri) -> Unit = {},
-    onClickCancelButton: (Uri) -> Unit,
+    onClickCancelButton: () -> Unit,
     onClickAnalyzingButton: () -> Unit,
     selectedHandWritingUri: Uri? = null,
 ) {
@@ -68,18 +68,17 @@ fun HandWritingUploadScreen(
                 ) { uri ->
                     if (uri == null) {
                         PhotoPickerCard(
+                            showErrorSnackBar = showErrorSnackBar,
                             modifier = Modifier
                                 .fillMaxWidth()
                                 .padding(horizontal = 25.dp)
                                 .height(160.dp),
-                            maxSelectable = 1,
-                            showErrorSnackBar = showErrorSnackBar,
                             onPickPhoto = { onPickPhoto(it) },
                         )
                     } else {
                         HandWritingImageItemCard(
                             uri = uri,
-                            onClickCancelButton = { onClickCancelButton(it) },
+                            onClickCancelButton = { onClickCancelButton() },
                             modifier = Modifier
                                 .fillMaxWidth()
                                 .padding(horizontal = 25.dp)

@@ -1,4 +1,4 @@
-package com.analysis.presentation.personality.component
+package com.analysis.presentation.feature.personality.component
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Box
@@ -33,8 +33,8 @@ import com.analysis.domain.model.Personality
 import com.analysis.domain.model.TraitDetail
 import com.analysis.domain.model.Traits
 import com.analysis.presentation.R
-import com.analysis.presentation.personality.model.PersonalityUiState
-import com.analysis.presentation.personality.model.toPersonalityUiState
+import com.analysis.presentation.feature.personality.model.PersonalityUiState
+import com.analysis.presentation.feature.personality.model.toPersonalityUiState
 import com.analysis.presentation.theme.Blue300
 import com.analysis.presentation.theme.GgzzTheme
 import com.analysis.presentation.theme.Purple700

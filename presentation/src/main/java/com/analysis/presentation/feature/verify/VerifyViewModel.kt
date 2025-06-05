@@ -56,7 +56,7 @@ internal class VerifyViewModel
             _selectedVerificationUri.value = uri
         }
 
-        fun removeVerificationUri(uri: Uri) {
+        fun removeVerificationUri() {
             _selectedVerificationUri.value = null
         }
 
