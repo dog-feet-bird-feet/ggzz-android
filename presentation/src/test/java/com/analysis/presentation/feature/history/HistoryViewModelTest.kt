@@ -1,20 +1,15 @@
 package com.analysis.presentation.feature.history
 
-import com.analysis.domain.model.AnalysisResult
 import com.analysis.domain.model.History
-import com.analysis.domain.usecase.AnalysisUseCase
 import com.analysis.domain.usecase.FetchHistoriesUseCase
 import com.analysis.domain.usecase.ModifyHistoryTitleUseCase
 import com.analysis.domain.usecase.RemoveHistoryUseCase
-import com.analysis.presentation.feature.verify.VerifyViewModel
-import com.analysis.presentation.feature.verify.model.VerificationUiState
-import com.analysis.presentation.feature.verify.model.toVerificationResultUiState
 import com.analysis.presentation.rule.MainDispatcherRule
 import io.mockk.coEvery
 import io.mockk.mockk
-import kotlinx.coroutines.flow.drop
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.flow.flow
+import kotlinx.coroutines.launch
 import kotlinx.coroutines.test.runTest
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.Before
@@ -29,13 +24,11 @@ class HistoryViewModelTest {
     private val fetchHistoriesUseCase: FetchHistoriesUseCase = mockk()
     private val modifyHistoryTitleUseCase: ModifyHistoryTitleUseCase = mockk()
     private val removeHistoryUseCase: RemoveHistoryUseCase = mockk()
-    private val viewModel =
-        HistoryViewModel(fetchHistoriesUseCase, modifyHistoryTitleUseCase, removeHistoryUseCase)
+    private lateinit var viewModel: HistoryViewModel
 
     @Before
     fun setUp(){
-        val fakeHistory = History("", "", "", "")
-        coEvery { fetchHistoriesUseCase() } returns flow { emit(listOf(fakeHistory)) }
+        coEvery { fetchHistoriesUseCase() } returns flow { emit(emptyList()) }
     }
 
     @Test
@@ -45,10 +38,11 @@ class HistoryViewModelTest {
             // given
             val fakeHistory = History("1", "test", "test", "test")
             coEvery { fetchHistoriesUseCase() } returns flow { emit(listOf(fakeHistory)) }
+            viewModel = HistoryViewModel(fetchHistoriesUseCase, modifyHistoryTitleUseCase, removeHistoryUseCase)
 
             // when
             viewModel.fetchHistories()
-            val actual = viewModel.histories.drop(1)
+            val actual = viewModel.histories
 
             // then
             assertThat(actual.first()).isEqualTo(listOf(fakeHistory))
@@ -61,9 +55,13 @@ class HistoryViewModelTest {
         runTest {
             // given
             coEvery { modifyHistoryTitleUseCase("","") } returns flow { emit(Unit) }
+            viewModel =
+                HistoryViewModel(fetchHistoriesUseCase, modifyHistoryTitleUseCase, removeHistoryUseCase)
 
             // when
-            viewModel.modifyHistoryTitle("","")
+            launch {
+                viewModel.modifyHistoryTitle("","")
+            }
             val actual = viewModel.isModifySuccess.first()
 
             // then
@@ -77,9 +75,12 @@ class HistoryViewModelTest {
         runTest {
             // given
             coEvery { modifyHistoryTitleUseCase("","") } returns flow { throw Throwable() }
+            viewModel = HistoryViewModel(fetchHistoriesUseCase, modifyHistoryTitleUseCase, removeHistoryUseCase)
 
             // when
-            viewModel.modifyHistoryTitle("","")
+            launch {
+                viewModel.modifyHistoryTitle("","")
+            }
             val actual = viewModel.isModifySuccess.first()
 
             // then
@@ -93,9 +94,12 @@ class HistoryViewModelTest {
         runTest {
             // given
             coEvery { removeHistoryUseCase("") } returns flow { emit(Unit) }
+            viewModel = HistoryViewModel(fetchHistoriesUseCase, modifyHistoryTitleUseCase, removeHistoryUseCase)
 
             // when
-            viewModel.removeHistory("")
+            launch {
+                viewModel.removeHistory("")
+            }
             val actual = viewModel.isRemoveSuccess.first()
 
             // then
@@ -109,9 +113,12 @@ class HistoryViewModelTest {
         runTest {
             // given
             coEvery { removeHistoryUseCase("") } returns flow { throw Throwable() }
+            viewModel = HistoryViewModel(fetchHistoriesUseCase, modifyHistoryTitleUseCase, removeHistoryUseCase)
 
             // when
-            viewModel.removeHistory("")
+            launch {
+                viewModel.removeHistory("")
+            }
             val actual = viewModel.isRemoveSuccess.first()
 
             // then
