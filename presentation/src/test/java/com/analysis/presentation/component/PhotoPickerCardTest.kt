@@ -17,9 +17,7 @@ class PhotoPickerCardTest {
     fun `기본값은 단일 선택이다`() {
         // given
         composeRule.setContent {
-            PhotoPickerCard(
-                showErrorSnackBar = {},
-            )
+            PhotoPickerCard()
         }
 
         // then
@@ -32,7 +30,6 @@ class PhotoPickerCardTest {
         // given
         composeRule.setContent {
             PhotoPickerCard(
-                showErrorSnackBar = {},
                 maxSelectable = 2,
                 pickedPhotoCount = 1,
             )

@@ -23,7 +23,6 @@ import com.analysis.presentation.feature.verify.model.VerificationUiState
 import com.analysis.presentation.theme.GgzzTheme
 import com.analysis.presentation.theme.Gray100
 import com.analysis.presentation.theme.Gray900
-import com.analysis.presentation.util.ImageUtil
 import kotlinx.coroutines.flow.collectLatest
 
 @Composable
@@ -37,10 +36,16 @@ internal fun VerifyScreen(
     val selectedVerificationUri by viewModel.selectedVerificationUri.collectAsStateWithLifecycle()
     val uiState by viewModel.uiState.collectAsStateWithLifecycle()
     val context = LocalContext.current
-    val contentResolver = context.contentResolver
 
     LaunchedEffect(Unit) {
         viewModel.error.collectLatest { showErrorSnackBar(it) }
+    }
+
+    LaunchedEffect(Unit) {
+        viewModel.errorMsgResId.collectLatest { stringsId ->
+            val msg = context.getString(stringsId)
+            showErrorSnackBar(IllegalArgumentException(msg))
+        }
     }
 
     Scaffold(
@@ -71,7 +76,6 @@ internal fun VerifyScreen(
                     innerPadding = innerPadding,
                     selectedComparisonUris = selectedComparisonUris,
                     viewModel = viewModel,
-                    showErrorSnackBar = showErrorSnackBar,
                     onClickNextButton = { viewModel.moveToVerificationUpload() },
                 )
             }
@@ -80,28 +84,9 @@ internal fun VerifyScreen(
                 VerificationVerifyScreenContent(
                     innerPadding = innerPadding,
                     viewModel = viewModel,
-                    showErrorSnackBar = showErrorSnackBar,
                     selectedVerificationUri = selectedVerificationUri,
                     onClickPreviousButton = { viewModel.moveToComparisonUpload() },
-                    onClickAnalysisButton = {
-                        selectedVerificationUri?.let {
-                            val comparisonParts = ImageUtil.buildMultiParts(
-                                selectedComparisonUris,
-                                contentResolver,
-                                "comparison-file",
-                            )
-
-                            val verificationPart = ImageUtil.buildMultiPart(
-                                it,
-                                contentResolver,
-                                "verification-file",
-                            )
-                            viewModel.executeAnalysis(
-                                comparisons = comparisonParts,
-                                verification = verificationPart,
-                            )
-                        }
-                    },
+                    onClickAnalysisButton = { viewModel.executeAnalysis() },
                 )
             }
 

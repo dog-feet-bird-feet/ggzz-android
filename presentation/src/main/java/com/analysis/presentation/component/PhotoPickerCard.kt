@@ -1,7 +1,5 @@
 package com.analysis.presentation.component
 
-import android.content.ContentResolver
-import android.content.Context
 import android.net.Uri
 import androidx.activity.compose.rememberLauncherForActivityResult
 import androidx.activity.result.PickVisualMediaRequest
@@ -21,7 +19,6 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
@@ -35,16 +32,12 @@ import com.analysis.presentation.util.ImageUtil
 
 @Composable
 internal fun PhotoPickerCard(
-    showErrorSnackBar: (Throwable) -> Unit,
     modifier: Modifier = Modifier,
     maxSelectable: Int = 1,
     pickedPhotoCount: Int = 0,
     onPickPhoto: (Uri) -> Unit = {},
     onPickPhotos: (List<Uri>) -> Unit = {},
 ) {
-    val context = LocalContext.current
-    val contentResolver = context.contentResolver
-
     val pickMediaLauncher = rememberLauncherForActivityResult(
         contract = if (maxSelectable == 1) {
             PickVisualMedia()
@@ -57,9 +50,6 @@ internal fun PhotoPickerCard(
         handlePickResult(
             result = result,
             maxSelectable = maxSelectable,
-            context = context,
-            contentResolver = contentResolver,
-            showError = showErrorSnackBar,
             onPickPhoto = onPickPhoto,
             onPickPhotos = onPickPhotos,
         )
@@ -104,27 +94,15 @@ internal fun PhotoPickerCard(
 private fun handlePickResult(
     result: Any?,
     maxSelectable: Int,
-    context: Context,
-    contentResolver: ContentResolver,
-    showError: (Throwable) -> Unit,
     onPickPhoto: (Uri) -> Unit,
     onPickPhotos: (List<Uri>) -> Unit,
 ) {
     if (pickSinglePhotoAvailable(maxSelectable, result)) {
         val uri = result as Uri
-        if (ImageUtil.isValidFormat(uri, contentResolver)) {
-            onPickPhoto(uri)
-        } else {
-            showError(IllegalArgumentException(context.getString(R.string.verify_invalid_photo)))
-        }
+        onPickPhoto(uri)
     } else if (pickMultiPhotosAvailable(maxSelectable, result)) {
         val uris = (result as List<*>).filterIsInstance<Uri>()
-        val validUris = uris.filter { ImageUtil.isValidFormat(it, contentResolver) }
-
-        if (validUris.size != uris.size) {
-            showError(IllegalArgumentException(context.getString(R.string.verify_invalid_photo)))
-        }
-        onPickPhotos(validUris)
+        onPickPhotos(uris)
     }
 }
 
@@ -142,7 +120,6 @@ private fun pickSinglePhotoAvailable(
 @Preview(showBackground = true, showSystemUi = true)
 fun PhotoPickerCardPreview(modifier: Modifier = Modifier) {
     PhotoPickerCard(
-        showErrorSnackBar = {},
         maxSelectable = 5,
         pickedPhotoCount = 1,
     )

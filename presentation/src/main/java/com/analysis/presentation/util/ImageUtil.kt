@@ -11,6 +11,8 @@ import com.google.mlkit.vision.text.TextRecognition
 import com.google.mlkit.vision.text.korean.KoreanTextRecognizerOptions
 import dagger.hilt.android.qualifiers.ApplicationContext
 import kotlinx.coroutines.delay
+import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.tasks.await
 import okhttp3.MediaType.Companion.toMediaTypeOrNull
 import okhttp3.MultipartBody
@@ -79,11 +81,9 @@ class ImageUtil @Inject constructor(
 
     suspend fun analyzeImageHasTextWithKorean(
         uri: Uri,
-        onSuccess: suspend (hasTextWithKorean: Boolean) -> Unit,
-        onFailure: suspend (throwable: Throwable) -> Unit,
         maxRetries: Int = 5,
         delayMs: Long = 1000L,
-    ) {
+    ): Flow<Boolean> {
         val recognizer = TextRecognition.getClient(KoreanTextRecognizerOptions.Builder().build())
         val image = InputImage.fromFilePath(appContext, uri)
 
@@ -92,27 +92,25 @@ class ImageUtil @Inject constructor(
                 val visionText = recognizer.process(image).await()
                 val recognizedText = visionText.text
                 if (recognizedText.isBlank()) {
-                    onSuccess(false)
-                    return
+                    return flow { emit(false) }
                 }
                 val hasAnyKorean = Regex(CHECK_KOREAN_REGEX)
                     .containsMatchIn(recognizedText)
-                onSuccess(hasAnyKorean)
-                return
+                return flow { emit(hasAnyKorean) }
             } catch (e: MlKitException) {
                 if (e.errorCode == MlKitException.UNAVAILABLE) {
                     if (attempt + 1 == maxRetries) {
-                        onFailure(IllegalArgumentException(appContext.getString(R.string.error_try_later)))
-                        return
+                        throw IllegalArgumentException(appContext.getString(R.string.error_try_later))
                     }
                     delay(delayMs)
                     return@repeat
                 } else {
-                    onFailure(IllegalArgumentException(appContext.getString(R.string.unknown_error_snackbar)))
-                    return
+                    throw IllegalArgumentException(appContext.getString(R.string.unknown_error_snackbar))
                 }
             }
         }
+
+        throw IllegalArgumentException(appContext.getString(R.string.unknown_error_snackbar))
     }
 
     companion object {

@@ -22,7 +22,6 @@ import com.analysis.presentation.feature.personality.model.PersonalityUiState
 import com.analysis.presentation.theme.GgzzTheme
 import com.analysis.presentation.theme.Gray100
 import com.analysis.presentation.theme.Gray900
-import com.analysis.presentation.util.ImageUtil
 import kotlinx.coroutines.flow.collectLatest
 
 @Composable
@@ -35,10 +34,16 @@ internal fun PersonalityScreen(
     val personalityUiState by viewModel.personalityUiState.collectAsStateWithLifecycle()
     val selectedImageUri by viewModel.selectedImageUri.collectAsStateWithLifecycle()
     val context = LocalContext.current
-    val contentResolver = context.contentResolver
 
     LaunchedEffect(Unit) {
         viewModel.error.collectLatest { showErrorSnackBar(it) }
+    }
+
+    LaunchedEffect(Unit) {
+        viewModel.errorMsgResId.collectLatest { stringsId ->
+            val msg = context.getString(stringsId)
+            showErrorSnackBar(IllegalArgumentException(msg))
+        }
     }
 
     Scaffold(
@@ -67,16 +72,9 @@ internal fun PersonalityScreen(
             PersonalityUiState.ImageUploadState -> {
                 HandWritingUploadScreen(
                     innerPadding = innerPadding,
-                    showErrorSnackBar = showErrorSnackBar,
                     onPickPhoto = { viewModel.updatePickedVerificationUri(it) },
                     onClickCancelButton = { viewModel.removeVerificationUri() },
-                    onClickAnalyzingButton = {
-                        selectedImageUri?.let {
-                            val imageMultipart =
-                                ImageUtil.buildMultiPart(it, contentResolver, "personality-file")
-                            viewModel.executeAnalysis(imageMultipart)
-                        }
-                    },
+                    onClickAnalyzingButton = { viewModel.executeAnalysis() },
                     selectedHandWritingUri = selectedImageUri,
                 )
             }

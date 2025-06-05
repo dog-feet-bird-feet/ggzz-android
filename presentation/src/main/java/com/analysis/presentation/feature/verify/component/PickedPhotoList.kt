@@ -19,7 +19,6 @@ import com.analysis.presentation.feature.verify.model.ComparisonPhotoItem
 
 @Composable
 internal fun PickedPhotoList(
-    showErrorSnackBar: (Throwable) -> Unit,
     selectedComparisonUris: List<Uri>,
     updatePickedComparisonUris: (List<Uri>) -> Unit,
     removeComparisonUri: (Uri) -> Unit,
@@ -51,7 +50,6 @@ internal fun PickedPhotoList(
             when (val item = items[index]) {
                 is ComparisonPhotoItem.Picker -> {
                     PhotoPickerCard(
-                        showErrorSnackBar = showErrorSnackBar,
                         modifier = Modifier
                             .fillMaxWidth()
                             .aspectRatio(1f),

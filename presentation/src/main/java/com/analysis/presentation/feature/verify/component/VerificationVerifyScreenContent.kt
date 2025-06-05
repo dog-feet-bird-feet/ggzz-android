@@ -39,10 +39,9 @@ import com.analysis.presentation.theme.White
 internal fun VerificationVerifyScreenContent(
     innerPadding: PaddingValues,
     viewModel: VerifyViewModel,
-    showErrorSnackBar: (Throwable) -> Unit,
     onClickPreviousButton: () -> Unit,
     onClickAnalysisButton: () -> Unit,
-    selectedVerificationUri: Uri? = null,
+    selectedVerificationUri: Uri,
 ) {
     Column(
         modifier = Modifier
@@ -70,9 +69,8 @@ internal fun VerificationVerifyScreenContent(
                     targetState = selectedVerificationUri,
                     label = "",
                 ) { uri ->
-                    if (uri == null) {
+                    if (uri == Uri.EMPTY) {
                         PhotoPickerCard(
-                            showErrorSnackBar = showErrorSnackBar,
                             modifier = Modifier
                                 .fillMaxWidth()
                                 .padding(horizontal = 25.dp)
@@ -135,7 +133,7 @@ internal fun VerificationVerifyScreenContent(
                     .height(55.dp)
                     .weight(1f),
                 onClick = onClickAnalysisButton,
-                enabled = selectedVerificationUri != null,
+                enabled = selectedVerificationUri != Uri.EMPTY,
                 shape = RoundedCornerShape(5.dp),
                 colors = ButtonColors(
                     containerColor = Purple700,

@@ -34,11 +34,10 @@ import com.analysis.presentation.theme.White
 @Composable
 fun HandWritingUploadScreen(
     innerPadding: PaddingValues,
-    showErrorSnackBar: (Throwable) -> Unit,
     onPickPhoto: (Uri) -> Unit = {},
     onClickCancelButton: () -> Unit,
     onClickAnalyzingButton: () -> Unit,
-    selectedHandWritingUri: Uri? = null,
+    selectedHandWritingUri: Uri,
 ) {
     Column(
         modifier = Modifier
@@ -66,9 +65,8 @@ fun HandWritingUploadScreen(
                     targetState = selectedHandWritingUri,
                     label = "",
                 ) { uri ->
-                    if (uri == null) {
+                    if (uri == Uri.EMPTY) {
                         PhotoPickerCard(
-                            showErrorSnackBar = showErrorSnackBar,
                             modifier = Modifier
                                 .fillMaxWidth()
                                 .padding(horizontal = 25.dp)
@@ -110,7 +108,7 @@ fun HandWritingUploadScreen(
                 .fillMaxWidth()
                 .height(55.dp),
             onClick = onClickAnalyzingButton,
-            enabled = selectedHandWritingUri != null,
+            enabled = selectedHandWritingUri != Uri.EMPTY,
             shape = RoundedCornerShape(5.dp),
             colors = ButtonColors(
                 containerColor = Purple700,
@@ -156,6 +154,6 @@ fun HandWritingUploadScreenPreview() {
         {},
         {},
         {},
-        {},
+        Uri.EMPTY,
     )
 }
