@@ -35,10 +35,10 @@ import com.analysis.presentation.util.ImageUtil
 
 @Composable
 internal fun PhotoPickerCard(
+    showErrorSnackBar: (Throwable) -> Unit,
     modifier: Modifier = Modifier,
     maxSelectable: Int = 1,
     pickedPhotoCount: Int = 0,
-    showErrorSnackBar: (Throwable) -> Unit,
     onPickPhoto: (Uri) -> Unit = {},
     onPickPhotos: (List<Uri>) -> Unit = {},
 ) {

@@ -72,12 +72,11 @@ internal fun VerificationVerifyScreenContent(
                 ) { uri ->
                     if (uri == null) {
                         PhotoPickerCard(
+                            showErrorSnackBar = showErrorSnackBar,
                             modifier = Modifier
                                 .fillMaxWidth()
                                 .padding(horizontal = 25.dp)
                                 .height(160.dp),
-                            maxSelectable = 1,
-                            showErrorSnackBar = showErrorSnackBar,
                             onPickPhoto = { viewModel.updatePickedVerificationUri(it) },
                         )
                     } else {
