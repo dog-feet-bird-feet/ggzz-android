@@ -68,7 +68,6 @@ class VerifyViewModelTest {
             // when
             viewModel.updatePickedComparisonUris(uris)
 
-
             // then
             assertThat(viewModel.selectedComparisonUris.value).isEqualTo(uris)
         }

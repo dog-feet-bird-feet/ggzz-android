@@ -81,9 +81,9 @@ dependencies {
     implementation(libs.androidx.core.splash.screen)
 
     // To recognize Korean script
-    implementation ("com.google.android.gms:play-services-mlkit-text-recognition-korean:16.0.1")
+    implementation("com.google.android.gms:play-services-mlkit-text-recognition-korean:16.0.1")
 
-    implementation ("org.jetbrains.kotlinx:kotlinx-coroutines-play-services:1.6.4")
+    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-play-services:1.6.4")
 
     // robolectric
     testImplementation(libs.robolectric)

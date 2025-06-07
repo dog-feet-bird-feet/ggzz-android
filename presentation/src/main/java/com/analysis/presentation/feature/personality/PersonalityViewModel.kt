@@ -1,7 +1,6 @@
 package com.analysis.presentation.feature.personality
 
 import android.net.Uri
-import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.analysis.domain.usecase.PersonalityAnalyzeUseCase
@@ -21,62 +20,64 @@ import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
-internal class PersonalityViewModel @Inject constructor(
-    private val imageUtil: ImageUtil,
-    private val personalityAnalyzeUseCase: PersonalityAnalyzeUseCase,
-) : ViewModel() {
-    private val _error: MutableSharedFlow<Throwable> = MutableSharedFlow()
-    val error: SharedFlow<Throwable> get() = _error.asSharedFlow()
+internal class PersonalityViewModel
+    @Inject
+    constructor(
+        private val imageUtil: ImageUtil,
+        private val personalityAnalyzeUseCase: PersonalityAnalyzeUseCase,
+    ) : ViewModel() {
+        private val _error: MutableSharedFlow<Throwable> = MutableSharedFlow()
+        val error: SharedFlow<Throwable> get() = _error.asSharedFlow()
 
-    private val _errorMsgResId: MutableSharedFlow<Int> = MutableSharedFlow()
-    val errorMsgResId: SharedFlow<Int> get() = _errorMsgResId.asSharedFlow()
+        private val _errorMsgResId: MutableSharedFlow<Int> = MutableSharedFlow()
+        val errorMsgResId: SharedFlow<Int> get() = _errorMsgResId.asSharedFlow()
 
-    private val _personalityUiState =
-        MutableStateFlow<PersonalityUiState>(PersonalityUiState.ImageUploadState)
-    val personalityUiState: StateFlow<PersonalityUiState> = _personalityUiState.asStateFlow()
+        private val _personalityUiState =
+            MutableStateFlow<PersonalityUiState>(PersonalityUiState.ImageUploadState)
+        val personalityUiState: StateFlow<PersonalityUiState> = _personalityUiState.asStateFlow()
 
-    private val _selectedImageUri = MutableStateFlow<Uri>(Uri.EMPTY)
-    val selectedImageUri: StateFlow<Uri> = _selectedImageUri.asStateFlow()
+        private val _selectedImageUri = MutableStateFlow<Uri>(Uri.EMPTY)
+        val selectedImageUri: StateFlow<Uri> = _selectedImageUri.asStateFlow()
 
-    fun updatePickedVerificationUri(uri: Uri) {
-        viewModelScope.launch {
-            if (!imageUtil.isValidFormat(uri)) {
-                _errorMsgResId.emit(R.string.invalid_photo_format)
-                return@launch
-            }
-
-            imageUtil.analyzeImageHasTextWithKorean(uri).catch {
-                _error.emit(it)
-            }.collect { hasTextWithKorean ->
-                if (hasTextWithKorean) {
-                    _selectedImageUri.emit(uri)
-                    return@collect
+        fun updatePickedVerificationUri(uri: Uri) {
+            viewModelScope.launch {
+                if (!imageUtil.isValidFormat(uri)) {
+                    _errorMsgResId.emit(R.string.invalid_photo_format)
+                    return@launch
                 }
-                _errorMsgResId.emit(R.string.invalid_photo_no_text_or_no_korean)
+
+                imageUtil.analyzeImageHasTextWithKorean(uri).catch {
+                    _error.emit(it)
+                }.collect { hasTextWithKorean ->
+                    if (hasTextWithKorean) {
+                        _selectedImageUri.emit(uri)
+                        return@collect
+                    }
+                    _errorMsgResId.emit(R.string.invalid_photo_no_text_or_no_korean)
+                }
             }
         }
-    }
 
-    fun removeVerificationUri() {
-        _selectedImageUri.value = Uri.EMPTY
-    }
+        fun removeVerificationUri() {
+            _selectedImageUri.value = Uri.EMPTY
+        }
 
-    fun executeAnalysis() {
-        _personalityUiState.value = PersonalityUiState.Analyzing.Loading
+        fun executeAnalysis() {
+            _personalityUiState.value = PersonalityUiState.Analyzing.Loading
 
-        val image = imageUtil.buildMultiPart(_selectedImageUri.value, IMAGE_PART_NAME)
+            val image = imageUtil.buildMultiPart(_selectedImageUri.value, IMAGE_PART_NAME)
 
-        viewModelScope.launch {
-            personalityAnalyzeUseCase(image).catch {
-                _personalityUiState.emit(PersonalityUiState.ImageUploadState)
-                _error.emit(it)
-            }.collect {
-                _personalityUiState.emit(it.toPersonalityUiState())
+            viewModelScope.launch {
+                personalityAnalyzeUseCase(image).catch {
+                    _personalityUiState.emit(PersonalityUiState.ImageUploadState)
+                    _error.emit(it)
+                }.collect {
+                    _personalityUiState.emit(it.toPersonalityUiState())
+                }
             }
         }
-    }
 
-    companion object {
-        private const val IMAGE_PART_NAME = "personality-file"
+        companion object {
+            private const val IMAGE_PART_NAME = "personality-file"
+        }
     }
-}

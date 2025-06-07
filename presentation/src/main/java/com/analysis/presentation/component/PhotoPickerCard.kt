@@ -28,7 +28,6 @@ import com.analysis.presentation.theme.GgzzTheme
 import com.analysis.presentation.theme.Purple200
 import com.analysis.presentation.theme.Purple500
 import com.analysis.presentation.theme.Purple700
-import com.analysis.presentation.util.ImageUtil
 
 @Composable
 internal fun PhotoPickerCard(
