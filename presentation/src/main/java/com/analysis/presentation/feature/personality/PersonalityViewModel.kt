@@ -68,11 +68,9 @@ internal class PersonalityViewModel @Inject constructor(
 
         viewModelScope.launch {
             personalityAnalyzeUseCase(image).catch {
-                println(3)
                 _personalityUiState.emit(PersonalityUiState.ImageUploadState)
                 _error.emit(it)
             }.collect {
-                println(2)
                 _personalityUiState.emit(it.toPersonalityUiState())
             }
         }
