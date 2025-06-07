@@ -80,6 +80,10 @@ dependencies {
     // splash
     implementation(libs.androidx.core.splash.screen)
 
+    // ml kit
+    implementation(libs.play.services.mlkit.text.recognition.korean)
+    implementation(libs.kotlinx.coroutines.play.services)
+
     // robolectric
     testImplementation(libs.robolectric)
 

@@ -17,7 +17,6 @@ class PersonalityAnalyzeUseCase
         operator fun invoke(image: MultipartBody.Part): Flow<Personality> {
             return personalityRepository.uploadImage(image)
                 .flatMapLatest { imageUrl ->
-                    println(imageUrl)
                     personalityRepository.executeAnalyze(imageUrl)
                 }
         }

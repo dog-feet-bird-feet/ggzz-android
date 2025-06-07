@@ -7,12 +7,14 @@ androidJunit5 = "1.11.3.0"
 kotlin = "2.1.0"
 coreKtx = "1.15.0"
 coroutines = "1.10.0"
+kotlinxCoroutinesPlayServices = "1.10.1"
 lifecycleRuntimeKtx = "2.8.7"
 activityCompose = "1.10.0"
 composeBom = "2025.01.01"
 hilt = "2.53.1"
 javaxInject = "1"
 okhttp = "4.12.0"
+playServicesMlkitTextRecognitionKorean = "16.0.1"
 room = "2.6.1"
 ksp = "2.1.0-1.0.29"
 ktlint = "12.1.0"
@@ -81,8 +83,13 @@ kotlinx-coroutines-test = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-t
 # serialization
 kotlinx-serialization-json = { module = "org.jetbrains.kotlinx:kotlinx-serialization-json", version.ref = "kotlinxSerializationJson" }
 
-#splash
+# splash
 androidx-core-splash-screen = {group="androidx.core", name="core-splashscreen", version.ref = "splashScreen"}
+
+# ml kit
+play-services-mlkit-text-recognition-korean = { module = "com.google.android.gms:play-services-mlkit-text-recognition-korean", version.ref = "playServicesMlkitTextRecognitionKorean" }
+kotlinx-coroutines-play-services = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-play-services", version.ref = "kotlinxCoroutinesPlayServices" }
+
 
 # unit test
 junit-jupiter-api = { module = "org.junit.jupiter:junit-jupiter-api", version.ref = "junit" }

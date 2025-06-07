@@ -3,6 +3,10 @@
 
     <application>
 
+        <meta-data
+            android:name="com.google.mlkit.vision.DEPENDENCIES"
+            android:value="ocr_korean" />
+
         <activity
             android:name=".feature.MainActivity"
             android:exported="true"

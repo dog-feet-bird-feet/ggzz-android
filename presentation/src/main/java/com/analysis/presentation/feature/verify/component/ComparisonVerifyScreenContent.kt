@@ -34,7 +34,6 @@ internal fun ComparisonVerifyScreenContent(
     innerPadding: PaddingValues,
     selectedComparisonUris: List<Uri>,
     viewModel: VerifyViewModel,
-    showErrorSnackBar: (Throwable) -> Unit,
     onClickNextButton: () -> Unit,
 ) {
     Column(
@@ -60,7 +59,6 @@ internal fun ComparisonVerifyScreenContent(
                 Spacer(modifier = Modifier.height(40.dp))
 
                 PickedPhotoList(
-                    showErrorSnackBar = showErrorSnackBar,
                     selectedComparisonUris = selectedComparisonUris,
                     updatePickedComparisonUris = { viewModel.updatePickedComparisonUris(it) },
                     removeComparisonUri = { viewModel.removeComparisonUri(it) },
