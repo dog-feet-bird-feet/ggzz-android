@@ -7,10 +7,18 @@ import com.analysis.domain.model.Traits
 import com.analysis.domain.usecase.PersonalityAnalyzeUseCase
 import com.analysis.presentation.feature.personality.model.toPersonalityUiState
 import com.analysis.presentation.rule.MainDispatcherRule
+import com.analysis.presentation.util.ImageUtil
 import io.mockk.coEvery
+import io.mockk.every
+import io.mockk.invoke
 import io.mockk.mockk
+import io.mockk.slot
+import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.flow.flow
+import kotlinx.coroutines.flow.flowOf
+import kotlinx.coroutines.runBlocking
+import kotlinx.coroutines.test.advanceUntilIdle
 import kotlinx.coroutines.test.runTest
 import okhttp3.MultipartBody
 import org.assertj.core.api.Assertions.assertThat
@@ -40,33 +48,36 @@ class PersonalityViewModelTest {
         typeDescription = "",
         description = "",
     )
+
+    private val imageUtil: ImageUtil = mockk(relaxed = true)
     private val personalityAnalyzeUseCase: PersonalityAnalyzeUseCase = mockk()
-    private val viewModel = PersonalityViewModel(personalityAnalyzeUseCase)
+    private val viewModel = PersonalityViewModel(imageUtil, personalityAnalyzeUseCase)
 
     @Test
     @DisplayName("이미지를 업로드 한다")
     fun updatePickedVerificationUri() {
-        // given
-        val uri = mockk<Uri>(relaxed = true)
+        runTest {
+            // given
+            val uri = mockk<Uri>(relaxed = true)
+            every { imageUtil.isValidFormat(uri) } returns true
+            coEvery { imageUtil.analyzeImageHasTextWithKorean(uri) } returns flowOf(true)
 
-        // when
-        viewModel.updatePickedVerificationUri(uri)
+            // when
+            viewModel.updatePickedVerificationUri(uri)
 
-        // then
-        assertThat(viewModel.selectedImageUri.value).isEqualTo(uri)
+            // then
+            assertThat(viewModel.selectedImageUri.value).isEqualTo(uri)
+        }
     }
 
     @Test
     @DisplayName("이미지를 제거 한다")
     fun removeVerificationUri() {
-        // given
-        val uri = mockk<Uri>(relaxed = true)
-
         // when
         viewModel.removeVerificationUri()
 
         // then
-        assertThat(viewModel.selectedImageUri.value).isEqualTo(null)
+        assertThat(viewModel.selectedImageUri.value).isEqualTo(Uri.EMPTY)
     }
 
     @Test
@@ -75,14 +86,15 @@ class PersonalityViewModelTest {
         runTest {
             // given
             val image: MultipartBody.Part = mockk()
-            coEvery { personalityAnalyzeUseCase(image) } returns flow { emit(fakePersonality) }
+
+            every { imageUtil.buildMultiPart(any(), any()) } returns image
+            coEvery { personalityAnalyzeUseCase(image) } returns flowOf(fakePersonality)
 
             // when
-            viewModel.executeAnalysis(image)
-            val actual = viewModel.personalityUiState
+            viewModel.executeAnalysis()
 
             // then
-            assertThat(actual.first()).isEqualTo(fakePersonality.toPersonalityUiState())
+            assertThat(viewModel.personalityUiState.value).isEqualTo(fakePersonality.toPersonalityUiState())
         }
     }
 }
