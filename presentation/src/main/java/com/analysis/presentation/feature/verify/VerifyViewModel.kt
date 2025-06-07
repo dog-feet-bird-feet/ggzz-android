@@ -59,16 +59,19 @@ internal class VerifyViewModel
                 }
 
                 val finalUris = mutableListOf<Uri>()
+                var isErrorEmitted = false
                 var sawTextError = false
                 validUris.forEach { uri ->
                     imageUtil.analyzeImageHasTextWithKorean(uri).catch {
-                        _error.emit(it)
+                        if (!isErrorEmitted) {
+                            _error.emit(it)
+                            isErrorEmitted = true
+                        }
                     }.collect { hasTextWithKorean ->
                         if (hasTextWithKorean) {
                             finalUris.add(uri)
                             return@collect
                         }
-                        validUris -= uri
                         sawTextError = true
                     }
                 }
