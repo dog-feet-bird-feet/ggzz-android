@@ -3,7 +3,7 @@
 
 ## 🤗 Contributors
 
-| **Front** | **AI** |  **Back**   |  **Back**   |
+| **Android** | **AI** |  **Backend**   |  **Backend**   |
 |:-----:|:------:|:---:|:---:|
 | <img src="https://avatars.githubusercontent.com/u/84739562?v=4" height=150 width=150> | <img src="https://avatars.githubusercontent.com/u/163285230?v=4" height=150 width=150> | <img src="https://avatars.githubusercontent.com/u/63222221?v=4" height=150 width=150> |                           <img src="https://avatars.githubusercontent.com/u/123933574?v=4" height=150 width=150> |
 |  [남윤석](https://github.com/Namyunsuk)  |  [고찬영](https://github.com/cyko1218) | [윤성원](https://github.com/mete0rfish) | [이동훈](https://github.com/LEEDONGH00N)                     |
