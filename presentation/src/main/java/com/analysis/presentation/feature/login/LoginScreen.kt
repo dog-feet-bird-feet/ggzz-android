@@ -11,8 +11,6 @@ import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonColors
 import androidx.compose.material3.HorizontalDivider
-import androidx.compose.material3.OutlinedTextField
-import androidx.compose.material3.OutlinedTextFieldDefaults
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
@@ -22,8 +20,6 @@ import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.text.input.PasswordVisualTransformation
-import androidx.compose.ui.text.input.VisualTransformation
 import androidx.compose.ui.text.style.TextDecoration
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
@@ -99,13 +95,13 @@ fun LoginScreen(
                 Spacer(modifier = Modifier.height(40.dp))
 
                 GgzzTextField(
-                    state = emailGgzzTextFieldState
+                    state = emailGgzzTextFieldState,
                 )
 
                 Spacer(modifier = Modifier.height(10.dp))
 
                 GgzzTextField(
-                    state = passwordGgzzTextFieldState
+                    state = passwordGgzzTextFieldState,
                 )
 
                 Spacer(modifier = Modifier.height(35.dp))
@@ -118,7 +114,7 @@ fun LoginScreen(
                     onClick = {
                         viewModel.login(
                             emailGgzzTextFieldState.text,
-                            passwordGgzzTextFieldState.text
+                            passwordGgzzTextFieldState.text,
                         )
                     },
                     enabled = isFormValid,

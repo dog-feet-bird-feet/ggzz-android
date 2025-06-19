@@ -51,6 +51,6 @@ fun GgzzTextFieldPreview(modifier: Modifier = Modifier) {
         state = GgzzTextFieldState(
             text = "안녕하세요",
             maxLength = 10,
-        )
+        ),
     )
 }

@@ -41,7 +41,7 @@ internal fun GgzzNavHost(
         loginNavGraph(
             showErrorSnackBar = showErrorSnackBar,
             navigateToHome = { navController.navigateToHome() },
-            navigateToSignUp = {navController.navigateToSignUp()}
+            navigateToSignUp = { navController.navigateToSignUp() },
         )
         signUpNavGraph(
             showErrorSnackBar = showErrorSnackBar,
@@ -58,7 +58,10 @@ internal fun GgzzNavHost(
             defaultPadding = defaultPadding,
             navigateToResult = { navController.navigateToResult(it) },
         )
-        settingNavGraph(defaultPadding = defaultPadding)
+        settingNavGraph(
+            defaultPadding = defaultPadding,
+            navigateToLogin = { navController.navigateToLogin() },
+        )
         verifyNavGraph(
             showErrorSnackbar = showErrorSnackBar,
             onClickNavigation = { navController.popBackStack() },

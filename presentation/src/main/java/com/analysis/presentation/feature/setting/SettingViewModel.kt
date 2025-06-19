@@ -12,19 +12,21 @@ import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
-class SettingViewModel @Inject constructor(
-    private val logoutUseCase: LogoutUseCase,
-) : ViewModel() {
-    private val _isLogoutSuccess = MutableStateFlow(false)
-    val isLogoutSuccess: StateFlow<Boolean> = _isLogoutSuccess.asStateFlow()
+class SettingViewModel
+    @Inject
+    constructor(
+        private val logoutUseCase: LogoutUseCase,
+    ) : ViewModel() {
+        private val _isLogoutSuccess = MutableStateFlow(false)
+        val isLogoutSuccess: StateFlow<Boolean> = _isLogoutSuccess.asStateFlow()
 
-    fun logout(){
-        viewModelScope.launch {
-            logoutUseCase().catch {
-                // 예외 처리 필요
-            }.collect{
-                _isLogoutSuccess.value = it
+        fun logout() {
+            viewModelScope.launch {
+                logoutUseCase().catch {
+                    // 예외 처리 필요
+                }.collect {
+                    _isLogoutSuccess.value = it
+                }
             }
         }
     }
-}

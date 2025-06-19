@@ -13,23 +13,16 @@ import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonColors
-import androidx.compose.material3.HorizontalDivider
-import androidx.compose.material3.OutlinedTextField
-import androidx.compose.material3.OutlinedTextFieldDefaults
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.text.input.PasswordVisualTransformation
-import androidx.compose.ui.text.input.VisualTransformation
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
@@ -68,7 +61,6 @@ fun SignUpScreen(
         placeholder = "비밀번호 재입력",
         onValueChange = { viewModel.isValidConfirmedPassword(passwordGgzzTextFieldState.text, it) },
     )
-
 
     val isEmailAvailable by viewModel.isEmailAvailable.collectAsStateWithLifecycle()
     val isPasswordAvailable by viewModel.isPasswordAvailable.collectAsStateWithLifecycle()
@@ -118,7 +110,7 @@ fun SignUpScreen(
 
                 Column {
                     Row(
-                        verticalAlignment = Alignment.CenterVertically
+                        verticalAlignment = Alignment.CenterVertically,
                     ) {
                         Text(
                             modifier = Modifier.padding(start = 40.dp),
@@ -151,13 +143,13 @@ fun SignUpScreen(
                                     modifier = Modifier
                                         .padding(end = 7.dp)
                                         .clickable(
-                                            onClick = { viewModel.checkEmail(emailGgzzTextFieldState.text) }
+                                            onClick = { viewModel.checkEmail(emailGgzzTextFieldState.text) },
                                         ),
                                     text = "중복 확인",
                                     style = GgzzTheme.typography.pretendardMedium12,
                                 )
                             }
-                        }
+                        },
                     )
                 }
 
@@ -165,7 +157,7 @@ fun SignUpScreen(
 
                 Column {
                     Row(
-                        verticalAlignment = Alignment.CenterVertically
+                        verticalAlignment = Alignment.CenterVertically,
                     ) {
                         Text(
                             modifier = Modifier.padding(start = 40.dp),
@@ -200,7 +192,7 @@ fun SignUpScreen(
 
                 Column {
                     Row(
-                        verticalAlignment = Alignment.CenterVertically
+                        verticalAlignment = Alignment.CenterVertically,
                     ) {
                         Text(
                             modifier = Modifier.padding(start = 40.dp),
@@ -241,7 +233,7 @@ fun SignUpScreen(
                     onClick = {
                         viewModel.signUp(
                             emailGgzzTextFieldState.text,
-                            passwordGgzzTextFieldState.text
+                            passwordGgzzTextFieldState.text,
                         )
                     },
                     enabled = isFormAvailable,

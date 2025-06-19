@@ -35,16 +35,14 @@ import com.analysis.presentation.theme.Gray100
 import com.analysis.presentation.theme.Gray900
 import com.analysis.presentation.theme.White
 import com.analysis.presentation.util.modifier.dropShadow
-import kotlinx.coroutines.flow.collectLatest
 
 @Composable
 internal fun SettingScreen(
     defaultPadding: PaddingValues,
     navigateToLogin: () -> Unit,
-    viewModel: SettingViewModel = hiltViewModel()
+    viewModel: SettingViewModel = hiltViewModel(),
 ) {
     val isLogoutSuccess by viewModel.isLogoutSuccess.collectAsStateWithLifecycle()
-
 
     LaunchedEffect(isLogoutSuccess) {
         if (isLogoutSuccess) {
