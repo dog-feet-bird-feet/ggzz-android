@@ -1,5 +1,6 @@
 package com.analysis.presentation.feature.login
 
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
@@ -9,28 +10,25 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonColors
-import androidx.compose.material3.OutlinedTextField
-import androidx.compose.material3.OutlinedTextFieldDefaults
+import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.saveable.rememberSaveable
-import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.text.input.PasswordVisualTransformation
-import androidx.compose.ui.text.input.VisualTransformation
+import androidx.compose.ui.text.style.TextDecoration
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.analysis.presentation.R
+import com.analysis.presentation.component.GgzzTextField
 import com.analysis.presentation.component.GgzzTopAppBar
+import com.analysis.presentation.component.rememberSaveableGgzzTextFieldState
 import com.analysis.presentation.theme.Blue300
 import com.analysis.presentation.theme.GgzzTheme
 import com.analysis.presentation.theme.Gray100
@@ -43,11 +41,17 @@ import kotlinx.coroutines.flow.collectLatest
 fun LoginScreen(
     showErrorSnackBar: (Throwable) -> Unit,
     navigateToHome: () -> Unit,
+    navigateToSignUp: () -> Unit,
     viewModel: LoginViewModel = hiltViewModel(),
 ) {
-    var email by rememberSaveable { mutableStateOf("") }
-    var password by rememberSaveable { mutableStateOf("") }
-    val isFormValid = email.isNotBlank() && password.isNotBlank()
+    val emailGgzzTextFieldState = rememberSaveableGgzzTextFieldState(
+        placeholder = "이메일 입력",
+    )
+    val passwordGgzzTextFieldState = rememberSaveableGgzzTextFieldState(
+        placeholder = "비밀번호 입력",
+    )
+
+    val isFormValid = !emailGgzzTextFieldState.isError && !passwordGgzzTextFieldState.isError
     val isLoginSuccess by viewModel.isLoginSuccess.collectAsStateWithLifecycle()
 
     LaunchedEffect(Unit) {
@@ -90,18 +94,14 @@ fun LoginScreen(
 
                 Spacer(modifier = Modifier.height(40.dp))
 
-                LoginInputForm(
-                    email,
-                    { email = it },
-                    placeHolder = "이메일",
+                GgzzTextField(
+                    state = emailGgzzTextFieldState,
                 )
 
                 Spacer(modifier = Modifier.height(10.dp))
 
-                LoginInputForm(
-                    password,
-                    { password = it },
-                    placeHolder = "비밀번호",
+                GgzzTextField(
+                    state = passwordGgzzTextFieldState,
                     isSecret = true,
                 )
 
@@ -112,7 +112,12 @@ fun LoginScreen(
                         .fillMaxWidth()
                         .padding(horizontal = 40.dp)
                         .height(55.dp),
-                    onClick = { viewModel.login(email, password) },
+                    onClick = {
+                        viewModel.login(
+                            emailGgzzTextFieldState.text,
+                            passwordGgzzTextFieldState.text,
+                        )
+                    },
                     enabled = isFormValid,
                     shape = RoundedCornerShape(5.dp),
                     colors = ButtonColors(
@@ -127,42 +132,37 @@ fun LoginScreen(
                         style = GgzzTheme.typography.pretendardSemiBold14.copy(color = White),
                     )
                 }
+
+                Spacer(modifier = Modifier.height(63.dp))
+
+                HorizontalDivider(
+                    modifier = Modifier.padding(horizontal = 40.dp),
+                    color = Gray500,
+                    thickness = 1.dp,
+                )
+
+                Spacer(modifier = Modifier.height(23.dp))
+
+                Text(
+                    text = "계정이 없으신가요?",
+                    style = GgzzTheme.typography.pretendardBold24.copy(color = Blue300),
+                )
+
+                Spacer(modifier = Modifier.height(23.dp))
+
+                Text(
+                    modifier = Modifier.clickable { navigateToSignUp() },
+                    text = "회원가입",
+                    style = GgzzTheme.typography.pretendardMedium16,
+                    textDecoration = TextDecoration.Underline,
+                )
             }
         }
     }
 }
 
 @Composable
-private fun LoginInputForm(
-    value: String,
-    onchangeValue: (String) -> Unit,
-    placeHolder: String = "",
-    isSecret: Boolean = false,
-) {
-    OutlinedTextField(
-        modifier = Modifier
-            .fillMaxWidth()
-            .padding(horizontal = 40.dp),
-        value = value,
-        onValueChange = { onchangeValue(it) },
-        placeholder = {
-            Text(
-                text = placeHolder,
-                style = GgzzTheme.typography.pretendardRegular14.copy(color = Gray500),
-            )
-        },
-        visualTransformation = if (isSecret) PasswordVisualTransformation() else VisualTransformation.None,
-        singleLine = true,
-        shape = RoundedCornerShape(5.dp),
-        colors = OutlinedTextFieldDefaults.colors(
-            focusedBorderColor = Gray500,
-            unfocusedBorderColor = Gray500,
-        ),
-    )
-}
-
-@Composable
 @Preview(showSystemUi = true)
 fun LoginScreenPreview() {
-    LoginScreen({}, {})
+    LoginScreen({}, {}, {})
 }

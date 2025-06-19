@@ -36,6 +36,17 @@ object NetworkModule {
     }
 
     @Provides
+    @NoAuthClient
+    @Singleton
+    fun provideNoAuthOkHttpClient(interceptor: GgzzInterceptor): OkHttpClient =
+        OkHttpClient.Builder()
+            .readTimeout(120, TimeUnit.SECONDS)
+            .addInterceptor(logging)
+            .addInterceptor(interceptor)
+            .build()
+
+    @Provides
+    @AuthClient
     @Singleton
     fun provideOkHttpClient(interceptor: GgzzInterceptor): OkHttpClient =
         OkHttpClient.Builder()
@@ -45,9 +56,25 @@ object NetworkModule {
             .build()
 
     @Provides
+    @NoAuthClient
+    @Singleton
+    fun provideRetrofitWithoutAuth(
+        @NoAuthClient okHttpClient: OkHttpClient,
+        json: Json,
+    ): Retrofit {
+        val contentType = "application/json".toMediaType()
+        return Retrofit.Builder()
+            .baseUrl(BuildConfig.BASE_URL)
+            .addConverterFactory(json.asConverterFactory(contentType))
+            .client(okHttpClient)
+            .build()
+    }
+
+    @Provides
+    @AuthClient
     @Singleton
     fun provideRetrofit(
-        okHttpClient: OkHttpClient,
+        @AuthClient okHttpClient: OkHttpClient,
         json: Json,
     ): Retrofit {
         val contentType = "application/json".toMediaType()
@@ -60,21 +87,23 @@ object NetworkModule {
 
     @Provides
     @Singleton
-    fun provideHistoryApiService(retrofit: Retrofit): HistoryApiService = retrofit.create(HistoryApiService::class.java)
+    fun provideHistoryApiService(@AuthClient retrofit: Retrofit): HistoryApiService = retrofit.create(HistoryApiService::class.java)
 
     @Provides
     @Singleton
-    fun provideUploadApiService(retrofit: Retrofit): UploadApiService = retrofit.create(UploadApiService::class.java)
+    fun provideUploadApiService(@AuthClient retrofit: Retrofit): UploadApiService = retrofit.create(UploadApiService::class.java)
 
     @Provides
     @Singleton
-    fun provideAnalysisApiService(retrofit: Retrofit): AnalysisApiService = retrofit.create(AnalysisApiService::class.java)
+    fun provideAnalysisApiService(@AuthClient retrofit: Retrofit): AnalysisApiService = retrofit.create(AnalysisApiService::class.java)
 
     @Provides
     @Singleton
-    fun providePersonalityAnalyzeApiService(retrofit: Retrofit): PersonalityApiService = retrofit.create(PersonalityApiService::class.java)
+    fun providePersonalityAnalyzeApiService(@AuthClient retrofit: Retrofit): PersonalityApiService = retrofit.create(
+        PersonalityApiService::class.java,
+    )
 
     @Provides
     @Singleton
-    fun provideLoginApiService(retrofit: Retrofit): LoginApiService = retrofit.create(LoginApiService::class.java)
+    fun provideLoginApiService(@NoAuthClient retrofit: Retrofit): LoginApiService = retrofit.create(LoginApiService::class.java)
 }

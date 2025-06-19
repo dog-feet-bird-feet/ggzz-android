@@ -4,6 +4,7 @@ import com.analysis.data.remote.api.UploadApiService
 import com.analysis.data.remote.dto.response.ComparisonsResponse
 import com.analysis.data.remote.dto.response.VerificationResponse
 import com.analysis.data.source.UploadDataSource
+import com.analysis.data.util.errorMessage
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
 import okhttp3.MultipartBody
@@ -18,7 +19,7 @@ class UploadDataSourceImpl
             return flow {
                 val response = uploadApiService.postComparisons(images)
                 emit(
-                    response.body() ?: throw Throwable(response.message()),
+                    response.body() ?: throw Throwable(response.errorMessage()),
                 )
             }
         }
@@ -27,7 +28,7 @@ class UploadDataSourceImpl
             return flow {
                 val response = uploadApiService.postVerification(image)
                 emit(
-                    response.body() ?: throw Throwable(response.message()),
+                    response.body() ?: throw Throwable(response.errorMessage()),
                 )
             }
         }

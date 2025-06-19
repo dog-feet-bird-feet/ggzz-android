@@ -39,6 +39,17 @@ class GgzzDataStore
             }
         }
 
+        suspend fun clearAccessToken(): Boolean {
+            return try {
+                context.dataStore.edit { prefs ->
+                    prefs.remove(USER_ACCESS_TOKEN)
+                }
+                true
+            } catch (e: Exception) {
+                false
+            }
+        }
+
         companion object {
             private val USER_ACCESS_TOKEN = stringPreferencesKey("user_access_token")
         }
