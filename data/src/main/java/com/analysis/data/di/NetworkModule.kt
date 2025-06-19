@@ -18,7 +18,6 @@ import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
 import java.util.concurrent.TimeUnit
-import javax.inject.Qualifier
 import javax.inject.Singleton
 
 @Module
@@ -36,7 +35,6 @@ object NetworkModule {
         level = HttpLoggingInterceptor.Level.BODY
     }
 
-
     @Provides
     @NoAuthClient
     @Singleton
@@ -48,6 +46,7 @@ object NetworkModule {
             .build()
 
     @Provides
+    @AuthClient
     @Singleton
     fun provideOkHttpClient(interceptor: GgzzInterceptor): OkHttpClient =
         OkHttpClient.Builder()
@@ -72,9 +71,10 @@ object NetworkModule {
     }
 
     @Provides
+    @AuthClient
     @Singleton
     fun provideRetrofit(
-        okHttpClient: OkHttpClient,
+        @AuthClient okHttpClient: OkHttpClient,
         json: Json,
     ): Retrofit {
         val contentType = "application/json".toMediaType()
@@ -87,19 +87,21 @@ object NetworkModule {
 
     @Provides
     @Singleton
-    fun provideHistoryApiService(retrofit: Retrofit): HistoryApiService = retrofit.create(HistoryApiService::class.java)
+    fun provideHistoryApiService(@AuthClient retrofit: Retrofit): HistoryApiService = retrofit.create(HistoryApiService::class.java)
 
     @Provides
     @Singleton
-    fun provideUploadApiService(retrofit: Retrofit): UploadApiService = retrofit.create(UploadApiService::class.java)
+    fun provideUploadApiService(@AuthClient retrofit: Retrofit): UploadApiService = retrofit.create(UploadApiService::class.java)
 
     @Provides
     @Singleton
-    fun provideAnalysisApiService(retrofit: Retrofit): AnalysisApiService = retrofit.create(AnalysisApiService::class.java)
+    fun provideAnalysisApiService(@AuthClient retrofit: Retrofit): AnalysisApiService = retrofit.create(AnalysisApiService::class.java)
 
     @Provides
     @Singleton
-    fun providePersonalityAnalyzeApiService(retrofit: Retrofit): PersonalityApiService = retrofit.create(PersonalityApiService::class.java)
+    fun providePersonalityAnalyzeApiService(@AuthClient retrofit: Retrofit): PersonalityApiService = retrofit.create(
+        PersonalityApiService::class.java,
+    )
 
     @Provides
     @Singleton

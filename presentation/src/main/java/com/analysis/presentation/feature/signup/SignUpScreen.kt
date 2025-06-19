@@ -47,7 +47,7 @@ import kotlinx.coroutines.flow.collectLatest
 @Composable
 fun SignUpScreen(
     showErrorSnackBar: (Throwable) -> Unit,
-    onClickNavigation:()->Unit,
+    onClickNavigation: () -> Unit,
     navigateToHome: () -> Unit,
     viewModel: SignUpViewModel = hiltViewModel(),
 ) {
@@ -270,5 +270,5 @@ fun SignUpScreen(
 @Composable
 @Preview(showSystemUi = true)
 fun SignUpScreenPreview(modifier: Modifier = Modifier) {
-    SignUpScreen({}, {},{})
+    SignUpScreen({}, {}, {})
 }
