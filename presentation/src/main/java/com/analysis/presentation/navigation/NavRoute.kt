@@ -7,6 +7,9 @@ internal sealed interface NavRoute {
     data object Splash : NavRoute
 
     @Serializable
+    data object SignUp : NavRoute
+
+    @Serializable
     data object Login : NavRoute
 
     @Serializable

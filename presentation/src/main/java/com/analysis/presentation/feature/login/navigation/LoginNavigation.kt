@@ -8,11 +8,12 @@ import com.analysis.presentation.feature.login.LoginScreen
 import com.analysis.presentation.navigation.NavRoute
 
 internal fun NavGraphBuilder.loginNavGraph(
-    showErrorSnackbar: (Throwable) -> Unit,
+    showErrorSnackBar: (Throwable) -> Unit,
     navigateToHome: () -> Unit,
+    navigateToSignUp: () -> Unit,
 ) {
     composable<NavRoute.Login> {
-        LoginScreen(showErrorSnackbar, navigateToHome)
+        LoginScreen(showErrorSnackBar, navigateToHome, navigateToSignUp)
     }
 }
 

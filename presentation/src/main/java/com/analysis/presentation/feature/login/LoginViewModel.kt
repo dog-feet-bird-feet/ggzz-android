@@ -15,27 +15,25 @@ import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
-class LoginViewModel
-    @Inject
-    constructor(
-        private val loginUseCase: LoginUseCase,
-    ) : ViewModel() {
-        private val _error: MutableSharedFlow<Throwable> = MutableSharedFlow()
-        val error: SharedFlow<Throwable> get() = _error.asSharedFlow()
+class LoginViewModel @Inject constructor(
+    private val loginUseCase: LoginUseCase,
+) : ViewModel() {
+    private val _error: MutableSharedFlow<Throwable> = MutableSharedFlow()
+    val error: SharedFlow<Throwable> get() = _error.asSharedFlow()
 
-        private val _isLoginSuccess = MutableStateFlow(false)
-        val isLoginSuccess: StateFlow<Boolean> = _isLoginSuccess.asStateFlow()
+    private val _isLoginSuccess = MutableStateFlow(false)
+    val isLoginSuccess: StateFlow<Boolean> = _isLoginSuccess.asStateFlow()
 
-        fun login(
-            email: String,
-            password: String,
-        ) {
-            viewModelScope.launch {
-                loginUseCase(email, password).catch {
-                    _error.emit(it)
-                }.collect {
-                    _isLoginSuccess.value = it
-                }
+    fun login(
+        email: String,
+        password: String,
+    ) {
+        viewModelScope.launch {
+            loginUseCase(email, password).catch {
+                _error.emit(it)
+            }.collect {
+                _isLoginSuccess.value = it
             }
         }
     }
+}

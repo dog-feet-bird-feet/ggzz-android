@@ -11,6 +11,7 @@ import com.analysis.presentation.feature.home.navigation.homeNavGraph
 import com.analysis.presentation.feature.login.navigation.loginNavGraph
 import com.analysis.presentation.feature.personality.navigation.personalityNavGraph
 import com.analysis.presentation.feature.setting.navigation.settingNavGraph
+import com.analysis.presentation.feature.signup.navigation.signUpNavGraph
 import com.analysis.presentation.feature.splash.navigation.splashNavGraph
 import com.analysis.presentation.feature.verify.navigation.verifyNavGraph
 
@@ -38,7 +39,12 @@ internal fun GgzzNavHost(
             onSplashEndEvent = onSplashEndEvent,
         )
         loginNavGraph(
-            showErrorSnackbar = showErrorSnackBar,
+            showErrorSnackBar = showErrorSnackBar,
+            navigateToHome = { navController.navigateToHome() },
+            navigateToSignUp = {navController.navigateToSignUp()}
+        )
+        signUpNavGraph(
+            showErrorSnackBar = showErrorSnackBar,
             navigateToHome = { navController.navigateToHome() },
         )
         homeNavGraph(

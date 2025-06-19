@@ -1,0 +1,270 @@
+package com.analysis.presentation.feature.signup
+
+import android.util.Patterns
+import androidx.compose.foundation.clickable
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material3.Button
+import androidx.compose.material3.ButtonColors
+import androidx.compose.material3.HorizontalDivider
+import androidx.compose.material3.OutlinedTextField
+import androidx.compose.material3.OutlinedTextFieldDefaults
+import androidx.compose.material3.Scaffold
+import androidx.compose.material3.Surface
+import androidx.compose.material3.Text
+import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.saveable.rememberSaveable
+import androidx.compose.runtime.setValue
+import androidx.compose.ui.Alignment
+import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.text.input.PasswordVisualTransformation
+import androidx.compose.ui.text.input.VisualTransformation
+import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.unit.dp
+import androidx.hilt.navigation.compose.hiltViewModel
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
+import com.analysis.presentation.R
+import com.analysis.presentation.component.GgzzTextField
+import com.analysis.presentation.component.GgzzTopAppBar
+import com.analysis.presentation.component.rememberSaveableGgzzTextFieldState
+import com.analysis.presentation.theme.Blue300
+import com.analysis.presentation.theme.GgzzTheme
+import com.analysis.presentation.theme.Gray100
+import com.analysis.presentation.theme.Gray500
+import com.analysis.presentation.theme.Green400
+import com.analysis.presentation.theme.Purple700
+import com.analysis.presentation.theme.Red600
+import com.analysis.presentation.theme.White
+import kotlinx.coroutines.flow.collectLatest
+
+@Composable
+fun SignUpScreen(
+    showErrorSnackBar: (Throwable) -> Unit,
+    navigateToHome: () -> Unit,
+    viewModel: SignUpViewModel = hiltViewModel(),
+) {
+    val emailGgzzTextFieldState = rememberSaveableGgzzTextFieldState(
+        placeholder = "이메일 입력",
+        validate = { Patterns.EMAIL_ADDRESS.matcher(it).matches() },
+    )
+
+    val passwordGgzzTextFieldState = rememberSaveableGgzzTextFieldState(
+        placeholder = "비밀번호 입력(특수문자 포함 10~20자)",
+        onValueChange = { viewModel.isValidPassword(it) },
+    )
+
+    val passwordConfirmGgzzTextFieldState = rememberSaveableGgzzTextFieldState(
+        placeholder = "비밀번호 재입력",
+        onValueChange = { viewModel.isValidConfirmedPassword(passwordGgzzTextFieldState.text, it) },
+    )
+
+
+    val isEmailAvailable by viewModel.isEmailAvailable.collectAsStateWithLifecycle()
+    val isPasswordAvailable by viewModel.isPasswordAvailable.collectAsStateWithLifecycle()
+    val isConfirmedPasswordAvailable by viewModel.isConfirmedPasswordAvailable.collectAsStateWithLifecycle()
+    val isFormAvailable by viewModel.isFormAvailable.collectAsStateWithLifecycle()
+    val isSignUpSuccess by viewModel.isSignUpSuccess.collectAsStateWithLifecycle()
+
+    LaunchedEffect(Unit) {
+        viewModel.error.collectLatest { showErrorSnackBar(it) }
+    }
+
+    LaunchedEffect(isSignUpSuccess) {
+        if (isSignUpSuccess) {
+            navigateToHome()
+        }
+    }
+
+    Scaffold(
+        topBar = {
+            GgzzTopAppBar(
+                title = stringResource(R.string.home_top_app_bar_title),
+            )
+        },
+        containerColor = Gray100,
+    ) { innerPadding ->
+        Surface(
+            modifier = Modifier
+                .fillMaxSize()
+                .padding(innerPadding)
+                .padding(horizontal = 20.dp)
+                .padding(vertical = 16.dp),
+            shape = RoundedCornerShape(8.dp),
+            color = White,
+        ) {
+            Column(
+                modifier = Modifier.fillMaxSize(),
+                horizontalAlignment = Alignment.CenterHorizontally,
+            ) {
+                Spacer(modifier = Modifier.height(50.dp))
+
+                Text(
+                    text = "회원가입",
+                    style = GgzzTheme.typography.pretendardBold42.copy(color = Blue300),
+                )
+
+                Spacer(modifier = Modifier.height(40.dp))
+
+                Column {
+                    Row(
+                        verticalAlignment = Alignment.CenterVertically
+                    ) {
+                        Text(
+                            modifier = Modifier.padding(start = 40.dp),
+                            text = "이메일",
+                            style = GgzzTheme.typography.pretendardSemiBold16.copy(color = Blue300),
+                        )
+
+                        Spacer(modifier = Modifier.width(7.dp))
+
+                        if (isEmailAvailable) {
+                            Text(
+                                text = "* 사용할 수 없는 이메일 입니다",
+                                style = GgzzTheme.typography.pretendardRegular10.copy(color = Red600),
+                            )
+                        } else {
+                            Text(
+                                text = "* 사용 가능한 이메일입니다",
+                                style = GgzzTheme.typography.pretendardRegular10.copy(color = Green400),
+                            )
+                        }
+                    }
+
+                    Spacer(modifier = Modifier.height(5.dp))
+
+                    GgzzTextField(
+                        state = emailGgzzTextFieldState,
+                        trailingIcon = {
+                            if (!emailGgzzTextFieldState.isError) {
+                                Text(
+                                    modifier = Modifier
+                                        .padding(end = 7.dp)
+                                        .clickable(
+                                            onClick = { viewModel.checkEmail(emailGgzzTextFieldState.text) }
+                                        ),
+                                    text = "중복 확인",
+                                    style = GgzzTheme.typography.pretendardMedium12,
+                                )
+                            }
+                        }
+                    )
+                }
+
+                Spacer(modifier = Modifier.height(20.dp))
+
+                Column {
+                    Row(
+                        verticalAlignment = Alignment.CenterVertically
+                    ) {
+                        Text(
+                            modifier = Modifier.padding(start = 40.dp),
+                            text = "비밀번호",
+                            style = GgzzTheme.typography.pretendardSemiBold16.copy(color = Blue300),
+                        )
+
+                        Spacer(modifier = Modifier.width(7.dp))
+
+                        if (isPasswordAvailable) {
+                            Text(
+                                text = "* 비밀번호는 특수문자를 포함한 10~20자여야 합니다",
+                                style = GgzzTheme.typography.pretendardRegular10.copy(color = Red600),
+                            )
+                        } else {
+                            Text(
+                                text = "* 유효한 비밀번호 입니다",
+                                style = GgzzTheme.typography.pretendardRegular10.copy(color = Green400),
+                            )
+                        }
+                    }
+
+                    Spacer(modifier = Modifier.height(5.dp))
+
+                    GgzzTextField(
+                        state = passwordGgzzTextFieldState,
+                        isSecret = true,
+                    )
+                }
+
+                Spacer(modifier = Modifier.height(20.dp))
+
+                Column {
+                    Row(
+                        verticalAlignment = Alignment.CenterVertically
+                    ) {
+                        Text(
+                            modifier = Modifier.padding(start = 40.dp),
+                            text = "비밀번호 확인",
+                            style = GgzzTheme.typography.pretendardSemiBold16.copy(color = Blue300),
+                        )
+
+                        Spacer(modifier = Modifier.width(7.dp))
+
+                        if (isConfirmedPasswordAvailable) {
+                            Text(
+                                text = "* 비밀번호가 일치하지 않습니다",
+                                style = GgzzTheme.typography.pretendardRegular10.copy(color = Red600),
+                            )
+                        } else {
+                            Text(
+                                text = "* 비밀번호가 일치합니다",
+                                style = GgzzTheme.typography.pretendardRegular10.copy(color = Green400),
+                            )
+                        }
+                    }
+
+                    Spacer(modifier = Modifier.height(5.dp))
+
+                    GgzzTextField(
+                        state = passwordConfirmGgzzTextFieldState,
+                        isSecret = true,
+                    )
+                }
+
+                Spacer(modifier = Modifier.height(35.dp))
+
+                Button(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(horizontal = 40.dp)
+                        .height(55.dp),
+                    onClick = {
+                        viewModel.signUp(
+                            emailGgzzTextFieldState.text,
+                            passwordGgzzTextFieldState.text
+                        )
+                    },
+                    enabled = isFormAvailable,
+                    shape = RoundedCornerShape(5.dp),
+                    colors = ButtonColors(
+                        containerColor = Purple700,
+                        contentColor = White,
+                        disabledContentColor = White,
+                        disabledContainerColor = Gray500,
+                    ),
+                ) {
+                    Text(
+                        text = "회원가입",
+                        style = GgzzTheme.typography.pretendardSemiBold14.copy(color = White),
+                    )
+                }
+            }
+        }
+    }
+}
+
+@Composable
+@Preview(showSystemUi = true)
+fun SignUpScreenPreview(modifier: Modifier = Modifier) {
+    SignUpScreen({}, {})
+}

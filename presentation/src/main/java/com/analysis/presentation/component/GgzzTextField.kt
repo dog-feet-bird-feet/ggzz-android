@@ -19,7 +19,7 @@ import com.analysis.presentation.theme.Gray500
 internal fun GgzzTextField(
     state: GgzzTextFieldState,
     isSecret: Boolean = false,
-    trailingIcon: () -> Unit = {},
+    trailingIcon: @Composable () -> Unit = {},
 ) {
     OutlinedTextField(
         modifier = Modifier
