@@ -12,4 +12,6 @@ interface LoginDataSource {
     fun checkEmail(email: String): Flow<Boolean>
 
     fun login(loginRequest: LoginRequest): Flow<Boolean>
+
+    fun logout(): Flow<Boolean>
 }

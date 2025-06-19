@@ -28,4 +28,8 @@ class LoginRepositoryImpl @Inject constructor(
     ): Flow<Boolean> {
         return loginDataSource.login(LoginRequest(email, password))
     }
+
+    override fun logout(): Flow<Boolean> {
+        return loginDataSource.logout()
+    }
 }

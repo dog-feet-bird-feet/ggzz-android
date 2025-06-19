@@ -16,4 +16,6 @@ interface LoginRepository {
         email: String,
         password: String,
     ): Flow<Boolean>
+
+    fun logout():Flow<Boolean>
 }

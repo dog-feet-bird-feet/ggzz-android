@@ -15,31 +15,40 @@ import javax.inject.Inject
 private const val GGZZ_DATA_STORE_NAME = "ggzz_data_store"
 private val Context.dataStore: DataStore<Preferences> by preferencesDataStore(name = GGZZ_DATA_STORE_NAME)
 
-class GgzzDataStore
-    @Inject
-    constructor(
-        @ApplicationContext private val context: Context,
-    ) {
-        val userAccessToken: Flow<String?> = context.dataStore.data
-            .map { preferences -> preferences[USER_ACCESS_TOKEN] }
+class GgzzDataStore @Inject constructor(
+    @ApplicationContext private val context: Context,
+) {
+    val userAccessToken: Flow<String?> = context.dataStore.data
+        .map { preferences -> preferences[USER_ACCESS_TOKEN] }
 
-        suspend fun hasAccessToken(): Boolean {
-            val prefs = context.dataStore.data.first()
-            return !prefs[USER_ACCESS_TOKEN].isNullOrBlank()
-        }
+    suspend fun hasAccessToken(): Boolean {
+        val prefs = context.dataStore.data.first()
+        return !prefs[USER_ACCESS_TOKEN].isNullOrBlank()
+    }
 
-        suspend fun setAccessToken(accessToken: String): Boolean {
-            return try {
-                context.dataStore.edit { prefs ->
-                    prefs[USER_ACCESS_TOKEN] = accessToken
-                }
-                true
-            } catch (e: Exception) {
-                false
+    suspend fun setAccessToken(accessToken: String): Boolean {
+        return try {
+            context.dataStore.edit { prefs ->
+                prefs[USER_ACCESS_TOKEN] = accessToken
             }
-        }
-
-        companion object {
-            private val USER_ACCESS_TOKEN = stringPreferencesKey("user_access_token")
+            true
+        } catch (e: Exception) {
+            false
         }
     }
+
+    suspend fun clearAccessToken(): Boolean {
+        return try {
+            context.dataStore.edit { prefs ->
+                prefs.remove(USER_ACCESS_TOKEN)
+            }
+            true
+        } catch (e: Exception) {
+            false
+        }
+    }
+
+    companion object {
+        private val USER_ACCESS_TOKEN = stringPreferencesKey("user_access_token")
+    }
+}

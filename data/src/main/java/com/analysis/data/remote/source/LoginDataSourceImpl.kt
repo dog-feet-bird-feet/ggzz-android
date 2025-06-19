@@ -51,4 +51,10 @@ class LoginDataSourceImpl @Inject constructor(
             }
         }
     }
+
+    override fun logout(): Flow<Boolean> {
+        return flow {
+            emit(dataStore.clearAccessToken())
+        }
+    }
 }
