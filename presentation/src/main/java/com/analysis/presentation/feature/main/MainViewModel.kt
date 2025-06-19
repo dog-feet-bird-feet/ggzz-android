@@ -25,7 +25,7 @@ class MainViewModel
                 hasAccessTokenUseCase().catch {
                     // 예외 처리 필요
                 }.collect {
-                    _hasAccessToken.emit(false)
+                    _hasAccessToken.emit(it)
                 }
             }
         }
