@@ -18,6 +18,7 @@ import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
 import java.util.concurrent.TimeUnit
+import javax.inject.Qualifier
 import javax.inject.Singleton
 
 @Module
@@ -35,6 +36,17 @@ object NetworkModule {
         level = HttpLoggingInterceptor.Level.BODY
     }
 
+
+    @Provides
+    @NoAuthClient
+    @Singleton
+    fun provideNoAuthOkHttpClient(interceptor: GgzzInterceptor): OkHttpClient =
+        OkHttpClient.Builder()
+            .readTimeout(120, TimeUnit.SECONDS)
+            .addInterceptor(logging)
+            .addInterceptor(interceptor)
+            .build()
+
     @Provides
     @Singleton
     fun provideOkHttpClient(interceptor: GgzzInterceptor): OkHttpClient =
@@ -43,6 +55,21 @@ object NetworkModule {
             .addInterceptor(logging)
             .addInterceptor(interceptor)
             .build()
+
+    @Provides
+    @NoAuthClient
+    @Singleton
+    fun provideRetrofitWithoutAuth(
+        @NoAuthClient okHttpClient: OkHttpClient,
+        json: Json,
+    ): Retrofit {
+        val contentType = "application/json".toMediaType()
+        return Retrofit.Builder()
+            .baseUrl(BuildConfig.BASE_URL)
+            .addConverterFactory(json.asConverterFactory(contentType))
+            .client(okHttpClient)
+            .build()
+    }
 
     @Provides
     @Singleton
@@ -76,5 +103,5 @@ object NetworkModule {
 
     @Provides
     @Singleton
-    fun provideLoginApiService(retrofit: Retrofit): LoginApiService = retrofit.create(LoginApiService::class.java)
+    fun provideLoginApiService(@NoAuthClient retrofit: Retrofit): LoginApiService = retrofit.create(LoginApiService::class.java)
 }

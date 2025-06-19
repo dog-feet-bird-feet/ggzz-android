@@ -15,10 +15,6 @@ class GgzzInterceptor
         override fun intercept(chain: Interceptor.Chain): Response {
             val req = chain.request()
 
-            if (req.url.encodedPath == "/api/v1/login") {
-                return chain.proceed(req)
-            }
-
             val accessToken = runBlocking {
                 ggzzDataStore.userAccessToken.firstOrNull()
             }.orEmpty()

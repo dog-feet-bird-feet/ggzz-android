@@ -23,5 +23,5 @@ interface LoginApiService {
     @GET("api/v1/check-email")
     suspend fun getEmailCheck(
         @Query("email") email: String,
-    ): Response<Boolean>
+    ): Response<Unit>
 }
