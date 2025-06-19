@@ -45,6 +45,7 @@ internal fun GgzzNavHost(
         )
         signUpNavGraph(
             showErrorSnackBar = showErrorSnackBar,
+            onClickNavigation = { navController.popBackStack() },
             navigateToHome = { navController.navigateToHome() },
         )
         homeNavGraph(

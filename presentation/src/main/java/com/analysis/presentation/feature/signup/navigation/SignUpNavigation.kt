@@ -9,10 +9,11 @@ import com.analysis.presentation.navigation.NavRoute
 
 internal fun NavGraphBuilder.signUpNavGraph(
     showErrorSnackBar: (Throwable) -> Unit,
+    onClickNavigation: () -> Unit,
     navigateToHome: () -> Unit,
 ) {
     composable<NavRoute.SignUp> {
-        SignUpScreen(showErrorSnackBar, navigateToHome)
+        SignUpScreen(showErrorSnackBar, onClickNavigation, navigateToHome)
     }
 }
 
