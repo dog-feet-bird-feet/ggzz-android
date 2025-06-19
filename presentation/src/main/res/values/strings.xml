@@ -1,0 +1,77 @@
+<resources>
+    <string name="app_name">ggzz</string>
+
+    <string name="home_screen_title">홈</string>
+    <string name="history_screen_title">히스토리</string>
+    <string name="setting_screen_title">설정</string>
+
+    <!-- Home -->
+    <string name="home_top_app_bar_title">끄적</string>
+    <string name="home_analysis_title">필적 감정 시작</string>
+    <string name="home_analysis_description">두 필적의 유사도를 비교해보세요</string>
+    <string name="home_how_to_use_title">이용 방법</string>
+    <string name="home_how_to_use_description">앱 사용법이 궁금하다면?</string>
+    <string name="home_history_title">히스토리 보기</string>
+    <string name="home_history_description">이전 감정 기록들을 확인해보세요</string>
+    <string name="home_personality_title">필체 기반 성격 분석</string>
+    <string name="home_personality_description">글씨체로 나를 분석해보세요!</string>
+
+    <!-- Verify -->
+    <string name="verify_top_app_bar_title">필적 감정하기</string>
+    <string name="verify_comparison_badge_message">STEP 1</string>
+    <string name="verify_verification_badge_message">STEP 2</string>
+    <string name="verify_comparison_guide_title">대조할 필적 이미지 업로드</string>
+    <string name="verify_verification_guide_title">감정할 필적 이미지 업로드</string>
+    <string name="verify_comparison_guide_comment_photo_count">필적 분석을 위해 최대 5장의 필체 사진이 필요해요!</string>
+    <string name="verify_verification_guide_comment_photo_upload">감정할 필적 사진이 필요해요!\n기존에 작성된 필적 사진을 업로드 해주세요.</string>
+    <string name="verify_pick_photo_message">사진을 첨부해주세요</string>
+    <string name="verify_move_home_comment">홈으로 이동</string>
+    <string name="verify_similar_handwriting_prefix">유사한 필적</string>
+    <string name="verify_dissimilar_handwriting_prefix">유사하지 않은 필적</string>
+    <string name="verify_handwriting_result_postfix">입니다</string>
+    <string name="verify_verification_ongoing_comment">필적 감정 중</string>
+    <string name="verify_verification_guide_comment">업로드한 필적을 비교하고 있어요.\n 조금만 기다려주세요!</string>
+    <string name="verify_result_badge_message">STEP 3</string>
+    <string name="verify_result_guide_title">감정 결과 확인</string>
+
+    <!-- History -->
+    <string name="history_top_app_bar_title">히스토리</string>
+    <string name="history_modify">수정하기</string>
+    <string name="history_remove">삭제하기</string>
+
+
+    <!-- HistoryDetail -->
+    <string name="history_detail_similarity">유사도</string>
+    <string name="history_detail_inclination">기울기</string>
+    <string name="history_detail_pressure">필압</string>
+
+    <!-- Setting -->
+    <string name="setting_top_app_bar_title">설정</string>
+
+    <!-- Personality -->
+    <string name="personality_top_app_bar_title">성격 분석하기</string>
+    <string name="personality_guide_title">분석할 필체 이미지 업로드</string>
+    <string name="personality_guide_comment_photo_upload">당신의 성격을 알아볼 시간이에요!\n글씨가 담긴 이미지를 업로드해주세요.</string>
+    <string name="personlity_handwriting_size">글씨 크기: %s</string>
+    <string name="personlity_handwriting_pressure">필압: %s</string>
+    <string name="personlity_handwriting_inclination">기울기: %s</string>
+    <string name="personlity_handwriting_shape">자형: %s</string>
+    <string name="personality_summary">성격 요약</string>
+
+    <!-- Common -->
+    <string name="unknown_error_snackbar">알 수 없는 오류가 발생했습니다.</string>
+    <string name="error_try_later">잠시 후 다시 시도해주세요.</string>
+    <string name="previous_comment">이전</string>
+    <string name="next_comment">다음</string>
+    <string name="analysis_comment">감정하기</string>
+    <string name="analyze_comment">분석하기</string>
+    <string name="photo_count">(%d / %d)</string>
+    <string name="guide_comment_photo_format">* 한 장에 최대 10MB 까지 업로드 가능합니다.</string>
+    <string name="invalid_photo_format">10MB 이하의 PNG, JPEG, JPG만 첨부할 수 있어요.</string>
+    <string name="invalid_photo_no_text_or_no_korean">이미지에 텍스트가 없거나 한글이 포함되어 있지 않습니다.</string>
+    <string name="datetime">yyyy년 M월 d일 HH:mm</string>
+    <string name="percent">%d%%</string>
+    <string name="personality_analyzing_ongoing_comment">필체 분석 중</string>
+    <string name="personality_analyzing_guide_comment">업로드한 필체를 분석하고 있어요.\n 조금만 기다려주세요!</string>
+
+</resources>

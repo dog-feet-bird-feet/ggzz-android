@@ -1,0 +1,97 @@
+name: android-ci
+
+on:
+  pull_request:
+    branches:
+      - "develop"
+
+jobs:
+  build:
+    name: Build Project
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up JDK 17
+        uses: actions/setup-java@v4
+        with:
+          java-version: '17'
+          distribution: 'temurin'
+          cache: gradle
+
+      - name: Setup Android SDK
+        uses: android-actions/setup-android@v3
+
+      - name: Gradle Cache
+        uses: actions/cache@v4
+        with:
+          path: |
+            ~/.gradle/caches
+            ~/.gradle/wrapper
+          key: ${{ runner.os }}-gradle-${{ hashFiles('**/*.gradle*', '**/gradle-wrapper.properties') }}
+          restore-keys: |
+            ${{ runner.os }}-gradle-
+
+      - name: Grant execute permission for gradlew
+        run: chmod +x gradlew
+
+      - name: Ktlint Check
+        run: ./gradlew ktlintCheck
+
+      - name: Gradle Clean Check
+        run: ./gradlew clean
+
+      - name: Build with Gradle
+        run: ./gradlew assembleDebug
+
+  test:
+    name: Run Tests
+    runs-on: ubuntu-latest
+
+    permissions:
+      checks: write
+
+      # needed unless run with comment_mode: off
+      pull-requests: write
+
+      # only needed for private repository
+      contents: read
+
+      # only needed for private repository
+      issues: read
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up JDK 17
+        uses: actions/setup-java@v4
+        with:
+          java-version: '17'
+          distribution: 'temurin'
+          cache: gradle
+
+      - name: Setup Android SDK
+        uses: android-actions/setup-android@v3
+
+      - name: Grant execute permission for gradlew
+        run: chmod +x gradlew
+
+      - name: Run Test
+        run: ./gradlew testDebugUnitTest
+
+      - name: Publish Test Results
+        uses: EnricoMi/publish-unit-test-result-action@v2
+        if: always()
+        with:
+          files: |
+            **/test-results/**/TEST-*.xml
+            **/androidTest-results/**/TEST-*.xml
+
+      - name: Add comments to a Pull Request
+        uses: mikepenz/action-junit-report@v4
+        if: always()
+        with:
+          report_paths: |
+            **/test-results/**/TEST-*.xml
+            **/androidTest-results/**/TEST-*.xml
