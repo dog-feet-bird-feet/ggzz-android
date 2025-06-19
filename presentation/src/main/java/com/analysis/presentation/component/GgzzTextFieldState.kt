@@ -77,7 +77,7 @@ internal class GgzzTextFieldState(
                             selection = TextRange(it[1] as Int, it[2] as Int),
                         ),
                         placeholder = it[3] as String?,
-                        maxLength = it[5] as Int?,
+                        maxLength = it[4] as Int?,
                         onValueChange = onValueChange,
                         validate = validate,
                     )

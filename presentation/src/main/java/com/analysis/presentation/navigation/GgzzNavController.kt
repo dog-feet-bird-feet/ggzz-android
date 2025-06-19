@@ -71,7 +71,6 @@ internal class GgzzNavController(
 
     fun navigateToSignUp() {
         val navOptions = navOptions {
-            popUpTo(navController.graph.id)
             launchSingleTop = true
         }
 

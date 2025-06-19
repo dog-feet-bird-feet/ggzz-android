@@ -102,6 +102,7 @@ fun LoginScreen(
 
                 GgzzTextField(
                     state = passwordGgzzTextFieldState,
+                    isSecret = true,
                 )
 
                 Spacer(modifier = Modifier.height(35.dp))
