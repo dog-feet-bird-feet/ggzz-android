@@ -122,13 +122,13 @@ fun SignUpScreen(
 
                         if (isEmailAvailable) {
                             Text(
-                                text = "* 사용할 수 없는 이메일 입니다",
-                                style = GgzzTheme.typography.pretendardRegular10.copy(color = Red600),
+                                text = "* 사용 가능한 이메일입니다",
+                                style = GgzzTheme.typography.pretendardRegular10.copy(color = Green400),
                             )
                         } else {
                             Text(
-                                text = "* 사용 가능한 이메일입니다",
-                                style = GgzzTheme.typography.pretendardRegular10.copy(color = Green400),
+                                text = "* 사용할 수 없는 이메일 입니다",
+                                style = GgzzTheme.typography.pretendardRegular10.copy(color = Red600),
                             )
                         }
                     }
@@ -169,13 +169,13 @@ fun SignUpScreen(
 
                         if (isPasswordAvailable) {
                             Text(
-                                text = "* 비밀번호는 특수문자를 포함한 10~20자여야 합니다",
-                                style = GgzzTheme.typography.pretendardRegular10.copy(color = Red600),
+                                text = "* 유효한 비밀번호 입니다",
+                                style = GgzzTheme.typography.pretendardRegular10.copy(color = Green400),
                             )
                         } else {
                             Text(
-                                text = "* 유효한 비밀번호 입니다",
-                                style = GgzzTheme.typography.pretendardRegular10.copy(color = Green400),
+                                text = "* 비밀번호는 특수문자를 포함한 10~20자여야 합니다",
+                                style = GgzzTheme.typography.pretendardRegular10.copy(color = Red600),
                             )
                         }
                     }
@@ -204,13 +204,13 @@ fun SignUpScreen(
 
                         if (isConfirmedPasswordAvailable) {
                             Text(
-                                text = "* 비밀번호가 일치하지 않습니다",
-                                style = GgzzTheme.typography.pretendardRegular10.copy(color = Red600),
+                                text = "* 비밀번호가 일치합니다",
+                                style = GgzzTheme.typography.pretendardRegular10.copy(color = Green400),
                             )
                         } else {
                             Text(
-                                text = "* 비밀번호가 일치합니다",
-                                style = GgzzTheme.typography.pretendardRegular10.copy(color = Green400),
+                                text = "* 비밀번호가 일치하지 않습니다",
+                                style = GgzzTheme.typography.pretendardRegular10.copy(color = Red600),
                             )
                         }
                     }
