@@ -137,7 +137,7 @@ fun SignUpScreen(
                                 text = "* 사용 가능한 이메일입니다",
                                 style = GgzzTheme.typography.pretendardRegular10.copy(color = Green400),
                             )
-                        } else {
+                        } else if(emailGgzzTextFieldState.text.isNotBlank()){
                             Text(
                                 text = "* 사용할 수 없는 이메일 입니다",
                                 style = GgzzTheme.typography.pretendardRegular10.copy(color = Red600),
@@ -184,7 +184,7 @@ fun SignUpScreen(
                                 text = "* 유효한 비밀번호 입니다",
                                 style = GgzzTheme.typography.pretendardRegular10.copy(color = Green400),
                             )
-                        } else {
+                        } else if(passwordGgzzTextFieldState.text.isNotBlank()){
                             Text(
                                 text = "* 비밀번호는 특수문자를 포함한 10~20자여야 합니다",
                                 style = GgzzTheme.typography.pretendardRegular10.copy(color = Red600),
@@ -219,7 +219,7 @@ fun SignUpScreen(
                                 text = "* 비밀번호가 일치합니다",
                                 style = GgzzTheme.typography.pretendardRegular10.copy(color = Green400),
                             )
-                        } else {
+                        } else if (passwordConfirmGgzzTextFieldState.text.isNotBlank()) {
                             Text(
                                 text = "* 비밀번호가 일치하지 않습니다",
                                 style = GgzzTheme.typography.pretendardRegular10.copy(color = Red600),
