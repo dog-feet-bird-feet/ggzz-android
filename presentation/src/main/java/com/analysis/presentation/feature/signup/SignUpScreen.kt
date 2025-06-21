@@ -53,6 +53,7 @@ fun SignUpScreen(
     val emailGgzzTextFieldState = rememberSaveableGgzzTextFieldState(
         placeholder = stringResource(R.string.signup_email_placeholder),
         validate = { Patterns.EMAIL_ADDRESS.matcher(it).matches() },
+        onValueChange = {viewModel.changeEmailNotAvailable()}
     )
 
     val passwordGgzzTextFieldState = rememberSaveableGgzzTextFieldState(
