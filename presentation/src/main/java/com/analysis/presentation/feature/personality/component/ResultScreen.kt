@@ -125,7 +125,7 @@ internal fun ResultScreenContent(
 
                     Text(
                         text = stringResource(
-                            R.string.personlity_handwriting_size,
+                            R.string.personality_handwriting_size,
                             personality.traits.size.score,
                         ),
                         style = GgzzTheme.typography.pretendardSemiBold18,
@@ -153,7 +153,7 @@ internal fun ResultScreenContent(
 
                     Text(
                         text = stringResource(
-                            R.string.personlity_handwriting_pressure,
+                            R.string.personality_handwriting_pressure,
                             personality.traits.pressure.score,
                         ),
                         style = GgzzTheme.typography.pretendardSemiBold18,
@@ -181,7 +181,7 @@ internal fun ResultScreenContent(
 
                     Text(
                         text = stringResource(
-                            R.string.personlity_handwriting_inclination,
+                            R.string.personality_handwriting_inclination,
                             personality.traits.inclination.score,
                         ),
                         style = GgzzTheme.typography.pretendardSemiBold18,
@@ -209,7 +209,7 @@ internal fun ResultScreenContent(
 
                     Text(
                         text = stringResource(
-                            R.string.personlity_handwriting_shape,
+                            R.string.personality_handwriting_shape,
                             personality.traits.shape.score,
                         ),
                         style = GgzzTheme.typography.pretendardSemiBold18,

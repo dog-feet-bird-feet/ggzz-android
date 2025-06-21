@@ -63,6 +63,10 @@ class SignUpViewModel
             }
         }
 
+        fun changeEmailNotAvailable() {
+            _isEmailAvailable.value = false
+        }
+
         fun isValidPassword(password: String) {
             _isPasswordAvailable.value = PASSWORD_REGEX.matches(password)
         }
