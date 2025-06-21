@@ -63,7 +63,7 @@ class SignUpViewModel
             }
         }
 
-        fun changeEmailNotAvailable(){
+        fun changeEmailNotAvailable() {
             _isEmailAvailable.value = false
         }
 

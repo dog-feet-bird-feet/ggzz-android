@@ -53,7 +53,7 @@ fun SignUpScreen(
     val emailGgzzTextFieldState = rememberSaveableGgzzTextFieldState(
         placeholder = stringResource(R.string.signup_email_placeholder),
         validate = { Patterns.EMAIL_ADDRESS.matcher(it).matches() },
-        onValueChange = {viewModel.changeEmailNotAvailable()}
+        onValueChange = { viewModel.changeEmailNotAvailable() },
     )
 
     val passwordGgzzTextFieldState = rememberSaveableGgzzTextFieldState(
@@ -137,13 +137,12 @@ fun SignUpScreen(
                                 text = stringResource(R.string.signup_available_email_text),
                                 style = GgzzTheme.typography.pretendardRegular10.copy(color = Green400),
                             )
-                        } else if (emailGgzzTextFieldState.text.isNotBlank())
-                            {
-                                Text(
-                                    text = stringResource(R.string.signup_not_available_email_text),
-                                    style = GgzzTheme.typography.pretendardRegular10.copy(color = Red600),
-                                )
-                            }
+                        } else if (emailGgzzTextFieldState.text.isNotBlank()) {
+                            Text(
+                                text = stringResource(R.string.signup_not_available_email_text),
+                                style = GgzzTheme.typography.pretendardRegular10.copy(color = Red600),
+                            )
+                        }
                     }
 
                     Spacer(modifier = Modifier.height(5.dp))
@@ -185,13 +184,12 @@ fun SignUpScreen(
                                 text = stringResource(R.string.signup_available_password_text),
                                 style = GgzzTheme.typography.pretendardRegular10.copy(color = Green400),
                             )
-                        } else if (passwordGgzzTextFieldState.text.isNotBlank())
-                            {
-                                Text(
-                                    text = stringResource(R.string.signup_not_available_password_text),
-                                    style = GgzzTheme.typography.pretendardRegular10.copy(color = Red600),
-                                )
-                            }
+                        } else if (passwordGgzzTextFieldState.text.isNotBlank()) {
+                            Text(
+                                text = stringResource(R.string.signup_not_available_password_text),
+                                style = GgzzTheme.typography.pretendardRegular10.copy(color = Red600),
+                            )
+                        }
                     }
 
                     Spacer(modifier = Modifier.height(5.dp))
