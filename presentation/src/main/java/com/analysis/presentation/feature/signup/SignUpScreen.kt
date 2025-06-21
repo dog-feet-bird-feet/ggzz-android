@@ -21,7 +21,6 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
-import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
@@ -52,17 +51,17 @@ fun SignUpScreen(
     viewModel: SignUpViewModel = hiltViewModel(),
 ) {
     val emailGgzzTextFieldState = rememberSaveableGgzzTextFieldState(
-        placeholder = "이메일 입력",
+        placeholder = stringResource(R.string.signup_email_placeholder),
         validate = { Patterns.EMAIL_ADDRESS.matcher(it).matches() },
     )
 
     val passwordGgzzTextFieldState = rememberSaveableGgzzTextFieldState(
-        placeholder = "비밀번호 입력(특수문자 포함 10~20자)",
+        placeholder = stringResource(R.string.signup_password_placeholder),
         onValueChange = { viewModel.isValidPassword(it) },
     )
 
     val passwordConfirmGgzzTextFieldState = rememberSaveableGgzzTextFieldState(
-        placeholder = "비밀번호 재입력",
+        placeholder = stringResource(R.string.signup_confirmed_password_placeholder),
         onValueChange = { viewModel.isValidConfirmedPassword(passwordGgzzTextFieldState.text, it) },
     )
 
@@ -114,7 +113,7 @@ fun SignUpScreen(
                 Spacer(modifier = Modifier.height(50.dp))
 
                 Text(
-                    text = "회원가입",
+                    text = stringResource(R.string.signup_text),
                     style = GgzzTheme.typography.pretendardBold42.copy(color = Blue300),
                 )
 
@@ -126,7 +125,7 @@ fun SignUpScreen(
                     ) {
                         Text(
                             modifier = Modifier.padding(start = 40.dp),
-                            text = "이메일",
+                            text = stringResource(R.string.signup_email_text),
                             style = GgzzTheme.typography.pretendardSemiBold16.copy(color = Blue300),
                         )
 
@@ -134,12 +133,12 @@ fun SignUpScreen(
 
                         if (isEmailAvailable) {
                             Text(
-                                text = "* 사용 가능한 이메일입니다",
+                                text = stringResource(R.string.signup_available_email_text),
                                 style = GgzzTheme.typography.pretendardRegular10.copy(color = Green400),
                             )
                         } else if(emailGgzzTextFieldState.text.isNotBlank()){
                             Text(
-                                text = "* 사용할 수 없는 이메일 입니다",
+                                text = stringResource(R.string.signup_not_available_email_text),
                                 style = GgzzTheme.typography.pretendardRegular10.copy(color = Red600),
                             )
                         }
@@ -157,7 +156,7 @@ fun SignUpScreen(
                                         .clickable(
                                             onClick = { viewModel.checkEmail(emailGgzzTextFieldState.text) },
                                         ),
-                                    text = "중복 확인",
+                                    text = stringResource(R.string.signup_check_duplication),
                                     style = GgzzTheme.typography.pretendardMedium12,
                                 )
                             }
@@ -173,7 +172,7 @@ fun SignUpScreen(
                     ) {
                         Text(
                             modifier = Modifier.padding(start = 40.dp),
-                            text = "비밀번호",
+                            text = stringResource(R.string.signup_password_text),
                             style = GgzzTheme.typography.pretendardSemiBold16.copy(color = Blue300),
                         )
 
@@ -181,12 +180,12 @@ fun SignUpScreen(
 
                         if (isPasswordAvailable) {
                             Text(
-                                text = "* 유효한 비밀번호 입니다",
+                                text = stringResource(R.string.signup_available_password_text),
                                 style = GgzzTheme.typography.pretendardRegular10.copy(color = Green400),
                             )
                         } else if(passwordGgzzTextFieldState.text.isNotBlank()){
                             Text(
-                                text = "* 비밀번호는 특수문자를 포함한 10~20자여야 합니다",
+                                text = stringResource(R.string.signup_not_available_password_text),
                                 style = GgzzTheme.typography.pretendardRegular10.copy(color = Red600),
                             )
                         }
@@ -208,7 +207,7 @@ fun SignUpScreen(
                     ) {
                         Text(
                             modifier = Modifier.padding(start = 40.dp),
-                            text = "비밀번호 확인",
+                            text = stringResource(R.string.signup_confirmed_password_text),
                             style = GgzzTheme.typography.pretendardSemiBold16.copy(color = Blue300),
                         )
 
@@ -216,12 +215,12 @@ fun SignUpScreen(
 
                         if (isConfirmedPasswordAvailable) {
                             Text(
-                                text = "* 비밀번호가 일치합니다",
+                                text = stringResource(R.string.signup_available_confirmed_password_text),
                                 style = GgzzTheme.typography.pretendardRegular10.copy(color = Green400),
                             )
                         } else if (passwordConfirmGgzzTextFieldState.text.isNotBlank()) {
                             Text(
-                                text = "* 비밀번호가 일치하지 않습니다",
+                                text = stringResource(R.string.signup_not_available_confirmed_password_text),
                                 style = GgzzTheme.typography.pretendardRegular10.copy(color = Red600),
                             )
                         }
@@ -258,7 +257,7 @@ fun SignUpScreen(
                     ),
                 ) {
                     Text(
-                        text = "회원가입",
+                        text = stringResource(R.string.signup_text),
                         style = GgzzTheme.typography.pretendardSemiBold14.copy(color = White),
                     )
                 }

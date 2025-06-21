@@ -5,6 +5,26 @@
     <string name="history_screen_title">히스토리</string>
     <string name="setting_screen_title">설정</string>
 
+    <!-- SignUp -->
+    <string name="signup_email_placeholder">이메일 입력</string>
+    <string name="signup_password_placeholder">비밀번호 입력(특수문자 포함 10~20자)</string>
+    <string name="signup_confirmed_password_placeholder">비밀번호 재입력</string>
+    <string name="signup_email_text">이메일</string>
+    <string name="signup_available_email_text">* 사용 가능한 이메일입니다</string>
+    <string name="signup_not_available_email_text">* 사용할 수 없는 이메일 입니다</string>
+    <string name="signup_check_duplication">중복 확인</string>
+    <string name="signup_password_text">비밀번호</string>
+    <string name="signup_available_password_text">* 유효한 비밀번호 입니다</string>
+    <string name="signup_not_available_password_text">* 비밀번호는 특수문자를 포함한 10~20자여야 합니다</string>
+    <string name="signup_confirmed_password_text">비밀번호 확인</string>
+    <string name="signup_available_confirmed_password_text">* 비밀번호가 일치합니다</string>
+    <string name="signup_not_available_confirmed_password_text">* 비밀번호가 일치하지 않습니다</string>
+
+    <!-- Login -->
+    <string name="login_email_placeholder">이메일 입력</string>
+    <string name="login_password_placeholder">비밀번호 입력</string>
+    <string name="login_no_account_notice_text">계정이 없으신가요?</string>
+
     <!-- Home -->
     <string name="home_top_app_bar_title">끄적</string>
     <string name="home_analysis_title">필적 감정 시작</string>
@@ -52,10 +72,10 @@
     <string name="personality_top_app_bar_title">성격 분석하기</string>
     <string name="personality_guide_title">분석할 필체 이미지 업로드</string>
     <string name="personality_guide_comment_photo_upload">당신의 성격을 알아볼 시간이에요!\n글씨가 담긴 이미지를 업로드해주세요.</string>
-    <string name="personlity_handwriting_size">글씨 크기: %s</string>
-    <string name="personlity_handwriting_pressure">필압: %s</string>
-    <string name="personlity_handwriting_inclination">기울기: %s</string>
-    <string name="personlity_handwriting_shape">자형: %s</string>
+    <string name="personality_handwriting_size">글씨 크기: %s</string>
+    <string name="personality_handwriting_pressure">필압: %s</string>
+    <string name="personality_handwriting_inclination">기울기: %s</string>
+    <string name="personality_handwriting_shape">자형: %s</string>
     <string name="personality_summary">성격 요약</string>
 
     <!-- Common -->
@@ -73,5 +93,7 @@
     <string name="percent">%d%%</string>
     <string name="personality_analyzing_ongoing_comment">필체 분석 중</string>
     <string name="personality_analyzing_guide_comment">업로드한 필체를 분석하고 있어요.\n 조금만 기다려주세요!</string>
+    <string name="login_text">로그인</string>
+    <string name="signup_text">회원가입</string>
 
 </resources>

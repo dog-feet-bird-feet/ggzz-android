@@ -45,10 +45,10 @@ fun LoginScreen(
     viewModel: LoginViewModel = hiltViewModel(),
 ) {
     val emailGgzzTextFieldState = rememberSaveableGgzzTextFieldState(
-        placeholder = "이메일 입력",
+        placeholder = stringResource(R.string.login_email_placeholder),
     )
     val passwordGgzzTextFieldState = rememberSaveableGgzzTextFieldState(
-        placeholder = "비밀번호 입력",
+        placeholder = stringResource(R.string.login_password_placeholder),
     )
 
     val isFormValid = !emailGgzzTextFieldState.isError && !passwordGgzzTextFieldState.isError
@@ -88,7 +88,7 @@ fun LoginScreen(
                 Spacer(modifier = Modifier.height(50.dp))
 
                 Text(
-                    text = "로그인",
+                    text = stringResource(R.string.login_text),
                     style = GgzzTheme.typography.pretendardBold42.copy(color = Blue300),
                 )
 
@@ -128,7 +128,7 @@ fun LoginScreen(
                     ),
                 ) {
                     Text(
-                        text = "로그인",
+                        text = stringResource(R.string.login_text),
                         style = GgzzTheme.typography.pretendardSemiBold14.copy(color = White),
                     )
                 }
@@ -144,7 +144,7 @@ fun LoginScreen(
                 Spacer(modifier = Modifier.height(23.dp))
 
                 Text(
-                    text = "계정이 없으신가요?",
+                    text = stringResource(R.string.login_no_account_notice_text),
                     style = GgzzTheme.typography.pretendardBold24.copy(color = Blue300),
                 )
 
@@ -152,7 +152,7 @@ fun LoginScreen(
 
                 Text(
                     modifier = Modifier.clickable { navigateToSignUp() },
-                    text = "회원가입",
+                    text = stringResource(R.string.signup_text),
                     style = GgzzTheme.typography.pretendardMedium16,
                     textDecoration = TextDecoration.Underline,
                 )
