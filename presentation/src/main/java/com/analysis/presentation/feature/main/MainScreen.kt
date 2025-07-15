@@ -8,6 +8,7 @@ import androidx.compose.material3.Scaffold
 import androidx.compose.material3.SnackbarHost
 import androidx.compose.material3.SnackbarHostState
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
@@ -23,6 +24,7 @@ import com.analysis.presentation.navigation.GgzzNavController
 import com.analysis.presentation.navigation.GgzzNavHost
 import com.analysis.presentation.navigation.NavTab
 import com.analysis.presentation.theme.GgzzTheme
+import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 
 @Composable
@@ -51,6 +53,10 @@ private fun MainContent(
 ) {
     val hasAccessToken by viewModel.hasAccessToken.collectAsStateWithLifecycle()
 
+    LaunchedEffect(Unit) {
+        viewModel.error.collectLatest { showErrorSnackBar(it) }
+    }
+
     Scaffold(
         modifier = Modifier
             .fillMaxSize()
@@ -73,7 +79,10 @@ private fun MainContent(
             navController = navController,
             startDestination = navController.startDestination,
             isPreWorkEnd = hasAccessToken,
-            onStartEvent = { viewModel.getAccessTokenStatus() },
+            onStartEvent = {
+                viewModel.getAccessTokenStatus()
+                viewModel.initializeTextRecognitionModel()
+            },
             onSplashEndEvent = {
                 hasAccessToken?.let {
                     if (it) {

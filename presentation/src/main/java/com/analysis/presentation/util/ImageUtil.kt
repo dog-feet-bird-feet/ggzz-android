@@ -2,6 +2,7 @@ package com.analysis.presentation.util
 
 import android.content.ContentResolver
 import android.content.Context
+import android.graphics.Bitmap
 import android.net.Uri
 import android.provider.OpenableColumns
 import com.analysis.presentation.R
@@ -88,8 +89,9 @@ class ImageUtil
             uri: Uri,
             maxRetries: Int = 5,
             delayMs: Long = 1000L,
+            isInitializeModelWork:Boolean = false,
         ): Flow<Boolean> {
-            val image = InputImage.fromFilePath(appContext, uri)
+            val image = if(isInitializeModelWork) DUMMY_IMAGE else InputImage.fromFilePath(appContext, uri)
 
             repeat(maxRetries) { attempt ->
                 try {
@@ -103,7 +105,7 @@ class ImageUtil
                     return flow { emit(hasAnyKorean) }
                 } catch (e: MlKitException) {
                     if (e.errorCode == MlKitException.UNAVAILABLE) {
-                        if (attempt + 1 == maxRetries) {
+                        if (attempt + 1 == maxRetries && !isInitializeModelWork) {
                             throw IllegalArgumentException(appContext.getString(R.string.error_try_later))
                         }
                         delay(delayMs)
@@ -121,5 +123,7 @@ class ImageUtil
             private const val MAX_SIZE_BYTES = 10L * 1024 * 1024
             private val ALLOWED_MIME_TYPES = listOf("image/png", "image/jpeg", "image/jpg")
             private const val CHECK_KOREAN_REGEX = ".*[\\uAC00-\\uD7AF].*"
+            private val DUMMY_IMAGE = InputImage.fromBitmap(
+                Bitmap.createBitmap(32, 32, Bitmap.Config.ARGB_8888), 0)
         }
     }
