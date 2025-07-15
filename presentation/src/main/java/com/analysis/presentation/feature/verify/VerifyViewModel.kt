@@ -1,6 +1,7 @@
 package com.analysis.presentation.feature.verify
 
 import android.net.Uri
+import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.analysis.domain.usecase.AnalysisUseCase
@@ -9,6 +10,8 @@ import com.analysis.presentation.feature.verify.model.VerificationUiState
 import com.analysis.presentation.feature.verify.model.toVerificationResultUiState
 import com.analysis.presentation.util.ImageUtil
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.async
+import kotlinx.coroutines.awaitAll
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharedFlow
@@ -16,6 +19,7 @@ import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asSharedFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.catch
+import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
@@ -58,24 +62,26 @@ internal class VerifyViewModel
                     _errorMsgResId.emit(R.string.invalid_photo_format)
                 }
 
-                val finalUris = mutableListOf<Uri>()
                 var isErrorEmitted = false
-                var sawTextError = false
-                validUris.forEach { uri ->
-                    imageUtil.analyzeImageHasTextWithKorean(uri).catch {
-                        if (!isErrorEmitted) {
-                            _error.emit(it)
-                            isErrorEmitted = true
-                        }
-                    }.collect { hasTextWithKorean ->
-                        if (hasTextWithKorean) {
-                            finalUris.add(uri)
-                            return@collect
-                        }
-                        sawTextError = true
+                val startTime = System.currentTimeMillis()
+                val results = validUris.map {uri->
+                    async {
+                        val hasText = imageUtil.analyzeImageHasTextWithKorean(uri)
+                            .catch {
+                                if (!isErrorEmitted) {
+                                    _error.emit(it)
+                                    isErrorEmitted = true
+                                }
+                            }.first()
+                        Pair(uri, hasText)
                     }
                 }
-                if (sawTextError) _errorMsgResId.emit(R.string.invalid_photo_no_text_or_no_korean)
+
+                val finalResults = results.awaitAll()
+                val finalUris = finalResults.filter { it.second }.map { it.first }
+                val endTime = System.currentTimeMillis()
+                Log.d("MLKitPerformance", "elapsed=${endTime - startTime}ms")
+                if (uris.size!=finalUris.size) _errorMsgResId.emit(R.string.invalid_photo_no_text_or_no_korean)
                 _selectedComparisonUris.emit(finalUris)
             }
         }
