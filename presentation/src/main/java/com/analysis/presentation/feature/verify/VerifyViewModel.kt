@@ -71,7 +71,7 @@ internal class VerifyViewModel
                                     isErrorEmitted = true
                                 }
                             }.first()
-                        if(hasText) uri else null
+                        if (hasText) uri else null
                     }
                 }
 
