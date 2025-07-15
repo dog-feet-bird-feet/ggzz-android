@@ -91,7 +91,7 @@ class ImageUtil
             delayMs: Long = 1000L,
             isInitializeModelWork: Boolean = false,
         ): Flow<Boolean> {
-            val image = if (isInitializeModelWork) DUMMY_IMAGE else InputImage.fromFilePath(appContext, uri)
+            val image = if (isInitializeModelWork) createDummyImage() else InputImage.fromFilePath(appContext, uri)
 
             repeat(maxRetries) { attempt ->
                 try {
@@ -119,13 +119,14 @@ class ImageUtil
             throw IllegalArgumentException(appContext.getString(R.string.unknown_error_snackbar))
         }
 
+        private fun createDummyImage() = InputImage.fromBitmap(
+            Bitmap.createBitmap(32, 32, Bitmap.Config.ARGB_8888),
+            0,
+        )
+
         companion object {
             private const val MAX_SIZE_BYTES = 10L * 1024 * 1024
             private val ALLOWED_MIME_TYPES = listOf("image/png", "image/jpeg", "image/jpg")
             private const val CHECK_KOREAN_REGEX = ".*[\\uAC00-\\uD7AF].*"
-            private val DUMMY_IMAGE = InputImage.fromBitmap(
-                Bitmap.createBitmap(32, 32, Bitmap.Config.ARGB_8888),
-                0,
-            )
         }
     }

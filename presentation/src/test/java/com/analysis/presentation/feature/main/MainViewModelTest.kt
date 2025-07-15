@@ -2,6 +2,7 @@ package com.analysis.presentation.feature.main
 
 import com.analysis.domain.usecase.HasAccessTokenUseCase
 import com.analysis.presentation.rule.MainDispatcherRule
+import com.analysis.presentation.util.ImageUtil
 import io.mockk.coEvery
 import io.mockk.mockk
 import kotlinx.coroutines.flow.first
@@ -17,7 +18,8 @@ class MainViewModelTest {
     val dispatcherRule = MainDispatcherRule()
 
     private val hasAccessTokenUseCase: HasAccessTokenUseCase = mockk()
-    private val viewModel = MainViewModel(hasAccessTokenUseCase)
+    private val imageUtil: ImageUtil = mockk()
+    private val viewModel = MainViewModel(hasAccessTokenUseCase, imageUtil)
 
     @Test
     @DisplayName("AccessToken 여부를 확인한다")
