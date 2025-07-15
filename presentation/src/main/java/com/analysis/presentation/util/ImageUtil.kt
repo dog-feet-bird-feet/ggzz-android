@@ -8,6 +8,7 @@ import com.analysis.presentation.R
 import com.google.mlkit.common.MlKitException
 import com.google.mlkit.vision.common.InputImage
 import com.google.mlkit.vision.text.TextRecognition
+import com.google.mlkit.vision.text.TextRecognizer
 import com.google.mlkit.vision.text.korean.KoreanTextRecognizerOptions
 import dagger.hilt.android.qualifiers.ApplicationContext
 import kotlinx.coroutines.delay
@@ -28,6 +29,10 @@ class ImageUtil
     ) {
         private val resolver: ContentResolver
             get() = appContext.contentResolver
+
+        private val recognizer: TextRecognizer by lazy {
+            TextRecognition.getClient(KoreanTextRecognizerOptions.Builder().build())
+        }
 
         fun isValidFormat(uri: Uri): Boolean {
             val size = resolver.openAssetFileDescriptor(uri, "r")?.use { it.length }
@@ -84,7 +89,6 @@ class ImageUtil
             maxRetries: Int = 5,
             delayMs: Long = 1000L,
         ): Flow<Boolean> {
-            val recognizer = TextRecognition.getClient(KoreanTextRecognizerOptions.Builder().build())
             val image = InputImage.fromFilePath(appContext, uri)
 
             repeat(maxRetries) { attempt ->
