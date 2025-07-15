@@ -120,7 +120,7 @@ class ImageUtil
         }
 
         private fun createDummyImage() = InputImage.fromBitmap(
-            Bitmap.createBitmap(32, 32, Bitmap.Config.ARGB_8888),
+            Bitmap.createBitmap(MIN_INPUT_IMAGE_SIZE, MIN_INPUT_IMAGE_SIZE, Bitmap.Config.ARGB_8888),
             0,
         )
 
@@ -128,5 +128,6 @@ class ImageUtil
             private const val MAX_SIZE_BYTES = 10L * 1024 * 1024
             private val ALLOWED_MIME_TYPES = listOf("image/png", "image/jpeg", "image/jpg")
             private const val CHECK_KOREAN_REGEX = ".*[\\uAC00-\\uD7AF].*"
+            private const val MIN_INPUT_IMAGE_SIZE = 32
         }
     }
