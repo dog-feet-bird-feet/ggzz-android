@@ -1,6 +1,7 @@
 package com.analysis.presentation.feature.verify
 
 import android.net.Uri
+import android.os.Debug
 import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
@@ -63,7 +64,6 @@ internal class VerifyViewModel
                 }
 
                 var isErrorEmitted = false
-                val startTime = System.currentTimeMillis()
                 val results = validUris.map {uri->
                     async {
                         val hasText = imageUtil.analyzeImageHasTextWithKorean(uri)
@@ -79,8 +79,6 @@ internal class VerifyViewModel
 
                 val finalResults = results.awaitAll()
                 val finalUris = finalResults.filter { it.second }.map { it.first }
-                val endTime = System.currentTimeMillis()
-                Log.d("MLKitPerformance", "elapsed=${endTime - startTime}ms")
                 if (uris.size!=finalUris.size) _errorMsgResId.emit(R.string.invalid_photo_no_text_or_no_korean)
                 _selectedComparisonUris.emit(finalUris)
             }
