@@ -1,8 +1,6 @@
 package com.analysis.presentation.feature.verify
 
 import android.net.Uri
-import android.os.Debug
-import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.analysis.domain.usecase.AnalysisUseCase
@@ -64,7 +62,7 @@ internal class VerifyViewModel
                 }
 
                 var isErrorEmitted = false
-                val results = validUris.map {uri->
+                val results = validUris.map { uri ->
                     async {
                         val hasText = imageUtil.analyzeImageHasTextWithKorean(uri)
                             .catch {
@@ -79,7 +77,7 @@ internal class VerifyViewModel
 
                 val finalResults = results.awaitAll()
                 val finalUris = finalResults.filter { it.second }.map { it.first }
-                if (uris.size!=finalUris.size) _errorMsgResId.emit(R.string.invalid_photo_no_text_or_no_korean)
+                if (uris.size != finalUris.size) _errorMsgResId.emit(R.string.invalid_photo_no_text_or_no_korean)
                 _selectedComparisonUris.emit(finalUris)
             }
         }
