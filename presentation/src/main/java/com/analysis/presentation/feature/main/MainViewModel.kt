@@ -39,11 +39,11 @@ class MainViewModel
             }
         }
 
-        fun initializeTextRecognitionModel(){
+        fun initializeTextRecognitionModel() {
             viewModelScope.launch {
                 imageUtil.analyzeImageHasTextWithKorean(Uri.EMPTY, isInitializeModelWork = true).catch { throwable ->
                     _error.emit(throwable)
-                }.collect{}
+                }.collect {}
             }
         }
     }
