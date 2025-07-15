@@ -71,14 +71,13 @@ internal class VerifyViewModel
                                     isErrorEmitted = true
                                 }
                             }.first()
-                        Pair(uri, hasText)
+                        if(hasText) uri else null
                     }
                 }
 
-                val finalResults = results.awaitAll()
-                val finalUris = finalResults.filter { it.second }.map { it.first }
-                if (uris.size != finalUris.size) _errorMsgResId.emit(R.string.invalid_photo_no_text_or_no_korean)
-                _selectedComparisonUris.emit(finalUris)
+                val finalResults = results.awaitAll().filterNotNull()
+                if (uris.size != finalResults.size) _errorMsgResId.emit(R.string.invalid_photo_no_text_or_no_korean)
+                _selectedComparisonUris.emit(finalResults)
             }
         }
 
