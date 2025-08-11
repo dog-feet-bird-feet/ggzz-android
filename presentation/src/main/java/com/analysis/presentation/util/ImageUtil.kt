@@ -2,12 +2,14 @@ package com.analysis.presentation.util
 
 import android.content.ContentResolver
 import android.content.Context
+import android.graphics.Bitmap
 import android.net.Uri
 import android.provider.OpenableColumns
 import com.analysis.presentation.R
 import com.google.mlkit.common.MlKitException
 import com.google.mlkit.vision.common.InputImage
 import com.google.mlkit.vision.text.TextRecognition
+import com.google.mlkit.vision.text.TextRecognizer
 import com.google.mlkit.vision.text.korean.KoreanTextRecognizerOptions
 import dagger.hilt.android.qualifiers.ApplicationContext
 import kotlinx.coroutines.delay
@@ -28,6 +30,10 @@ class ImageUtil
     ) {
         private val resolver: ContentResolver
             get() = appContext.contentResolver
+
+        private val recognizer: TextRecognizer by lazy {
+            TextRecognition.getClient(KoreanTextRecognizerOptions.Builder().build())
+        }
 
         fun isValidFormat(uri: Uri): Boolean {
             val size = resolver.openAssetFileDescriptor(uri, "r")?.use { it.length }
@@ -83,9 +89,9 @@ class ImageUtil
             uri: Uri,
             maxRetries: Int = 5,
             delayMs: Long = 1000L,
+            isInitializeModelWork: Boolean = false,
         ): Flow<Boolean> {
-            val recognizer = TextRecognition.getClient(KoreanTextRecognizerOptions.Builder().build())
-            val image = InputImage.fromFilePath(appContext, uri)
+            val image = if (isInitializeModelWork) createDummyImage() else InputImage.fromFilePath(appContext, uri)
 
             repeat(maxRetries) { attempt ->
                 try {
@@ -99,7 +105,7 @@ class ImageUtil
                     return flow { emit(hasAnyKorean) }
                 } catch (e: MlKitException) {
                     if (e.errorCode == MlKitException.UNAVAILABLE) {
-                        if (attempt + 1 == maxRetries) {
+                        if (attempt + 1 == maxRetries && !isInitializeModelWork) {
                             throw IllegalArgumentException(appContext.getString(R.string.error_try_later))
                         }
                         delay(delayMs)
@@ -113,9 +119,15 @@ class ImageUtil
             throw IllegalArgumentException(appContext.getString(R.string.unknown_error_snackbar))
         }
 
+        private fun createDummyImage() = InputImage.fromBitmap(
+            Bitmap.createBitmap(MIN_INPUT_IMAGE_SIZE, MIN_INPUT_IMAGE_SIZE, Bitmap.Config.ARGB_8888),
+            0,
+        )
+
         companion object {
             private const val MAX_SIZE_BYTES = 10L * 1024 * 1024
             private val ALLOWED_MIME_TYPES = listOf("image/png", "image/jpeg", "image/jpg")
             private const val CHECK_KOREAN_REGEX = ".*[\\uAC00-\\uD7AF].*"
+            private const val MIN_INPUT_IMAGE_SIZE = 32
         }
     }
