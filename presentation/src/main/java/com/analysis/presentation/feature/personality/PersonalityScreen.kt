@@ -1,7 +1,12 @@
 package com.analysis.presentation.feature.personality
 
+import android.net.Uri
 import androidx.compose.foundation.Image
+import androidx.compose.foundation.background
+import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.systemBarsPadding
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.Composable
@@ -14,6 +19,7 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
+import androidx.lifecycle.viewmodel.compose.viewModel
 import com.analysis.presentation.R
 import com.analysis.presentation.component.GgzzTopAppBar
 import com.analysis.presentation.feature.personality.component.HandWritingUploadScreen
@@ -37,63 +43,86 @@ internal fun PersonalityScreen(
 
     LaunchedEffect(Unit) {
         viewModel.error.collectLatest { showErrorSnackBar(it) }
-    }
 
-    LaunchedEffect(Unit) {
         viewModel.errorMsgResId.collectLatest { stringsId ->
             val msg = context.getString(stringsId)
             showErrorSnackBar(IllegalArgumentException(msg))
         }
     }
 
-    Scaffold(
+    Column(
         modifier = Modifier
-            .fillMaxSize(),
-        topBar = {
-            GgzzTopAppBar(
-                title = stringResource(R.string.personality_top_app_bar_title),
-                textStyle = GgzzTheme.typography.pretendardRegular18.copy(color = Gray900),
-                navigationIcon = {
-                    if (personalityUiState is PersonalityUiState.ImageUploadState) {
-                        IconButton(onClick = onClickNavigation) {
-                            Image(
-                                painter = painterResource(R.drawable.ic_arrow_back),
-                                contentDescription = null,
-                            )
-                        }
+            .fillMaxSize()
+            .background(Gray100)
+            .systemBarsPadding(),
+    ) {
+        GgzzTopAppBar(
+            title = stringResource(R.string.personality_top_app_bar_title),
+            textStyle = GgzzTheme.typography.pretendardRegular18.copy(color = Gray900),
+            navigationIcon = {
+                if (personalityUiState is PersonalityUiState.ImageUploadState) {
+                    IconButton(onClick = onClickNavigation) {
+                        Image(
+                            painter = painterResource(R.drawable.ic_arrow_back),
+                            contentDescription = null,
+                        )
                     }
-                },
-            )
-        },
-        containerColor = Gray100,
-    ) { innerPadding ->
+                }
+            },
+        )
 
-        when (personalityUiState) {
-            PersonalityUiState.ImageUploadState -> {
-                HandWritingUploadScreen(
-                    innerPadding = innerPadding,
-                    onPickPhoto = { viewModel.updatePickedVerificationUri(it) },
-                    onClickCancelButton = { viewModel.removeVerificationUri() },
-                    onClickAnalyzingButton = { viewModel.executeAnalysis() },
-                    selectedHandWritingUri = selectedImageUri,
-                )
-            }
-
-            is PersonalityUiState.Analyzing -> ResultScreen(
-                innerPadding,
-                personalityUiState as PersonalityUiState.Analyzing,
-                onClickHomeButton = navigateToHome,
-            )
-        }
+        PersonalityScreenContent(
+            personalityUiState,
+            selectedImageUri,
+            navigateToHome,
+            { viewModel.updatePickedVerificationUri(it) },
+            { viewModel.removeVerificationUri() },
+            { viewModel.executeAnalysis() }
+        )
     }
 }
 
 @Composable
-@Preview(showBackground = true)
-fun PersonalityScreenPreview() {
-    PersonalityScreen(
-        {},
-        {},
-        {},
-    )
+private fun PersonalityScreenContent(
+    personalityUiState: PersonalityUiState,
+    selectedImageUri: Uri,
+    navigateToHome: () -> Unit,
+    onPickPhoto: (Uri) -> Unit = {},
+    onClickCancelButton: () -> Unit,
+    onClickAnalyzingButton: () -> Unit,
+) {
+    when (personalityUiState) {
+        PersonalityUiState.ImageUploadState -> {
+            HandWritingUploadScreen(
+                onPickPhoto = onPickPhoto,
+                onClickCancelButton = onClickCancelButton,
+                onClickAnalyzingButton = onClickAnalyzingButton,
+                selectedHandWritingUri = selectedImageUri,
+            )
+        }
+
+        is PersonalityUiState.Analyzing -> ResultScreen(
+            personalityUiState,
+            onClickHomeButton = navigateToHome,
+        )
+    }
+}
+
+
+@Preview
+@Composable
+private fun PersonalityScreenContentPreview() {
+    val personalityUiState = PersonalityUiState.ImageUploadState
+    val selectedImageUri = Uri.EMPTY
+
+    GgzzTheme {
+        PersonalityScreenContent(
+            personalityUiState = personalityUiState,
+            selectedImageUri = selectedImageUri,
+            navigateToHome = {},
+            onPickPhoto = {},
+            onClickCancelButton = {},
+            onClickAnalyzingButton = {}
+        )
+    }
 }
