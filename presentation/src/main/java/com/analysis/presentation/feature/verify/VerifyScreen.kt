@@ -1,7 +1,13 @@
 package com.analysis.presentation.feature.verify
 
+import android.net.Uri
 import androidx.compose.foundation.Image
+import androidx.compose.foundation.background
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.systemBarsPadding
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.Composable
@@ -39,70 +45,107 @@ internal fun VerifyScreen(
 
     LaunchedEffect(Unit) {
         viewModel.error.collectLatest { showErrorSnackBar(it) }
-    }
 
-    LaunchedEffect(Unit) {
         viewModel.errorMsgResId.collectLatest { stringsId ->
             val msg = context.getString(stringsId)
             showErrorSnackBar(IllegalArgumentException(msg))
         }
     }
 
-    Scaffold(
+    Column(
         modifier = Modifier
-            .fillMaxSize(),
-        topBar = {
-            GgzzTopAppBar(
-                title = stringResource(R.string.verify_top_app_bar_title),
-                textStyle = GgzzTheme.typography.pretendardRegular18.copy(color = Gray900),
-                navigationIcon = {
-                    if (uiState !is VerificationUiState.Verification.Loading) {
-                        IconButton(onClick = onClickNavigation) {
-                            Image(
-                                painter = painterResource(R.drawable.ic_arrow_back),
-                                contentDescription = null,
-                            )
-                        }
+            .fillMaxSize()
+            .background(Gray100)
+            .systemBarsPadding(),
+    ){
+        GgzzTopAppBar(
+            title = stringResource(R.string.verify_top_app_bar_title),
+            textStyle = GgzzTheme.typography.pretendardRegular18.copy(color = Gray900),
+            navigationIcon = {
+                if (uiState !is VerificationUiState.Verification.Loading) {
+                    IconButton(onClick = onClickNavigation) {
+                        Image(
+                            painter = painterResource(R.drawable.ic_arrow_back),
+                            contentDescription = null,
+                        )
                     }
-                },
-            )
-        },
-        containerColor = Gray100,
-    ) { innerPadding ->
+                }
+            },
+        )
 
-        when (uiState) {
-            VerificationUiState.ComparisonUploadState -> {
-                ComparisonVerifyScreenContent(
-                    innerPadding = innerPadding,
-                    selectedComparisonUris = selectedComparisonUris,
-                    viewModel = viewModel,
-                    onClickNextButton = { viewModel.moveToVerificationUpload() },
-                )
-            }
-
-            VerificationUiState.VerificationUploadState -> {
-                VerificationVerifyScreenContent(
-                    innerPadding = innerPadding,
-                    viewModel = viewModel,
-                    selectedVerificationUri = selectedVerificationUri,
-                    onClickPreviousButton = { viewModel.moveToComparisonUpload() },
-                    onClickAnalysisButton = { viewModel.executeAnalysis() },
-                )
-            }
-
-            is VerificationUiState.Verification -> {
-                ResultScreen(
-                    innerPadding = innerPadding,
-                    uiState = uiState as VerificationUiState.Verification,
-                    onClickHomeButton = { onClickHomeButton() },
-                )
-            }
-        }
+        VerifyScreenContent(
+            uiState = uiState,
+            selectedComparisonUris = selectedComparisonUris,
+            selectedVerificationUri = selectedVerificationUri,
+            onClickHomeButton = onClickHomeButton,
+            onMoveToVerificationUpload = { viewModel.moveToVerificationUpload() },
+            onUpdatePickedComparisonUris = { uris -> viewModel.updatePickedComparisonUris(uris) },
+            onRemoveComparisonUri = { uri -> viewModel.removeComparisonUri(uri) },
+            onMoveToComparisonUpload = { viewModel.moveToComparisonUpload() },
+            onExecuteAnalysis = { viewModel.executeAnalysis() },
+            onUpdatePickedVerificationUri = { uri -> viewModel.updatePickedVerificationUri(uri) },
+            onRemoveVerificationUri = { viewModel.removeVerificationUri() }
+        )
     }
 }
 
 @Composable
-@Preview(showBackground = true)
-fun ComparisonVerifyScreenPreview() {
-    VerifyScreen({}, {}, {})
+private fun VerifyScreenContent(
+    uiState: VerificationUiState,
+    selectedComparisonUris: List<Uri>,
+    selectedVerificationUri: Uri,
+    onClickHomeButton: () -> Unit,
+    onMoveToVerificationUpload: () -> Unit,
+    onUpdatePickedComparisonUris: (List<Uri>) -> Unit,
+    onRemoveComparisonUri: (Uri) -> Unit,
+    onMoveToComparisonUpload: () -> Unit,
+    onExecuteAnalysis: () -> Unit,
+    onUpdatePickedVerificationUri: (Uri) -> Unit,
+    onRemoveVerificationUri: () -> Unit
+) {
+    when (uiState) {
+        VerificationUiState.ComparisonUploadState -> {
+            ComparisonVerifyScreenContent(
+                selectedComparisonUris = selectedComparisonUris,
+                onClickNextButton = onMoveToVerificationUpload,
+                updatePickedComparisonUris = onUpdatePickedComparisonUris,
+                removeComparisonUri = onRemoveComparisonUri
+            )
+        }
+
+        VerificationUiState.VerificationUploadState -> {
+            VerificationVerifyScreenContent(
+                selectedVerificationUri = selectedVerificationUri,
+                onClickPreviousButton = onMoveToComparisonUpload,
+                onClickAnalysisButton = onExecuteAnalysis,
+                onPickPhoto = onUpdatePickedVerificationUri,
+                onClickCancelButton = onRemoveVerificationUri
+            )
+        }
+
+        is VerificationUiState.Verification -> {
+            ResultScreen(
+                uiState = uiState,
+                onClickHomeButton = onClickHomeButton,
+            )
+        }
+    }
+}
+
+@Preview
+@Composable
+private fun VerifyScreenContentPreview() {
+    VerifyScreenContent(
+        uiState = VerificationUiState.ComparisonUploadState,
+        selectedComparisonUris = listOf(Uri.EMPTY, Uri.EMPTY),
+        selectedVerificationUri = Uri.EMPTY,
+        onClickHomeButton = {},
+        onMoveToVerificationUpload = {},
+        onUpdatePickedComparisonUris = {},
+        onRemoveComparisonUri = {},
+        onMoveToComparisonUpload = {},
+        onExecuteAnalysis = {},
+        onUpdatePickedVerificationUri = {},
+        onRemoveVerificationUri = {}
+    )
 }

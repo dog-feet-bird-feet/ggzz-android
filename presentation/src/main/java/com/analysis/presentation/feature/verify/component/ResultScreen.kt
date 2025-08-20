@@ -50,14 +50,12 @@ import com.analysis.presentation.util.modifier.dropShadow
 
 @Composable
 internal fun ResultScreen(
-    innerPadding: PaddingValues,
     uiState: VerificationUiState.Verification,
     onClickHomeButton: () -> Unit,
 ) {
     when (uiState) {
-        VerificationUiState.Verification.Loading -> ResultScreenLoading(innerPadding)
+        VerificationUiState.Verification.Loading -> ResultScreenLoading()
         is VerificationUiState.Verification.Success -> ResultScreenContent(
-            innerPadding,
             uiState,
             onClickHomeButton,
         )
@@ -66,7 +64,6 @@ internal fun ResultScreen(
 
 @Composable
 private fun ResultScreenContent(
-    innerPadding: PaddingValues,
     result: VerificationUiState.Verification.Success,
     onClickHomeButton: () -> Unit,
 ) {
@@ -74,7 +71,6 @@ private fun ResultScreenContent(
 
     Column(
         modifier = Modifier
-            .padding(innerPadding)
             .fillMaxSize()
             .padding(top = 20.dp)
             .padding(horizontal = 20.dp),
@@ -210,10 +206,9 @@ private fun SimilarityResultText(isSimilar: Boolean) {
 }
 
 @Composable
-private fun ResultScreenLoading(innerPadding: PaddingValues) {
+private fun ResultScreenLoading() {
     Surface(
         modifier = Modifier
-            .padding(innerPadding)
             .fillMaxWidth()
             .wrapContentHeight()
             .padding(top = 20.dp)
@@ -300,7 +295,6 @@ fun ResultScreenContentPreview() {
     ).toVerificationResultUiState()
 
     ResultScreenContent(
-        innerPadding = PaddingValues(10.dp),
         uiModel as VerificationUiState.Verification.Success,
         {},
     )
@@ -309,5 +303,5 @@ fun ResultScreenContentPreview() {
 @Composable
 @Preview(showBackground = true)
 fun ResultScreenLoadingPreview() {
-    ResultScreenLoading(innerPadding = PaddingValues(10.dp))
+    ResultScreenLoading()
 }

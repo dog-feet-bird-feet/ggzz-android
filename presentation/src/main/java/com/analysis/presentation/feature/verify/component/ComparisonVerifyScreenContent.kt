@@ -31,14 +31,13 @@ import com.analysis.presentation.theme.White
 
 @Composable
 internal fun ComparisonVerifyScreenContent(
-    innerPadding: PaddingValues,
     selectedComparisonUris: List<Uri>,
-    viewModel: VerifyViewModel,
     onClickNextButton: () -> Unit,
+    updatePickedComparisonUris: (List<Uri>) -> Unit,
+    removeComparisonUri: (Uri) -> Unit,
 ) {
     Column(
         modifier = Modifier
-            .padding(innerPadding)
             .padding(20.dp),
     ) {
         Surface(
@@ -60,8 +59,8 @@ internal fun ComparisonVerifyScreenContent(
 
                 PickedPhotoList(
                     selectedComparisonUris = selectedComparisonUris,
-                    updatePickedComparisonUris = { viewModel.updatePickedComparisonUris(it) },
-                    removeComparisonUri = { viewModel.removeComparisonUri(it) },
+                    updatePickedComparisonUris = { updatePickedComparisonUris(it) },
+                    removeComparisonUri = { removeComparisonUri(it) },
                 )
             }
         }
@@ -90,7 +89,8 @@ internal fun ComparisonVerifyScreenContent(
     }
 }
 
-private fun canGoVerificationVerifyScreen(selectedComparisonUris: List<Uri>): Boolean = (selectedComparisonUris.size in 1..5)
+private fun canGoVerificationVerifyScreen(selectedComparisonUris: List<Uri>): Boolean =
+    (selectedComparisonUris.size in 1..5)
 
 @Composable
 private fun GuideComment() {

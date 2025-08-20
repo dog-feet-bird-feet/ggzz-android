@@ -37,15 +37,14 @@ import com.analysis.presentation.theme.White
 
 @Composable
 internal fun VerificationVerifyScreenContent(
-    innerPadding: PaddingValues,
-    viewModel: VerifyViewModel,
+    selectedVerificationUri: Uri,
     onClickPreviousButton: () -> Unit,
     onClickAnalysisButton: () -> Unit,
-    selectedVerificationUri: Uri,
+    onPickPhoto: (Uri) -> Unit = {},
+    onClickCancelButton: () -> Unit,
 ) {
     Column(
         modifier = Modifier
-            .padding(innerPadding)
             .padding(20.dp),
     ) {
         Surface(
@@ -75,12 +74,12 @@ internal fun VerificationVerifyScreenContent(
                                 .fillMaxWidth()
                                 .padding(horizontal = 25.dp)
                                 .height(160.dp),
-                            onPickPhoto = { viewModel.updatePickedVerificationUri(it) },
+                            onPickPhoto = { onPickPhoto(it) },
                         )
                     } else {
                         HandWritingImageItemCard(
                             uri = uri,
-                            onClickCancelButton = { viewModel.removeVerificationUri() },
+                            onClickCancelButton = { onClickCancelButton() },
                             modifier = Modifier
                                 .fillMaxWidth()
                                 .padding(horizontal = 25.dp)
