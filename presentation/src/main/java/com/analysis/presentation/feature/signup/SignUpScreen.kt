@@ -17,7 +17,6 @@ import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonColors
 import androidx.compose.material3.IconButton
-import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -112,7 +111,7 @@ fun SignUpScreen(
             isConfirmedPasswordAvailable = isConfirmedPasswordAvailable,
             isFormAvailable = isFormAvailable,
             onCheckEmailClick = { viewModel.checkEmail(it) },
-            onSignUpClick = { email, password -> viewModel.signUp(email, password) }
+            onSignUpClick = { email, password -> viewModel.signUp(email, password) },
         )
     }
 }
@@ -321,4 +320,3 @@ private fun SignUpScreenContentPreview() {
         onSignUpClick = { _, _ -> },
     )
 }
-

@@ -5,10 +5,8 @@ import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.systemBarsPadding
 import androidx.compose.material3.IconButton
-import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
@@ -77,7 +75,7 @@ internal fun PersonalityScreen(
             navigateToHome,
             { viewModel.updatePickedVerificationUri(it) },
             { viewModel.removeVerificationUri() },
-            { viewModel.executeAnalysis() }
+            { viewModel.executeAnalysis() },
         )
     }
 }
@@ -108,7 +106,6 @@ private fun PersonalityScreenContent(
     }
 }
 
-
 @Preview
 @Composable
 private fun PersonalityScreenContentPreview() {
@@ -122,7 +119,7 @@ private fun PersonalityScreenContentPreview() {
             navigateToHome = {},
             onPickPhoto = {},
             onClickCancelButton = {},
-            onClickAnalyzingButton = {}
+            onClickAnalyzingButton = {},
         )
     }
 }

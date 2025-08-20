@@ -4,7 +4,6 @@ import android.net.Uri
 import androidx.compose.animation.AnimatedContent
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -28,7 +27,6 @@ import androidx.compose.ui.unit.sp
 import com.analysis.presentation.R
 import com.analysis.presentation.component.HandWritingImageItemCard
 import com.analysis.presentation.component.PhotoPickerCard
-import com.analysis.presentation.feature.verify.VerifyViewModel
 import com.analysis.presentation.theme.GgzzTheme
 import com.analysis.presentation.theme.Gray500
 import com.analysis.presentation.theme.Purple500

@@ -4,12 +4,9 @@ import android.net.Uri
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.systemBarsPadding
 import androidx.compose.material3.IconButton
-import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
@@ -57,7 +54,7 @@ internal fun VerifyScreen(
             .fillMaxSize()
             .background(Gray100)
             .systemBarsPadding(),
-    ){
+    ) {
         GgzzTopAppBar(
             title = stringResource(R.string.verify_top_app_bar_title),
             textStyle = GgzzTheme.typography.pretendardRegular18.copy(color = Gray900),
@@ -84,7 +81,7 @@ internal fun VerifyScreen(
             onMoveToComparisonUpload = { viewModel.moveToComparisonUpload() },
             onExecuteAnalysis = { viewModel.executeAnalysis() },
             onUpdatePickedVerificationUri = { uri -> viewModel.updatePickedVerificationUri(uri) },
-            onRemoveVerificationUri = { viewModel.removeVerificationUri() }
+            onRemoveVerificationUri = { viewModel.removeVerificationUri() },
         )
     }
 }
@@ -101,7 +98,7 @@ private fun VerifyScreenContent(
     onMoveToComparisonUpload: () -> Unit,
     onExecuteAnalysis: () -> Unit,
     onUpdatePickedVerificationUri: (Uri) -> Unit,
-    onRemoveVerificationUri: () -> Unit
+    onRemoveVerificationUri: () -> Unit,
 ) {
     when (uiState) {
         VerificationUiState.ComparisonUploadState -> {
@@ -109,7 +106,7 @@ private fun VerifyScreenContent(
                 selectedComparisonUris = selectedComparisonUris,
                 onClickNextButton = onMoveToVerificationUpload,
                 updatePickedComparisonUris = onUpdatePickedComparisonUris,
-                removeComparisonUri = onRemoveComparisonUri
+                removeComparisonUri = onRemoveComparisonUri,
             )
         }
 
@@ -119,7 +116,7 @@ private fun VerifyScreenContent(
                 onClickPreviousButton = onMoveToComparisonUpload,
                 onClickAnalysisButton = onExecuteAnalysis,
                 onPickPhoto = onUpdatePickedVerificationUri,
-                onClickCancelButton = onRemoveVerificationUri
+                onClickCancelButton = onRemoveVerificationUri,
             )
         }
 
@@ -146,6 +143,6 @@ private fun VerifyScreenContentPreview() {
         onMoveToComparisonUpload = {},
         onExecuteAnalysis = {},
         onUpdatePickedVerificationUri = {},
-        onRemoveVerificationUri = {}
+        onRemoveVerificationUri = {},
     )
 }

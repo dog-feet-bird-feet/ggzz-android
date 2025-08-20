@@ -56,7 +56,7 @@ internal fun HomeScreen(
             val intent =
                 Intent(
                     Intent.ACTION_VIEW,
-                    Uri.parse("https://positive-printer-b18.notion.site/1f456972e71080e49ce1cc2b49ae2415?pvs=4")
+                    Uri.parse("https://positive-printer-b18.notion.site/1f456972e71080e49ce1cc2b49ae2415?pvs=4"),
                 )
             context.startActivity(intent)
         }

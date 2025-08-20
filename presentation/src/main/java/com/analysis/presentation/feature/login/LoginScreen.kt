@@ -80,7 +80,7 @@ fun LoginScreen(
             passwordGgzzTextFieldState = passwordGgzzTextFieldState,
             isFormValid = isFormValid,
             onLoginClick = { email, password -> viewModel.login(email, password) },
-            navigateToSignUp = navigateToSignUp
+            navigateToSignUp = navigateToSignUp,
         )
     }
 }
@@ -191,7 +191,6 @@ private fun LoginScreenContentPreview() {
         passwordGgzzTextFieldState = passwordGgzzTextFieldState,
         isFormValid = true,
         onLoginClick = { _, _ -> },
-        navigateToSignUp = {}
+        navigateToSignUp = {},
     )
 }
-

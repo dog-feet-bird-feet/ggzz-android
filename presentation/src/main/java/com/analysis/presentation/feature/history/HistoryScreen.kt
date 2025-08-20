@@ -108,13 +108,13 @@ private fun HistoryListPreview() {
             id = it.toString(),
             title = "History 1",
             createdAt = "2023-01-01",
-            verificationImgUrl = ""
+            verificationImgUrl = "",
         )
     }
     HistoryList(
         histories = histories,
         navigateToResult = {},
         modifyHistoryTitle = { _, _ -> },
-        removeHistory = {}
+        removeHistory = {},
     )
 }
