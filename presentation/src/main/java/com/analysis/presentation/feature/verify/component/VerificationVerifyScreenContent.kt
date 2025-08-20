@@ -4,7 +4,6 @@ import android.net.Uri
 import androidx.compose.animation.AnimatedContent
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -28,7 +27,6 @@ import androidx.compose.ui.unit.sp
 import com.analysis.presentation.R
 import com.analysis.presentation.component.HandWritingImageItemCard
 import com.analysis.presentation.component.PhotoPickerCard
-import com.analysis.presentation.feature.verify.VerifyViewModel
 import com.analysis.presentation.theme.GgzzTheme
 import com.analysis.presentation.theme.Gray500
 import com.analysis.presentation.theme.Purple500
@@ -37,15 +35,14 @@ import com.analysis.presentation.theme.White
 
 @Composable
 internal fun VerificationVerifyScreenContent(
-    innerPadding: PaddingValues,
-    viewModel: VerifyViewModel,
+    selectedVerificationUri: Uri,
     onClickPreviousButton: () -> Unit,
     onClickAnalysisButton: () -> Unit,
-    selectedVerificationUri: Uri,
+    onPickPhoto: (Uri) -> Unit = {},
+    onClickCancelButton: () -> Unit,
 ) {
     Column(
         modifier = Modifier
-            .padding(innerPadding)
             .padding(20.dp),
     ) {
         Surface(
@@ -75,12 +72,12 @@ internal fun VerificationVerifyScreenContent(
                                 .fillMaxWidth()
                                 .padding(horizontal = 25.dp)
                                 .height(160.dp),
-                            onPickPhoto = { viewModel.updatePickedVerificationUri(it) },
+                            onPickPhoto = { onPickPhoto(it) },
                         )
                     } else {
                         HandWritingImageItemCard(
                             uri = uri,
-                            onClickCancelButton = { viewModel.removeVerificationUri() },
+                            onClickCancelButton = { onClickCancelButton() },
                             modifier = Modifier
                                 .fillMaxWidth()
                                 .padding(horizontal = 25.dp)

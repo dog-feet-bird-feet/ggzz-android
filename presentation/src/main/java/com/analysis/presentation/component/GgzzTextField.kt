@@ -46,7 +46,7 @@ internal fun GgzzTextField(
 
 @Composable
 @Preview
-fun GgzzTextFieldPreview(modifier: Modifier = Modifier) {
+fun GgzzTextFieldPreview() {
     GgzzTextField(
         state = GgzzTextFieldState(
             text = "안녕하세요",

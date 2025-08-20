@@ -88,7 +88,7 @@ fun ResultDetailItemCard(resultIndicator: ResultIndicator) {
 
 @Composable
 @Preview(showBackground = true, showSystemUi = true)
-fun ResultDetailItemCardPreview(modifier: Modifier = Modifier) {
+fun ResultDetailItemCardPreview() {
     Column(
         modifier = Modifier.fillMaxSize(),
     ) {

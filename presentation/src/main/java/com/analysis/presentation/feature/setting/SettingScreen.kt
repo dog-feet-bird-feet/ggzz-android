@@ -1,20 +1,21 @@
 package com.analysis.presentation.feature.setting
 
 import android.content.Intent
-import android.net.Uri
 import androidx.compose.foundation.Image
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.systemBarsPadding
 import androidx.compose.foundation.layout.wrapContentHeight
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
-import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
@@ -26,6 +27,7 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.core.net.toUri
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.analysis.presentation.R
@@ -50,19 +52,19 @@ internal fun SettingScreen(
         }
     }
 
-    Scaffold(
-        topBar = {
-            GgzzTopAppBar(
-                title = stringResource(R.string.setting_top_app_bar_title),
-            )
-        },
-        containerColor = Gray100,
-    ) { innerPadding ->
+    Column(
+        modifier = Modifier
+            .fillMaxSize()
+            .background(Gray100)
+            .systemBarsPadding()
+            .padding(defaultPadding),
+    ) {
+        GgzzTopAppBar(
+            title = stringResource(R.string.setting_top_app_bar_title),
+        )
         SettingScreenContent(
-            modifier = Modifier
-                .padding(defaultPadding)
-                .padding(innerPadding),
-            { viewModel.logout() },
+            modifier = Modifier.padding(defaultPadding),
+            logout = { viewModel.logout() },
         )
     }
 }
@@ -98,9 +100,7 @@ private fun SettingScreenContent(
                 val intent =
                     Intent(
                         Intent.ACTION_VIEW,
-                        Uri.parse(
-                            "https://url.kr/5at64l",
-                        ),
+                        "https://url.kr/5at64l".toUri(),
                     )
                 context.startActivity(intent)
             },
@@ -166,6 +166,6 @@ private fun SettingScreenContent(
 
 @Composable
 @Preview(showBackground = true)
-fun SettingScreenContentPreview(modifier: Modifier = Modifier) {
+fun SettingScreenContentPreview() {
     SettingScreenContent(logout = {})
 }

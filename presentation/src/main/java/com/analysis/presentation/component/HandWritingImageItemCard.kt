@@ -62,7 +62,7 @@ internal fun HandWritingImageItemCard(
 
 @Composable
 @Preview(showBackground = true, showSystemUi = true)
-fun HandWritingImageItemCardPreview(modifier: Modifier = Modifier) {
+fun HandWritingImageItemCardPreview() {
     Surface(
         modifier = Modifier.padding(30.dp),
     ) {

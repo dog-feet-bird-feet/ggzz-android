@@ -117,7 +117,7 @@ private fun pickSinglePhotoAvailable(
 
 @Composable
 @Preview(showBackground = true, showSystemUi = true)
-fun PhotoPickerCardPreview(modifier: Modifier = Modifier) {
+fun PhotoPickerCardPreview() {
     PhotoPickerCard(
         maxSelectable = 5,
         pickedPhotoCount = 1,

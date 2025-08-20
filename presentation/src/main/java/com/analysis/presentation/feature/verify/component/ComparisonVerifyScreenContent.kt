@@ -2,7 +2,6 @@ package com.analysis.presentation.feature.verify.component
 
 import android.net.Uri
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
@@ -22,7 +21,6 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.analysis.presentation.R
-import com.analysis.presentation.feature.verify.VerifyViewModel
 import com.analysis.presentation.theme.GgzzTheme
 import com.analysis.presentation.theme.Gray500
 import com.analysis.presentation.theme.Purple500
@@ -31,14 +29,13 @@ import com.analysis.presentation.theme.White
 
 @Composable
 internal fun ComparisonVerifyScreenContent(
-    innerPadding: PaddingValues,
     selectedComparisonUris: List<Uri>,
-    viewModel: VerifyViewModel,
     onClickNextButton: () -> Unit,
+    updatePickedComparisonUris: (List<Uri>) -> Unit,
+    removeComparisonUri: (Uri) -> Unit,
 ) {
     Column(
         modifier = Modifier
-            .padding(innerPadding)
             .padding(20.dp),
     ) {
         Surface(
@@ -60,8 +57,8 @@ internal fun ComparisonVerifyScreenContent(
 
                 PickedPhotoList(
                     selectedComparisonUris = selectedComparisonUris,
-                    updatePickedComparisonUris = { viewModel.updatePickedComparisonUris(it) },
-                    removeComparisonUri = { viewModel.removeComparisonUri(it) },
+                    updatePickedComparisonUris = { updatePickedComparisonUris(it) },
+                    removeComparisonUri = { removeComparisonUri(it) },
                 )
             }
         }
@@ -90,7 +87,8 @@ internal fun ComparisonVerifyScreenContent(
     }
 }
 
-private fun canGoVerificationVerifyScreen(selectedComparisonUris: List<Uri>): Boolean = (selectedComparisonUris.size in 1..5)
+private fun canGoVerificationVerifyScreen(selectedComparisonUris: List<Uri>): Boolean =
+    (selectedComparisonUris.size in 1..5)
 
 @Composable
 private fun GuideComment() {

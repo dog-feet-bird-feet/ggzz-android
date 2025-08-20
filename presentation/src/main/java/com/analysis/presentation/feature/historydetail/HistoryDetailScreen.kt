@@ -1,6 +1,7 @@
 package com.analysis.presentation.feature.historydetail
 
 import androidx.compose.foundation.Image
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -9,12 +10,12 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.systemBarsPadding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.IconButton
-import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -69,28 +70,27 @@ fun HistoryDetailScreen(
 
 @Composable
 private fun HistoryDetailScreenLoading(onClickNavigation: () -> Unit) {
-    Scaffold(
+    Column(
         modifier = Modifier
-            .fillMaxSize(),
-        topBar = {
-            GgzzTopAppBar(
-                title = "",
-                navigationIcon = {
-                    IconButton(onClick = onClickNavigation) {
-                        Image(
-                            painter = painterResource(R.drawable.ic_arrow_back),
-                            contentDescription = null,
-                        )
-                    }
-                },
-            )
-        },
-        containerColor = Gray100,
-    ) { innerPadding ->
+            .fillMaxSize()
+            .background(Gray100)
+            .systemBarsPadding(),
+    ) {
+        GgzzTopAppBar(
+            title = "",
+            navigationIcon = {
+                IconButton(onClick = onClickNavigation) {
+                    Image(
+                        painter = painterResource(R.drawable.ic_arrow_back),
+                        contentDescription = null,
+                    )
+                }
+            },
+        )
+
         Box(
             modifier = Modifier
-                .padding(innerPadding)
-                .fillMaxWidth()
+                .fillMaxSize()
                 .height(112.dp),
             contentAlignment = Alignment.Center,
         ) {
@@ -106,36 +106,33 @@ private fun HistoryDetailScreenLoaded(
     historyDetailUiState: HistoryDetailUiState.HistoryDetail,
     onClickNavigation: () -> Unit,
 ) {
-    Scaffold(
+    Column(
         modifier = Modifier
-            .fillMaxSize(),
-        topBar = {
-            GgzzTopAppBar(
-                title = historyDetailUiState.title,
-                textStyle = GgzzTheme.typography.pretendardRegular18.copy(color = Gray900),
-                navigationIcon = {
-                    IconButton(onClick = onClickNavigation) {
-                        Image(
-                            painter = painterResource(R.drawable.ic_arrow_back),
-                            contentDescription = null,
-                        )
-                    }
-                },
-                actions = {
-                    Text(
-                        modifier = Modifier.padding(end = 20.dp),
-                        text = historyDetailUiState.createdAt,
-                        style = GgzzTheme.typography.pretendardRegular12.copy(color = Black),
+            .fillMaxSize()
+            .background(Gray100)
+            .systemBarsPadding(),
+    ) {
+        GgzzTopAppBar(
+            title = historyDetailUiState.title,
+            textStyle = GgzzTheme.typography.pretendardRegular18.copy(color = Gray900),
+            navigationIcon = {
+                IconButton(onClick = onClickNavigation) {
+                    Image(
+                        painter = painterResource(R.drawable.ic_arrow_back),
+                        contentDescription = null,
                     )
-                },
-            )
-        },
-        containerColor = Gray100,
-    ) { innerPadding ->
-        HistoryDetailScreenContent(
-            historyDetailUiState = historyDetailUiState,
-            modifier = Modifier.padding(innerPadding),
+                }
+            },
+            actions = {
+                Text(
+                    modifier = Modifier.padding(end = 20.dp),
+                    text = historyDetailUiState.createdAt,
+                    style = GgzzTheme.typography.pretendardRegular12.copy(color = Black),
+                )
+            },
         )
+
+        HistoryDetailScreenContent(historyDetailUiState = historyDetailUiState)
     }
 }
 
@@ -194,7 +191,13 @@ private fun HistoryDetailScreenContent(
 
 @Composable
 @Preview(showBackground = true, showSystemUi = true)
-fun HistoryDetailScreenContentPreview(modifier: Modifier = Modifier) {
+fun HistoryDetailScreenLoadingPreview() {
+    HistoryDetailScreenLoading({})
+}
+
+@Composable
+@Preview(showBackground = true, showSystemUi = true)
+fun HistoryDetailScreenLoadedPreview() {
     val uiModel = HistoryDetail(
         id = "1",
         title = "A필기체 검증 기록",

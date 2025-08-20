@@ -1,5 +1,6 @@
 package com.analysis.presentation.feature.login
 
+import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
@@ -7,11 +8,11 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.systemBarsPadding
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonColors
 import androidx.compose.material3.HorizontalDivider
-import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -27,11 +28,11 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.analysis.presentation.R
 import com.analysis.presentation.component.GgzzTextField
+import com.analysis.presentation.component.GgzzTextFieldState
 import com.analysis.presentation.component.GgzzTopAppBar
 import com.analysis.presentation.component.rememberSaveableGgzzTextFieldState
 import com.analysis.presentation.theme.Blue300
 import com.analysis.presentation.theme.GgzzTheme
-import com.analysis.presentation.theme.Gray100
 import com.analysis.presentation.theme.Gray500
 import com.analysis.presentation.theme.Purple700
 import com.analysis.presentation.theme.White
@@ -64,105 +65,132 @@ fun LoginScreen(
         }
     }
 
-    Scaffold(
-        topBar = {
-            GgzzTopAppBar(
-                title = stringResource(R.string.home_top_app_bar_title),
-            )
-        },
-        containerColor = Gray100,
-    ) { innerPadding ->
-        Surface(
-            modifier = Modifier
-                .fillMaxSize()
-                .padding(innerPadding)
-                .padding(horizontal = 20.dp)
-                .padding(vertical = 16.dp),
-            shape = RoundedCornerShape(8.dp),
-            color = White,
-        ) {
-            Column(
-                modifier = Modifier.fillMaxSize(),
-                horizontalAlignment = Alignment.CenterHorizontally,
-            ) {
-                Spacer(modifier = Modifier.height(50.dp))
+    Column(
+        modifier = Modifier
+            .fillMaxSize()
+            .background(White)
+            .systemBarsPadding(),
+    ) {
+        GgzzTopAppBar(
+            title = stringResource(R.string.home_top_app_bar_title),
+        )
 
-                Text(
-                    text = stringResource(R.string.login_text),
-                    style = GgzzTheme.typography.pretendardBold42.copy(color = Blue300),
-                )
-
-                Spacer(modifier = Modifier.height(40.dp))
-
-                GgzzTextField(
-                    state = emailGgzzTextFieldState,
-                )
-
-                Spacer(modifier = Modifier.height(10.dp))
-
-                GgzzTextField(
-                    state = passwordGgzzTextFieldState,
-                    isSecret = true,
-                )
-
-                Spacer(modifier = Modifier.height(35.dp))
-
-                Button(
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .padding(horizontal = 40.dp)
-                        .height(55.dp),
-                    onClick = {
-                        viewModel.login(
-                            emailGgzzTextFieldState.text,
-                            passwordGgzzTextFieldState.text,
-                        )
-                    },
-                    enabled = isFormValid,
-                    shape = RoundedCornerShape(5.dp),
-                    colors = ButtonColors(
-                        containerColor = Purple700,
-                        contentColor = White,
-                        disabledContentColor = White,
-                        disabledContainerColor = Gray500,
-                    ),
-                ) {
-                    Text(
-                        text = stringResource(R.string.login_text),
-                        style = GgzzTheme.typography.pretendardSemiBold14.copy(color = White),
-                    )
-                }
-
-                Spacer(modifier = Modifier.height(63.dp))
-
-                HorizontalDivider(
-                    modifier = Modifier.padding(horizontal = 40.dp),
-                    color = Gray500,
-                    thickness = 1.dp,
-                )
-
-                Spacer(modifier = Modifier.height(23.dp))
-
-                Text(
-                    text = stringResource(R.string.login_no_account_notice_text),
-                    style = GgzzTheme.typography.pretendardBold24.copy(color = Blue300),
-                )
-
-                Spacer(modifier = Modifier.height(23.dp))
-
-                Text(
-                    modifier = Modifier.clickable { navigateToSignUp() },
-                    text = stringResource(R.string.signup_text),
-                    style = GgzzTheme.typography.pretendardMedium16,
-                    textDecoration = TextDecoration.Underline,
-                )
-            }
-        }
+        LoginScreenContent(
+            emailGgzzTextFieldState = emailGgzzTextFieldState,
+            passwordGgzzTextFieldState = passwordGgzzTextFieldState,
+            isFormValid = isFormValid,
+            onLoginClick = { email, password -> viewModel.login(email, password) },
+            navigateToSignUp = navigateToSignUp,
+        )
     }
 }
 
 @Composable
-@Preview(showSystemUi = true)
-fun LoginScreenPreview() {
-    LoginScreen({}, {}, {})
+private fun LoginScreenContent(
+    emailGgzzTextFieldState: GgzzTextFieldState,
+    passwordGgzzTextFieldState: GgzzTextFieldState,
+    isFormValid: Boolean,
+    onLoginClick: (String, String) -> Unit,
+    navigateToSignUp: () -> Unit,
+) {
+    Surface(
+        modifier = Modifier
+            .fillMaxSize()
+            .padding(horizontal = 20.dp)
+            .padding(vertical = 16.dp),
+        shape = RoundedCornerShape(8.dp),
+        color = White,
+    ) {
+        Column(
+            modifier = Modifier.fillMaxSize(),
+            horizontalAlignment = Alignment.CenterHorizontally,
+        ) {
+            Spacer(modifier = Modifier.height(50.dp))
+
+            Text(
+                text = stringResource(R.string.login_text),
+                style = GgzzTheme.typography.pretendardBold42.copy(color = Blue300),
+            )
+
+            Spacer(modifier = Modifier.height(40.dp))
+
+            GgzzTextField(
+                state = emailGgzzTextFieldState,
+            )
+
+            Spacer(modifier = Modifier.height(10.dp))
+
+            GgzzTextField(
+                state = passwordGgzzTextFieldState,
+                isSecret = true,
+            )
+
+            Spacer(modifier = Modifier.height(35.dp))
+
+            Button(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(horizontal = 40.dp)
+                    .height(55.dp),
+                onClick = {
+                    onLoginClick(emailGgzzTextFieldState.text, passwordGgzzTextFieldState.text)
+                },
+                enabled = isFormValid,
+                shape = RoundedCornerShape(5.dp),
+                colors = ButtonColors(
+                    containerColor = Purple700,
+                    contentColor = White,
+                    disabledContentColor = White,
+                    disabledContainerColor = Gray500,
+                ),
+            ) {
+                Text(
+                    text = stringResource(R.string.login_text),
+                    style = GgzzTheme.typography.pretendardSemiBold14.copy(color = White),
+                )
+            }
+
+            Spacer(modifier = Modifier.height(63.dp))
+
+            HorizontalDivider(
+                modifier = Modifier.padding(horizontal = 40.dp),
+                color = Gray500,
+                thickness = 1.dp,
+            )
+
+            Spacer(modifier = Modifier.height(23.dp))
+
+            Text(
+                text = stringResource(R.string.login_no_account_notice_text),
+                style = GgzzTheme.typography.pretendardBold24.copy(color = Blue300),
+            )
+
+            Spacer(modifier = Modifier.height(23.dp))
+
+            Text(
+                modifier = Modifier.clickable { navigateToSignUp() },
+                text = stringResource(R.string.signup_text),
+                style = GgzzTheme.typography.pretendardMedium16,
+                textDecoration = TextDecoration.Underline,
+            )
+        }
+    }
+}
+
+@Preview
+@Composable
+private fun LoginScreenContentPreview() {
+    val emailGgzzTextFieldState = rememberSaveableGgzzTextFieldState(
+        placeholder = "Email",
+    )
+    val passwordGgzzTextFieldState = rememberSaveableGgzzTextFieldState(
+        placeholder = "Password",
+    )
+    LoginScreenContent(
+        emailGgzzTextFieldState = emailGgzzTextFieldState,
+        passwordGgzzTextFieldState = passwordGgzzTextFieldState,
+        isFormValid = true,
+        onLoginClick = { _, _ -> },
+        navigateToSignUp = {},
+    )
 }

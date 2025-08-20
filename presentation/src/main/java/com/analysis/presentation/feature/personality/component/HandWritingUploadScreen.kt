@@ -4,7 +4,6 @@ import android.net.Uri
 import androidx.compose.animation.AnimatedContent
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
@@ -33,7 +32,6 @@ import com.analysis.presentation.theme.White
 
 @Composable
 fun HandWritingUploadScreen(
-    innerPadding: PaddingValues,
     onPickPhoto: (Uri) -> Unit = {},
     onClickCancelButton: () -> Unit,
     onClickAnalyzingButton: () -> Unit,
@@ -41,7 +39,6 @@ fun HandWritingUploadScreen(
 ) {
     Column(
         modifier = Modifier
-            .padding(innerPadding)
             .padding(20.dp),
     ) {
         Surface(
@@ -150,7 +147,6 @@ private fun GuideComment() {
 @Preview(showBackground = true)
 fun HandWritingUploadScreenPreview() {
     HandWritingUploadScreen(
-        PaddingValues(0.dp),
         {},
         {},
         {},

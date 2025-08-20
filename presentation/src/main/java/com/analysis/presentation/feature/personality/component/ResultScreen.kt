@@ -3,7 +3,6 @@ package com.analysis.presentation.feature.personality.component
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
@@ -42,14 +41,12 @@ import com.analysis.presentation.theme.White
 
 @Composable
 internal fun ResultScreen(
-    innerPadding: PaddingValues,
     uiState: PersonalityUiState.Analyzing,
     onClickHomeButton: () -> Unit,
 ) {
     when (uiState) {
-        PersonalityUiState.Analyzing.Loading -> ResultLoadingScreen(innerPadding)
+        PersonalityUiState.Analyzing.Loading -> ResultLoadingScreen()
         is PersonalityUiState.Analyzing.Success -> ResultScreenContent(
-            innerPadding,
             uiState.personality,
             onClickHomeButton,
         )
@@ -58,7 +55,6 @@ internal fun ResultScreen(
 
 @Composable
 internal fun ResultScreenContent(
-    innerPadding: PaddingValues,
     personality: Personality,
     onClickHomeButton: () -> Unit,
 ) {
@@ -66,7 +62,6 @@ internal fun ResultScreenContent(
 
     Column(
         modifier = Modifier
-            .padding(innerPadding)
             .fillMaxSize()
             .padding(top = 20.dp)
             .padding(horizontal = 20.dp),
@@ -260,10 +255,9 @@ internal fun ResultScreenContent(
 }
 
 @Composable
-fun ResultLoadingScreen(innerPadding: PaddingValues) {
+fun ResultLoadingScreen() {
     Surface(
         modifier = Modifier
-            .padding(innerPadding)
             .fillMaxWidth()
             .wrapContentHeight()
             .padding(top = 20.dp)
@@ -338,8 +332,7 @@ fun ResultScreenPreview() {
     ).toPersonalityUiState()
 
     ResultScreen(
-        innerPadding = PaddingValues(10.dp),
-        uiState,
-        {},
+        uiState = uiState,
+        onClickHomeButton = {},
     )
 }

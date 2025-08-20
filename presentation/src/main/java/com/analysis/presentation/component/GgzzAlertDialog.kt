@@ -10,7 +10,6 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
-import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import com.analysis.presentation.theme.Black
 import com.analysis.presentation.theme.GgzzTheme
@@ -78,7 +77,7 @@ fun GgzzAlertDialog(
 
 @Composable
 @Preview(showBackground = true)
-fun GgzzAlertDialogPreview(modifier: Modifier = Modifier) {
+fun GgzzAlertDialogPreview() {
     GgzzAlertDialog(
         "제목 수정하기",
         "Test1234",
