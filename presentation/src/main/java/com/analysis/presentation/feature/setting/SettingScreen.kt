@@ -3,13 +3,16 @@ package com.analysis.presentation.feature.setting
 import android.content.Intent
 import android.net.Uri
 import androidx.compose.foundation.Image
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.systemBarsPadding
 import androidx.compose.foundation.layout.wrapContentHeight
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Card
@@ -35,6 +38,7 @@ import com.analysis.presentation.theme.Gray100
 import com.analysis.presentation.theme.Gray900
 import com.analysis.presentation.theme.White
 import com.analysis.presentation.util.modifier.dropShadow
+import androidx.core.net.toUri
 
 @Composable
 internal fun SettingScreen(
@@ -50,19 +54,19 @@ internal fun SettingScreen(
         }
     }
 
-    Scaffold(
-        topBar = {
-            GgzzTopAppBar(
-                title = stringResource(R.string.setting_top_app_bar_title),
-            )
-        },
-        containerColor = Gray100,
-    ) { innerPadding ->
+    Column(
+        modifier = Modifier
+            .fillMaxSize()
+            .background(Gray100)
+            .systemBarsPadding()
+            .padding(defaultPadding),
+    ) {
+        GgzzTopAppBar(
+            title = stringResource(R.string.setting_top_app_bar_title),
+        )
         SettingScreenContent(
-            modifier = Modifier
-                .padding(defaultPadding)
-                .padding(innerPadding),
-            { viewModel.logout() },
+            modifier = Modifier.padding(defaultPadding),
+            logout = { viewModel.logout() },
         )
     }
 }
@@ -98,9 +102,7 @@ private fun SettingScreenContent(
                 val intent =
                     Intent(
                         Intent.ACTION_VIEW,
-                        Uri.parse(
-                            "https://url.kr/5at64l",
-                        ),
+                        "https://url.kr/5at64l".toUri(),
                     )
                 context.startActivity(intent)
             },
@@ -166,6 +168,6 @@ private fun SettingScreenContent(
 
 @Composable
 @Preview(showBackground = true)
-fun SettingScreenContentPreview(modifier: Modifier = Modifier) {
+fun SettingScreenContentPreview() {
     SettingScreenContent(logout = {})
 }
