@@ -94,7 +94,7 @@ fun GgzzDropMenuButton(
 
 @Composable
 @Preview(showBackground = true, showSystemUi = true)
-fun GgzzDropMenuPreview(modifier: Modifier = Modifier) {
+fun GgzzDropMenuPreview() {
     val items = listOf(DropMenuItem("수정하기", {}), DropMenuItem("삭제하기", {}))
 
     Column(modifier = Modifier.fillMaxSize()) {

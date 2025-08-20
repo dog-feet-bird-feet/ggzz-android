@@ -68,7 +68,7 @@ fun SplashScreen(
 
 @Composable
 @Preview(showBackground = true)
-fun SplashScreenPreview(modifier: Modifier = Modifier) {
+fun SplashScreenPreview() {
     SplashScreen(
         isPreWorkEnd = null,
         preWork = {},

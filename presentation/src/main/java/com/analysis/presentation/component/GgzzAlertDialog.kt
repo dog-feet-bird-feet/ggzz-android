@@ -78,7 +78,7 @@ fun GgzzAlertDialog(
 
 @Composable
 @Preview(showBackground = true)
-fun GgzzAlertDialogPreview(modifier: Modifier = Modifier) {
+fun GgzzAlertDialogPreview() {
     GgzzAlertDialog(
         "제목 수정하기",
         "Test1234",

@@ -269,6 +269,6 @@ fun SignUpScreen(
 
 @Composable
 @Preview(showSystemUi = true)
-fun SignUpScreenPreview(modifier: Modifier = Modifier) {
+fun SignUpScreenPreview() {
     SignUpScreen({}, {}, {})
 }
